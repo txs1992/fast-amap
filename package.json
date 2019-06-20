@@ -1,7 +1,6 @@
 {
   "name": "vue-fast-amap",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -32,5 +31,24 @@
     "eslint-plugin-vue": "^5.0.0",
     "typescript": "^3.4.3",
     "vue-template-compiler": "^2.6.10"
-  }
+  },
+  "description": "## Project setup ``` yarn install ```",
+  "main": "src/index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/txs1992/vue-fast-amap.git"
+  },
+  "keywords": [
+    "fast-amap",
+    "vue-fast-amap"
+  ],
+  "author": "txs1992",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/txs1992/vue-fast-amap/issues"
+  },
+  "homepage": "https://github.com/txs1992/vue-fast-amap#readme"
 }
