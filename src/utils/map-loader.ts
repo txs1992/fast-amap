@@ -1,10 +1,10 @@
-declare global {
-  interface Window {
-    AMap: any;
-  }
-}
+import warn from "@/utils/error";
+import MapOptions from "./map-options";
+
+const mapOptions = MapOptions.getOptionsInstance();
 
 export const defaultPath = "https://webapi.amap.com/maps";
+export let AMap: any;
 
 /**
  * 地图加载器
@@ -18,11 +18,13 @@ export default function loader(
   url?: string
 ): Promise<any> {
   return new Promise((reslove, reject) => {
-    if (!url || (!key && !version)) {
-      reject(
-        new Error(
-          "The parameter is incorrect and must contain the url attribute or the key and version attributes."
-        )
+    if (AMap) {
+      return reslove(AMap);
+    }
+
+    if (!url && (!key || !version)) {
+      warn(
+        "The parameter is incorrect and must contain the url attribute or the key and version attributes."
       );
     }
 
@@ -34,12 +36,18 @@ export default function loader(
     jsApi.onerror = reject;
     jsApi.onload = () => {
       if (window.AMap) {
-        reslove(window.AMap);
+        AMap = window.AMap;
+        reslove(AMap);
       } else {
-        reject(new Error("Map SDK Load Failure."));
+        warn("AMap SDK Load Failure.");
       }
     };
 
     document.head.appendChild(jsApi);
   });
+}
+
+export function mapLoader(): Promise<any> {
+  const option: AMapOptionsParamInterface | any = mapOptions.getOptions() || {};
+  return loader(option.key, option.version, option.url);
 }

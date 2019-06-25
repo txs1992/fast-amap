@@ -1,3 +1,5 @@
+import warn from "@/utils/error";
+
 /**
  * 高德地图实例注册表
  */
@@ -7,8 +9,11 @@ export default class MapRegistry {
   private registry = new Map<string | number, Object>();
 
   public setMap(mid: number | string, instance: Object) {
+    if (!mid) {
+      warn("The parameter mid cannot be empty");
+    }
     if (this.registry.get(mid)) {
-      throw new Error(`mid: ${mid} already exists in the map registry`);
+      warn(`mid: ${mid} already exists in the map registry`);
     } else {
       this.registry.set(mid, instance);
     }
@@ -22,8 +27,7 @@ export default class MapRegistry {
     if (this.getMap(mid)) {
       this.registry.delete(mid);
     } else {
-      throw new Error(`
-      No instance of mid: ${mid} found in the map registry`);
+      warn(`No instance of mid: ${mid} found in the map registry`);
     }
   }
 
