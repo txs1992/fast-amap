@@ -8,8 +8,10 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import MapRegistry from "../../utils/map-instance-registry";
-import { mapLoader } from "../../utils/map-loader";
+import { mapLoader } from "@/utils/map-loader";
+import MapRegistry from "@/utils/map-instance-registry";
+import events from "./event";
+import event from "./event";
 
 const registry = MapRegistry.getRegistryInstance();
 
@@ -32,7 +34,12 @@ export default class AMap extends Vue {
     mapLoader()
       .then(AMap => {
         const map = new AMap.Map(this.$refs.container, {});
-        map.on("complete", this.handleComplete);
+
+        if (map) {
+          events.forEach(evnetName => {
+            map.on(evnetName, this.handleComplete);
+          });
+        }
 
         registry.setMap(this.mid, map);
       })
@@ -42,12 +49,14 @@ export default class AMap extends Vue {
   public beforeDestoryd(): void {
     const map = registry.getMap(this.mid);
     if (map) {
-      map.off("complete", this.handleComplete);
+      events.forEach(evnetName => {
+        map.off(evnetName, this.handleComplete);
+      });
     }
   }
 
-  public handleComplete(): void {
-    this.$emit("complete");
+  public handleComplete(event: any): void {
+    this.$emit(event.type, event);
   }
 }
 </script>
