@@ -1,5 +1,5 @@
 <template>
-  <div ref="container" class="cpt-a-map">
+  <div ref="container" class="cpt-a-map" :style="{ height: height + 'px' }">
     <div class="a-map-slot-container">
       <slot></slot>
     </div>
@@ -26,6 +26,15 @@ export default class AMap extends Vue {
 
   @Prop() private mid!: string | number;
 
+  @Prop({ default: 600 }) private height!: number | string;
+
+  @Prop({
+    default() {
+      return {};
+    }
+  })
+  private options!: any;
+
   public getMap() {
     return registry.getMap(this.mid);
   }
@@ -33,7 +42,7 @@ export default class AMap extends Vue {
   public mounted(): void {
     mapLoader()
       .then(AMap => {
-        const map = new AMap.Map(this.$refs.container, {});
+        const map = new AMap.Map(this.$refs.container, this.options);
 
         if (map) {
           events.forEach(evnetName => {
@@ -65,9 +74,9 @@ export default class AMap extends Vue {
 .cpt-a-map {
   position: relative;
   overflow: hidden;
-  height: 400px;
 
   .a-map-slot-container {
+    display: flex;
     position: relative;
     width: 100%;
     height: 100%;
