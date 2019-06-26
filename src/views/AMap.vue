@@ -35,10 +35,7 @@ export default class PageAMap extends Vue {
     };
   }
 
-  public mounted() {
-    // console.log('PageAMap mounted')
-    // console.log(this.$refs.amap.getMap());
-  }
+  public mounted() {}
 
   public handleClick() {
     console.log("handleClick");

@@ -10,5 +10,3 @@ declare module Vue {
     components: any;
   }
 }
-
-
