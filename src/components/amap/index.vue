@@ -1,27 +1,30 @@
 <template>
   <div ref="container" class="cpt-a-map" :style="{ height: height + 'px' }">
-    <div class="a-map-slot-container">
+    <div :class="reload" class="a-map-slot-container">
       <slot></slot>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
-import { mapLoader } from "@/utils/map-loader";
-import MapRegistry from "@/utils/map-instance-registry";
-import events from "./event";
-import event from "./event";
+import { Component, Prop, Vue, Mixins } from "vue-property-decorator";
 
-const registry = MapRegistry.getRegistryInstance();
+import { mapLoader } from "@/utils/map-loader";
+import AMapMixin from "@/mixins/a-map";
+import { noop } from "@/utils/utils";
+
+import events from "./event";
 
 @Component
-export default class AMap extends Vue {
+export default class AMap extends Mixins(AMapMixin) {
   public name: string;
+  private reload: boolean;
+  private unwatchPlugins: any;
 
   constructor(props: any) {
     super(props);
     this.name = "AMap";
+    this.reload = true;
   }
 
   @Prop() private mid!: string | number;
@@ -35,37 +38,34 @@ export default class AMap extends Vue {
   })
   private options!: any;
 
-  public getMap() {
-    return registry.getMap(this.mid);
-  }
-
   public mounted(): void {
     mapLoader()
       .then(AMap => {
         const map = new AMap.Map(this.$refs.container, this.options);
 
         if (map) {
+          this.setMapInstance(this.mid, map);
+
           events.forEach(evnetName => {
-            map.on(evnetName, this.handleComplete);
+            map.on(evnetName, this.handleEvents);
           });
         }
-
-        registry.setMap(this.mid, map);
       })
-      .catch(() => {});
+      .catch(noop);
   }
 
   public beforeDestoryd(): void {
-    const map = registry.getMap(this.mid);
+    const map = this.getMapInstance(this.mid);
     if (map) {
       events.forEach(evnetName => {
-        map.off(evnetName, this.handleComplete);
+        map.off(evnetName, this.handleEvents);
       });
+      if (this.unwatchPlugins) this.unwatchPlugins();
     }
   }
 
-  public handleComplete(event: any): void {
-    this.$emit(event.type, event);
+  public handleEvents(event: any): void {
+    this.$emit(event.type, event, this.getMapInstance(this.mid));
   }
 }
 </script>

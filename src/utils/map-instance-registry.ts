@@ -1,4 +1,4 @@
-import warn from "@/utils/error";
+import warn from "@/utils/utils";
 
 /**
  * 高德地图实例注册表

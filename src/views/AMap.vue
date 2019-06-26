@@ -1,6 +1,13 @@
 <template>
   <div class="page-amap">
-    <a-map ref="amap" mid="12" :options="options" @complete="handleComplete" @click="handleClick">
+    <a-map
+      mid="12"
+      ref="amap"
+      :options="options"
+      :plugins="['ToolBar']"
+      @complete="handleComplete"
+      @click="handleClick"
+    >
       <h1>amap</h1>
     </a-map>
   </div>
