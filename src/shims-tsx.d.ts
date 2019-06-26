@@ -10,4 +10,24 @@ declare global {
       [elem: string]: any;
     }
   }
+
+  interface Window {
+    AMap: any;
+  }
+
+  interface AMapOptionsParamInterface {
+    key?: string;
+    url?: string;
+    version?: string;
+  }
+
+  interface Object {
+    off: any;
+  }
+}
+
+declare module "vue/types/vue" {
+  interface Vue {
+    // $el: Element;
+  }
 }
