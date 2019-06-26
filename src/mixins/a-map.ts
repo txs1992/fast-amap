@@ -17,6 +17,6 @@ export default class AMapMixin extends Vue {
   }
 
   public getAMap(): Promise<any> {
-    return mapLoader()
+    return mapLoader();
   }
 }

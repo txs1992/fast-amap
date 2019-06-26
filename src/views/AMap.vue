@@ -4,7 +4,6 @@
       mid="12"
       ref="amap"
       :options="options"
-      :plugins="['ToolBar']"
       @complete="handleComplete"
       @click="handleClick"
     >

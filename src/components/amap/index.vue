@@ -1,6 +1,6 @@
 <template>
   <div ref="container" class="cpt-a-map" :style="{ height: height + 'px' }">
-    <div :class="reload" class="a-map-slot-container">
+    <div class="a-map-slot-container">
       <slot></slot>
     </div>
   </div>
@@ -18,13 +18,11 @@ import events from "./event";
 @Component
 export default class AMap extends Mixins(AMapMixin) {
   public name: string;
-  private reload: boolean;
   private unwatchPlugins: any;
 
   constructor(props: any) {
     super(props);
     this.name = "AMap";
-    this.reload = true;
   }
 
   @Prop() private mid!: string | number;
