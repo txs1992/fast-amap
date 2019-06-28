@@ -19,7 +19,10 @@
     "paths": {
       "@/*": [
         "src/*"
-      ]
+      ],
+      "packages*": [
+        "packages*"
+      ],
     },
     "lib": [
       "esnext",
@@ -33,7 +36,12 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "tests/**/*.tsx",
+    "packages/**/*.ts",
+    "packages/**/*.tsx",
+    "packages/**/*.vue",
+    "typings/shims-tsx.d.ts",
+    "typings/shims-vue.d.ts"
   ],
   "exclude": [
     "node_modules"

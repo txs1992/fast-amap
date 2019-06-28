@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { mount, shallowMount } from "@vue/test-utils";
-import AMap from "@/components/amap/index.vue";
-import MapOptions from "@/utils/map-options";
+import FastMap from "packages/components/map/index.vue";
+import MapOptions from "packages/utils/map-options";
 
 describe("AMap.vue", () => {
   const mid = "amap-12";
@@ -12,13 +12,13 @@ describe("AMap.vue", () => {
     version: "1.4.15"
   });
 
-  const wrapper = mount(AMap, {
+  const wrapper = mount(FastMap, {
     propsData: { mid }
   });
 
   it("renders the correct markup", () => {
     expect(wrapper.html()).contain(
-      '<div class="cpt-a-map" style="height: 600px;"><div class="a-map-slot-container"></div></div>'
+      '<div class="cpt-fast-map" style="height: 600px;"><div class="fast-map-slot-container"></div></div>'
     );
   });
 });

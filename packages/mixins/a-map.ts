@@ -1,8 +1,8 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 
-import { mapLoader } from "@/utils/map-loader";
-import MapRegistry from "@/utils/map-instance-registry";
+import { mapLoader } from "packages/utils/map-loader";
+import MapRegistry from "packages/utils/map-instance-registry";
 
 const registry = MapRegistry.getRegistryInstance();
 
