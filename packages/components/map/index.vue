@@ -13,19 +13,16 @@ import { mapLoader } from "packages/utils/map-loader";
 import AMapMixin from "packages/mixins/a-map";
 import { noop } from "packages/utils/utils";
 
-import events from "./event";
+import events from "./events";
 
 @Component
 export default class FastMap extends Mixins(AMapMixin) {
   public name: string;
-  private unwatchPlugins: any;
 
   constructor(props: any) {
     super(props);
     this.name = "FastMap";
   }
-
-  @Prop() private mid!: string | number;
 
   @Prop({ default: 600 }) private height!: number | string;
 
@@ -58,7 +55,6 @@ export default class FastMap extends Mixins(AMapMixin) {
       events.forEach(evnetName => {
         map.off(evnetName, this.handleEvents);
       });
-      if (this.unwatchPlugins) this.unwatchPlugins();
     }
   }
 
@@ -74,7 +70,6 @@ export default class FastMap extends Mixins(AMapMixin) {
   overflow: hidden;
 
   .fast-map-slot-container {
-    display: flex;
     position: relative;
     width: 100%;
     height: 100%;

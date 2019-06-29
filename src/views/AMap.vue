@@ -1,21 +1,15 @@
 <template>
   <div class="page-amap">
-    <a-map
-      mid="12"
-      ref="amap"
-      :options="options"
-      @complete="handleComplete"
-      @click="handleClick"
-    >
+    <fast-map mid="12" ref="map" :options="options" @complete="handleComplete" @click="handleClick">
       <h1>amap</h1>
-    </a-map>
+    </fast-map>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import AMap from "../components/amap";
-import MapOptions from "../utils/map-options";
+import FastMap from "packages/components/map";
+import MapOptions from "packages/utils/map-options";
 
 const mapOptions = MapOptions.getOptionsInstance();
 mapOptions.setOptions({
@@ -25,24 +19,27 @@ mapOptions.setOptions({
 
 @Component({
   components: {
-    AMap
+    FastMap
   }
 })
 export default class PageAMap extends Vue {
   data() {
     return {
-      options: { name: "mt" }
+      options: { name: "mt", doubleClickZoom: false }
     };
   }
 
   public mounted() {}
 
   public handleClick() {
-    console.log("handleClick");
+    console.log("handleClick", (this.$refs.map as any).getMapInstance());
   }
 
   public handleComplete() {
     console.log("handleComplete");
+    (this.$refs.map as any).getAMap().then((res: any) => {
+      console.log(res);
+    });
   }
 }
 </script>
