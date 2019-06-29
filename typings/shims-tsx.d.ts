@@ -25,9 +25,3 @@ declare global {
     off: any;
   }
 }
-
-declare module "vue/types/vue" {
-  interface Vue {
-    // $el: Element;
-  }
-}

@@ -1,6 +1,6 @@
 <template>
-  <div ref="container" class="cpt-a-map" :style="{ height: height + 'px' }">
-    <div class="a-map-slot-container">
+  <div ref="container" class="cpt-fast-map" :style="{ height: height + 'px' }">
+    <div class="fast-map-slot-container">
       <slot></slot>
     </div>
   </div>
@@ -9,23 +9,20 @@
 <script lang="ts">
 import { Component, Prop, Vue, Mixins } from "vue-property-decorator";
 
-import { mapLoader } from "@/utils/map-loader";
-import AMapMixin from "@/mixins/a-map";
-import { noop } from "@/utils/utils";
+import { mapLoader } from "packages/utils/map-loader";
+import AMapMixin from "packages/mixins/a-map";
+import { noop } from "packages/utils/utils";
 
-import events from "./event";
+import events from "./events";
 
 @Component
-export default class AMap extends Mixins(AMapMixin) {
+export default class FastMap extends Mixins(AMapMixin) {
   public name: string;
-  private unwatchPlugins: any;
 
   constructor(props: any) {
     super(props);
-    this.name = "AMap";
+    this.name = "FastMap";
   }
-
-  @Prop() private mid!: string | number;
 
   @Prop({ default: 600 }) private height!: number | string;
 
@@ -58,7 +55,6 @@ export default class AMap extends Mixins(AMapMixin) {
       events.forEach(evnetName => {
         map.off(evnetName, this.handleEvents);
       });
-      if (this.unwatchPlugins) this.unwatchPlugins();
     }
   }
 
@@ -69,12 +65,11 @@ export default class AMap extends Mixins(AMapMixin) {
 </script>
 
 <style lang="scss">
-.cpt-a-map {
+.cpt-fast-map {
   position: relative;
   overflow: hidden;
 
-  .a-map-slot-container {
-    display: flex;
+  .fast-map-slot-container {
     position: relative;
     width: 100%;
     height: 100%;
