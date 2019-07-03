@@ -50,7 +50,7 @@ export default class FastMap extends Mixins(AMapMixin) {
       .catch(noop);
   }
 
-  public beforeDestoryd(): void {
+  public beforeDestroy(): void {
     const map = this.getMapInstance(this.mid);
     if (map) {
       events.forEach(evnetName => {
