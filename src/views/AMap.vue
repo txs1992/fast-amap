@@ -8,25 +8,14 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import FastMap from "packages/components/map";
-import MapOptions from "packages/utils/map-options";
 
-const mapOptions = MapOptions.getOptionsInstance();
-mapOptions.setOptions({
-  key: "d2d76e2274bf5973ecfb1f68454b6f3b",
-  version: "1.4.15"
-});
-
-@Component({
-  components: {
-    FastMap
-  }
-})
+@Component
 export default class PageAMap extends Vue {
-  data() {
-    return {
-      options: { name: "mt", doubleClickZoom: false }
-    };
+  public options: any;
+
+  constructor() {
+    super();
+    this.options = { name: "mt", doubleClickZoom: false };
   }
 
   public mounted() {}
