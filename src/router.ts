@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./views/Home.vue";
 
 Vue.use(Router);
 
@@ -10,13 +9,13 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "Home",
-      component: Home
+      name: "AMap",
+      component: () => import("./views/AMap.vue")
     },
     {
-      path: "/amap",
-      name: "AMap",
-      component: () => import(/* webpackChunkName: "amap" */ "./views/AMap.vue")
+      path: "/polygons",
+      name: "Polygons",
+      component: () => import("./views/Polygons.vue")
     }
   ]
 });

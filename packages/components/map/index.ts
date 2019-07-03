@@ -1,4 +1,4 @@
-import FastMap from "./index.vue";
+import FastMap from "./map.vue";
 
 FastMap.install = function(Vue: any): void {
   Vue.component(FastMap.name, FastMap);

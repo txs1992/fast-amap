@@ -12,7 +12,7 @@ export let AMap: any;
  * @param version
  * @param url
  */
-export default function loader(
+export default function mapLoader(
   key?: string,
   version?: string,
   url?: string
@@ -47,7 +47,7 @@ export default function loader(
   });
 }
 
-export function mapLoader(): Promise<any> {
+export function mapOptionLoader(): Promise<any> {
   const option: AMapOptionsParamInterface | any = mapOptions.getOptions() || {};
-  return loader(option.key, option.version, option.url);
+  return mapLoader(option.key, option.version, option.url);
 }

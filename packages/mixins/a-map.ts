@@ -1,6 +1,6 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 
-import { mapLoader } from "packages/utils/map-loader";
+import { mapOptionLoader } from "packages/utils/map-loader";
 import MapRegistry from "packages/utils/map-instance-registry";
 
 const registry = MapRegistry.getRegistryInstance();
@@ -17,7 +17,11 @@ export default class AMapMixin extends Vue {
     registry.setMap(mid, instance);
   }
 
+  public deleteMapInstance(mid: string | number): any {
+    registry.deleteMap(mid);
+  }
+
   public getAMap(): Promise<any> {
-    return mapLoader();
+    return mapOptionLoader();
   }
 }

@@ -1,42 +1,42 @@
 <template>
-  <div class="page-amap">
-    <fast-map mid="12" ref="map" :options="options" @complete="handleComplete" @click="handleClick">
+  <div class="page-map">
+    <fast-map
+      :mid="12"
+      ref="map"
+      :options="options"
+      @complete="handleComplete"
+      @click="handleClick"
+    >
       <h1>amap</h1>
     </fast-map>
   </div>
 </template>
 
 <script lang="ts">
+import { registry } from "packages/index";
 import { Component, Prop, Vue } from "vue-property-decorator";
-import FastMap from "packages/components/map";
-import MapOptions from "packages/utils/map-options";
 
-const mapOptions = MapOptions.getOptionsInstance();
-mapOptions.setOptions({
-  key: "d2d76e2274bf5973ecfb1f68454b6f3b",
-  version: "1.4.15"
-});
-
-@Component({
-  components: {
-    FastMap
-  }
-})
+@Component
 export default class PageAMap extends Vue {
-  data() {
-    return {
-      options: { name: "mt", doubleClickZoom: false }
-    };
+  public options: any;
+
+  constructor() {
+    super();
+    this.options = { name: "mt", doubleClickZoom: false };
   }
 
-  public mounted() {}
+  public destroyed(): void {
+    const mid = 12;
+    if (registry.getMap(mid)) {
+      registry.deleteMap(mid);
+    }
+  }
 
-  public handleClick() {
+  public handleClick(): void {
     console.log("handleClick", (this.$refs.map as any).getMapInstance());
   }
 
-  public handleComplete() {
-    console.log("handleComplete");
+  public handleComplete(): void {
     (this.$refs.map as any).getAMap().then((res: any) => {
       console.log(res);
     });

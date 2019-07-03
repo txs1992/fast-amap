@@ -1,7 +1,7 @@
 <template>
   <div ref="container" class="cpt-fast-map" :style="{ height: height + 'px' }">
     <div class="fast-map-slot-container">
-      <slot></slot>
+      <slot v-if="mapLoaded"></slot>
     </div>
   </div>
 </template>
@@ -9,7 +9,6 @@
 <script lang="ts">
 import { Component, Prop, Vue, Mixins } from "vue-property-decorator";
 
-import { mapLoader } from "packages/utils/map-loader";
 import AMapMixin from "packages/mixins/a-map";
 import { noop } from "packages/utils/utils";
 
@@ -18,10 +17,12 @@ import events from "./events";
 @Component
 export default class FastMap extends Mixins(AMapMixin) {
   public name: string;
+  private mapLoaded: boolean;
 
   constructor(props: any) {
     super(props);
     this.name = "FastMap";
+    this.mapLoaded = false;
   }
 
   @Prop({ default: 600 }) private height!: number | string;
@@ -34,7 +35,7 @@ export default class FastMap extends Mixins(AMapMixin) {
   private options!: any;
 
   public mounted(): void {
-    mapLoader()
+    this.getAMap()
       .then(AMap => {
         const map = new AMap.Map(this.$refs.container, this.options);
 
@@ -49,7 +50,7 @@ export default class FastMap extends Mixins(AMapMixin) {
       .catch(noop);
   }
 
-  public beforeDestoryd(): void {
+  public beforeDestroy(): void {
     const map = this.getMapInstance(this.mid);
     if (map) {
       events.forEach(evnetName => {
@@ -58,7 +59,16 @@ export default class FastMap extends Mixins(AMapMixin) {
     }
   }
 
+  public destroyed(): void {
+    if (this.getMapInstance(this.mid)) {
+      this.deleteMapInstance(this.mid);
+    }
+  }
+
   public handleEvents(event: any): void {
+    if (event.type === "complete") {
+      this.mapLoaded = true;
+    }
     this.$emit(event.type, event, this.getMapInstance(this.mid));
   }
 }
