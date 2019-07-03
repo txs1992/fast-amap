@@ -43,7 +43,7 @@ export default class PageAMap extends Vue {
     ];
   }
 
-  public beforeDestroy(): void {
+  public destroyed(): void {
     const mid = "polygons";
     if (registry.getMap(mid)) {
       registry.deleteMap(mid);

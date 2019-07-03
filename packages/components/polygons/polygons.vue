@@ -63,6 +63,7 @@ export default class FastPolygons extends Mixins(AMapMixin, AMapPropMixin) {
         });
       });
       map.remove(polygonInstanceList);
+      polygonInstanceList = [];
     }
   }
 

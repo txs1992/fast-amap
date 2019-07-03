@@ -59,6 +59,12 @@ export default class FastMap extends Mixins(AMapMixin) {
     }
   }
 
+  public destroyed(): void {
+    if (this.getMapInstance(this.mid)) {
+      this.deleteMapInstance(this.mid);
+    }
+  }
+
   public handleEvents(event: any): void {
     if (event.type === "complete") {
       this.mapLoaded = true;

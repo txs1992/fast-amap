@@ -25,7 +25,7 @@ export default class PageAMap extends Vue {
     this.options = { name: "mt", doubleClickZoom: false };
   }
 
-  public beforeDestroy(): void {
+  public destroyed(): void {
     const mid = 12;
     if (registry.getMap(mid)) {
       registry.deleteMap(mid);

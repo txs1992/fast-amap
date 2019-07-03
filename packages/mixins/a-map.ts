@@ -17,6 +17,10 @@ export default class AMapMixin extends Vue {
     registry.setMap(mid, instance);
   }
 
+  public deleteMapInstance(mid: string | number): any {
+    registry.deleteMap(mid);
+  }
+
   public getAMap(): Promise<any> {
     return mapOptionLoader();
   }
