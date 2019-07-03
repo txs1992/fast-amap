@@ -1,6 +1,4 @@
-<template>
-  <h1>Polygons</h1>
-</template>
+<template></template>
 
 <script lang="ts">
 import cloneDeep from "lodash.clonedeep";
@@ -34,18 +32,38 @@ export default class FastPolygons extends Mixins(AMapMixin, AMapPropMixin) {
   @Prop({ type: String, default: "#FFAAA00" }) fillColor!: string;
   @Prop({ type: Number, default: 0.9 }) fillOpacity!: number;
 
+  public beforeDestroy(): void {
+    this.removeEvents();
+  }
+
   @Watch("polygons", { immediate: true, deep: true })
-  handlePolygonsChange(polygons: any) {
+  handlePolygonsChange(polygons: any): void {
     this.getAMap().then(AMap => {
       const map: any = this.getMapInstance(this.mid);
+      // 如果已经有 polygon 实例，清除所有实例
+      this.removeEvents();
       const options = this.getPolygonOptions();
-      options.forEach((option, index) => {
+      options.forEach(option => {
         const polygon = new AMap.Polygon({ ...option, map });
-        polygon.dataOptions = option
+        events.forEach(evnet => {
+          polygon.on(evnet, this.handleEvents);
+        });
+        polygon.dataOptions = option;
         polygonInstanceList.push(polygon);
       });
-      // map.add(polygonInstanceList);
     });
+  }
+
+  public removeEvents(): void {
+    const map: any = this.getMapInstance(this.mid);
+    if (polygonInstanceList.length) {
+      polygonInstanceList.forEach((instance: any) => {
+        events.forEach(evnet => {
+          instance.off(evnet, this.handleEvents);
+        });
+      });
+      map.remove(polygonInstanceList);
+    }
   }
 
   public getPolygonOptions(): Array<any> {
@@ -88,6 +106,10 @@ export default class FastPolygons extends Mixins(AMapMixin, AMapPropMixin) {
       polygonOptions.push(cloneDeep(polygonOption));
     });
     return polygonOptions;
+  }
+
+  public handleEvents(event: any): void {
+    this.$emit(event.type, event);
   }
 }
 </script>
