@@ -1,4 +1,4 @@
-import FastPolygon from "./polygon.ts";
+import FastPolygon from "./polygon";
 
 FastPolygon.install = function(Vue: any): void {
   Vue.component(FastPolygon.name, FastPolygon);

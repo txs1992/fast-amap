@@ -34,8 +34,8 @@ export default class FastPolygon extends Mixins(AMapMixin, AMapPropMixin) {
   @Watch("options", { immediate: true, deep: true })
   handlePolygonsChange(): void {
     // 由于需要将高德地图与 vue 解耦，所以这里创建的 polygon 数组不能被 vue watch。
-    if (!this.polygonInstanceList) {
-      this.polygonInstanceList = <any>[];
+    if (!(<any>this).polygonInstanceList) {
+      (<any>this).polygonInstanceList = <any>[];
     }
 
     this.getAMap().then(AMap => {
@@ -49,21 +49,22 @@ export default class FastPolygon extends Mixins(AMapMixin, AMapPropMixin) {
           polygon.on(evnet, this.handleEvents);
         });
         polygon.dataOptions = option;
-        this.polygonInstanceList.push(polygon);
+        (<any>this).polygonInstanceList.push(polygon);
       });
     });
   }
 
   public removeEvents(): void {
     const map: any = this.getMapInstance(this.mid);
-    if (this.polygonInstanceList.length) {
-      this.polygonInstanceList.forEach((instance: any) => {
+    const { polygonInstanceList } = this as any;
+    if (polygonInstanceList && polygonInstanceList.length) {
+      polygonInstanceList.forEach((instance: any) => {
         events.forEach(evnet => {
           instance.off(evnet, this.handleEvents);
         });
       });
-      map.remove(this.polygonInstanceList);
-      this.polygonInstanceList = [];
+      map.remove(polygonInstanceList);
+      (<any>this).polygonInstanceList = [];
     }
   }
 
