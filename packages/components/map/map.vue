@@ -14,6 +14,7 @@ import AMapMixin from "packages/mixins/a-map";
 import { noop } from "packages/utils/utils";
 
 import events from "./events";
+import { Object } from "lodash";
 
 @Component
 export default class FastMap extends Mixins(AMapMixin) {
@@ -79,6 +80,13 @@ export default class FastMap extends Mixins(AMapMixin) {
   /* 自定义参数 */
   @Prop({ default: 600 }) private height!: number | string;
 
+  @Prop({
+    default() {
+      return {};
+    }
+  })
+  private options!: any;
+
   public mounted(): void {
     this.getAMap()
       .then(AMap => {
@@ -113,6 +121,7 @@ export default class FastMap extends Mixins(AMapMixin) {
       pitch,
       center,
       layers,
+      options,
       skyColor,
       viewMode,
       mapStyle,
@@ -140,7 +149,7 @@ export default class FastMap extends Mixins(AMapMixin) {
       buildingAnimation
     } = this;
 
-    const mapOptions: any = {
+    const mapOptions = {
       crs,
       mask,
       view,
@@ -160,7 +169,6 @@ export default class FastMap extends Mixins(AMapMixin) {
       dragEnable,
       zoomEnable,
       pitchEnable,
-      labelzIndex,
       scrollWheel,
       rotateEnable,
       resizeEnable,
@@ -172,8 +180,14 @@ export default class FastMap extends Mixins(AMapMixin) {
       doubleClickZoom,
       touchZoomCenter,
       showBuildingBlock,
-      buildingAnimation
+      buildingAnimation,
+      ...options
     };
+
+    // 一些默值是 undefined 会对 Map 类产生影响的参数。
+    if (labelzIndex != null) {
+      mapOptions.labelzIndex = labelzIndex;
+    }
 
     if (Array.isArray(features)) {
       mapOptions.features = features;
