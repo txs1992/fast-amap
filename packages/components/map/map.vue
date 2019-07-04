@@ -14,7 +14,6 @@ import AMapMixin from "packages/mixins/a-map";
 import { noop } from "packages/utils/utils";
 
 import events from "./events";
-import { Object } from "lodash";
 
 @Component
 export default class FastMap extends Mixins(AMapMixin) {
