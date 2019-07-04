@@ -9,12 +9,12 @@ import AMapPropMixin from "packages/mixins/poly-prop";
 let polygonInstanceList = <any>[];
 
 @Component
-export default class FastPolygons extends Mixins(AMapMixin, AMapPropMixin) {
+export default class FastPolygon extends Mixins(AMapMixin, AMapPropMixin) {
   public name: string;
 
   constructor(props: any) {
     super(props);
-    this.name = "FastPolygons";
+    this.name = "FastPolygon";
   }
 
   @Prop({
@@ -23,7 +23,7 @@ export default class FastPolygons extends Mixins(AMapMixin, AMapPropMixin) {
       return [];
     }
   })
-  polygons!: Array<any>;
+  options!: Array<any>;
 
   @Prop(Function) beforeCreatePolygon!: Function;
   @Prop({ type: String, default: "#FFAAA00" }) fillColor!: string;
@@ -33,8 +33,8 @@ export default class FastPolygons extends Mixins(AMapMixin, AMapPropMixin) {
     this.removeEvents();
   }
 
-  @Watch("polygons", { immediate: true, deep: true })
-  handlePolygonsChange(polygons: any): void {
+  @Watch("options", { immediate: true, deep: true })
+  handlePolygonsChange(): void {
     this.getAMap().then(AMap => {
       const map: any = this.getMapInstance(this.mid);
       // 如果已经有 polygon 实例，清除所有实例
@@ -70,7 +70,7 @@ export default class FastPolygons extends Mixins(AMapMixin, AMapPropMixin) {
       bubble,
       zIndex,
       extData,
-      polygons,
+      options,
       draggable,
       fillColor,
       fillOpacity,
@@ -83,8 +83,8 @@ export default class FastPolygons extends Mixins(AMapMixin, AMapPropMixin) {
     } = this;
 
     const polygonOptions = <any>[];
-    polygons.forEach((polygon, index) => {
-      const option = {
+    options.forEach((option, index) => {
+      const mergeOption = {
         path: path[index],
         bubble,
         extData,
@@ -96,11 +96,11 @@ export default class FastPolygons extends Mixins(AMapMixin, AMapPropMixin) {
         strokeWeight,
         strokeOpacity,
         strokeDasharray,
-        ...polygon
+        ...option
       };
       const polygonOption = beforeCreatePolygon
-        ? beforeCreatePolygon(option, index)
-        : option;
+        ? beforeCreatePolygon(mergeOption, index)
+        : mergeOption;
       polygonOptions.push(cloneDeep(polygonOption));
     });
     return polygonOptions;
