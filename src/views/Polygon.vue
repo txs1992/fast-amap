@@ -1,13 +1,27 @@
 <template>
   <div class="page-polygons">
-    <fast-map mid="polygons" ref="map" @complete="handleComplete" @click="handleClick">
-      <fast-polygons
-        mid="polygons"
-        :polygons="polygons"
-        :z-index="50"
+    <fast-map
+      mid="polygons"
+      ref="map"
+      :zoom="14"
+      :double-click-zoom="false"
+      @click="handleClick"
+      @complete="handleComplete"
+    >
+      <fast-polygon
         draggable
+        mid="polygons"
+        :options="polygons"
+        :z-index="50"
         @click="handlePolygonClick"
-      ></fast-polygons>
+      ></fast-polygon>
+      <fast-polygon
+        draggable
+        mid="polygons"
+        :options="polygons"
+        :z-index="50"
+        @click="handlePolygonClick"
+      ></fast-polygon>
       <button style="pointer-events: auto" @click="rerenderPolygon">rerender Polygon</button>
     </fast-map>
   </div>
@@ -29,8 +43,8 @@ export default class PageAMap extends Vue {
       {
         path: [
           [121.472644, 31.231049],
-          [121.582644, 31.231049],
-          [121.582644, 31.341049],
+          [121.482644, 31.231049],
+          [121.482644, 31.241049],
           [121.472644, 31.231049]
         ]
       }
@@ -52,8 +66,8 @@ export default class PageAMap extends Vue {
       list.push({
         path: [
           [121.472644 + num, 31.231049 + num],
-          [121.582644 + num, 31.231049 + num],
-          [121.582644 + num, 31.341049 + num],
+          [121.482644 + num, 31.231049 + num],
+          [121.482644 + num, 31.241049 + num],
           [121.472644 + num, 31.231049 + num]
         ]
       });
@@ -67,7 +81,6 @@ export default class PageAMap extends Vue {
   }
 
   public handleClick(): void {
-    // const map = (this.$refs.map as any).getMapInstance();
     console.log("handleClick");
   }
 

@@ -13,9 +13,9 @@ export default new Router({
       component: () => import("./views/AMap.vue")
     },
     {
-      path: "/polygons",
-      name: "Polygons",
-      component: () => import("./views/Polygons.vue")
+      path: "/polygon",
+      name: "Polygon",
+      component: () => import("./views/Polygon.vue")
     }
   ]
 });

@@ -1,7 +1,7 @@
-import FastPolygons from "./polygons.vue";
+import FastPolygon from "./polygon";
 
-FastPolygons.install = function(Vue: any): void {
-  Vue.component(FastPolygons.name, FastPolygons);
+FastPolygon.install = function(Vue: any): void {
+  Vue.component(FastPolygon.name, FastPolygon);
 };
 
-export default FastPolygons;
+export default FastPolygon;

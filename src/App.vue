@@ -2,7 +2,7 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">AMap</router-link>|
-      <router-link to="/polygons">Polygons</router-link>
+      <router-link to="/polygon">Polygon</router-link>
     </div>
     <router-view />
   </div>

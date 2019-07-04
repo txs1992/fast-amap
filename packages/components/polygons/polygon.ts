@@ -1,6 +1,3 @@
-<template></template>
-
-<script lang="ts">
 import cloneDeep from "lodash.clonedeep";
 import { Component, Prop, Vue, Watch, Mixins } from "vue-property-decorator";
 
@@ -9,15 +6,13 @@ import events from "./events";
 import AMapMixin from "packages/mixins/a-map";
 import AMapPropMixin from "packages/mixins/poly-prop";
 
-let polygonInstanceList = <any>[];
-
 @Component
-export default class FastPolygons extends Mixins(AMapMixin, AMapPropMixin) {
+export default class FastPolygon extends Mixins(AMapMixin, AMapPropMixin) {
   public name: string;
 
   constructor(props: any) {
     super(props);
-    this.name = "FastPolygons";
+    this.name = "FastPolygon";
   }
 
   @Prop({
@@ -26,7 +21,7 @@ export default class FastPolygons extends Mixins(AMapMixin, AMapPropMixin) {
       return [];
     }
   })
-  polygons!: Array<any>;
+  options!: Array<any>;
 
   @Prop(Function) beforeCreatePolygon!: Function;
   @Prop({ type: String, default: "#FFAAA00" }) fillColor!: string;
@@ -36,8 +31,13 @@ export default class FastPolygons extends Mixins(AMapMixin, AMapPropMixin) {
     this.removeEvents();
   }
 
-  @Watch("polygons", { immediate: true, deep: true })
-  handlePolygonsChange(polygons: any): void {
+  @Watch("options", { immediate: true, deep: true })
+  handlePolygonsChange(): void {
+    // 由于需要将高德地图与 vue 解耦，所以这里创建的 polygon 数组不能被 vue watch。
+    if (!(<any>this).polygonInstanceList) {
+      (<any>this).polygonInstanceList = <any>[];
+    }
+
     this.getAMap().then(AMap => {
       const map: any = this.getMapInstance(this.mid);
       // 如果已经有 polygon 实例，清除所有实例
@@ -49,21 +49,22 @@ export default class FastPolygons extends Mixins(AMapMixin, AMapPropMixin) {
           polygon.on(evnet, this.handleEvents);
         });
         polygon.dataOptions = option;
-        polygonInstanceList.push(polygon);
+        (<any>this).polygonInstanceList.push(polygon);
       });
     });
   }
 
   public removeEvents(): void {
     const map: any = this.getMapInstance(this.mid);
-    if (polygonInstanceList.length) {
+    const { polygonInstanceList } = this as any;
+    if (polygonInstanceList && polygonInstanceList.length) {
       polygonInstanceList.forEach((instance: any) => {
         events.forEach(evnet => {
           instance.off(evnet, this.handleEvents);
         });
       });
       map.remove(polygonInstanceList);
-      polygonInstanceList = [];
+      (<any>this).polygonInstanceList = [];
     }
   }
 
@@ -73,7 +74,7 @@ export default class FastPolygons extends Mixins(AMapMixin, AMapPropMixin) {
       bubble,
       zIndex,
       extData,
-      polygons,
+      options,
       draggable,
       fillColor,
       fillOpacity,
@@ -86,8 +87,8 @@ export default class FastPolygons extends Mixins(AMapMixin, AMapPropMixin) {
     } = this;
 
     const polygonOptions = <any>[];
-    polygons.forEach((polygon, index) => {
-      const option = {
+    options.forEach((option, index) => {
+      const mergeOption = {
         path: path[index],
         bubble,
         extData,
@@ -99,11 +100,11 @@ export default class FastPolygons extends Mixins(AMapMixin, AMapPropMixin) {
         strokeWeight,
         strokeOpacity,
         strokeDasharray,
-        ...polygon
+        ...option
       };
       const polygonOption = beforeCreatePolygon
-        ? beforeCreatePolygon(option, index)
-        : option;
+        ? beforeCreatePolygon(mergeOption, index)
+        : mergeOption;
       polygonOptions.push(cloneDeep(polygonOption));
     });
     return polygonOptions;
@@ -112,5 +113,8 @@ export default class FastPolygons extends Mixins(AMapMixin, AMapPropMixin) {
   public handleEvents(event: any): void {
     this.$emit(event.type, event);
   }
+
+  public render(): null {
+    return null;
+  }
 }
-</script>
