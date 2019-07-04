@@ -6,8 +6,6 @@ import events from "./events";
 import AMapMixin from "packages/mixins/a-map";
 import AMapPropMixin from "packages/mixins/poly-prop";
 
-let polygonInstanceList = <any>[];
-
 @Component
 export default class FastPolygon extends Mixins(AMapMixin, AMapPropMixin) {
   public name: string;
@@ -35,6 +33,11 @@ export default class FastPolygon extends Mixins(AMapMixin, AMapPropMixin) {
 
   @Watch("options", { immediate: true, deep: true })
   handlePolygonsChange(): void {
+    // 由于需要将高德地图与 vue 解耦，所以这里创建的 polygon 数组不能被 vue watch。
+    if (!this.polygonInstanceList) {
+      this.polygonInstanceList = <any>[];
+    }
+
     this.getAMap().then(AMap => {
       const map: any = this.getMapInstance(this.mid);
       // 如果已经有 polygon 实例，清除所有实例
@@ -46,21 +49,21 @@ export default class FastPolygon extends Mixins(AMapMixin, AMapPropMixin) {
           polygon.on(evnet, this.handleEvents);
         });
         polygon.dataOptions = option;
-        polygonInstanceList.push(polygon);
+        this.polygonInstanceList.push(polygon);
       });
     });
   }
 
   public removeEvents(): void {
     const map: any = this.getMapInstance(this.mid);
-    if (polygonInstanceList.length) {
-      polygonInstanceList.forEach((instance: any) => {
+    if (this.polygonInstanceList.length) {
+      this.polygonInstanceList.forEach((instance: any) => {
         events.forEach(evnet => {
           instance.off(evnet, this.handleEvents);
         });
       });
-      map.remove(polygonInstanceList);
-      polygonInstanceList = [];
+      map.remove(this.polygonInstanceList);
+      this.polygonInstanceList = [];
     }
   }
 

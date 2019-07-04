@@ -15,6 +15,13 @@
         :z-index="50"
         @click="handlePolygonClick"
       ></fast-polygon>
+      <fast-polygon
+        draggable
+        mid="polygons"
+        :options="polygons"
+        :z-index="50"
+        @click="handlePolygonClick"
+      ></fast-polygon>
       <button style="pointer-events: auto" @click="rerenderPolygon">rerender Polygon</button>
     </fast-map>
   </div>
