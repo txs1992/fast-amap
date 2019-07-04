@@ -1,12 +1,6 @@
 <template>
   <div class="page-polygons">
-    <fast-map
-      mid="polygons"
-      ref="map"
-      :options="options"
-      @complete="handleComplete"
-      @click="handleClick"
-    >
+    <fast-map mid="polygons" ref="map" @complete="handleComplete" @click="handleClick">
       <fast-polygons
         mid="polygons"
         :polygons="polygons"

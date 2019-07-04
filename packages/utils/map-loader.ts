@@ -1,4 +1,4 @@
-import warn from "packages/utils/utils";
+import { warn } from "packages/utils/utils";
 import MapOptions from "./map-options";
 
 const mapOptions = MapOptions.getOptionsInstance();
