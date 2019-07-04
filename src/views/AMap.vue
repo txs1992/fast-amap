@@ -3,9 +3,10 @@
     <fast-map
       :mid="12"
       ref="map"
-      :options="options"
-      @complete="handleComplete"
+      :zoom="15"
+      :double-click-zoom="false"
       @click="handleClick"
+      @complete="handleComplete"
     >
       <h1>amap</h1>
     </fast-map>
@@ -18,13 +19,6 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
 export default class PageAMap extends Vue {
-  public options: any;
-
-  constructor() {
-    super();
-    this.options = { name: "mt", doubleClickZoom: false };
-  }
-
   public destroyed(): void {
     const mid = 12;
     if (registry.getMap(mid)) {
