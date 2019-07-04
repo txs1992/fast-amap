@@ -1,6 +1,3 @@
-<template></template>
-
-<script lang="ts">
 import cloneDeep from "lodash.clonedeep";
 import { Component, Prop, Vue, Watch, Mixins } from "vue-property-decorator";
 
@@ -112,5 +109,8 @@ export default class FastPolygons extends Mixins(AMapMixin, AMapPropMixin) {
   public handleEvents(event: any): void {
     this.$emit(event.type, event);
   }
+
+  public render(): null {
+    return null;
+  }
 }
-</script>
