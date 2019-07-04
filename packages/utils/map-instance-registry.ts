@@ -1,4 +1,4 @@
-import warn from "packages/utils/utils";
+import { warn } from "packages/utils/utils";
 
 /**
  * 高德地图实例注册表
