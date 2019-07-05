@@ -32,7 +32,7 @@ export default class PageAMap extends Vue {
 
   public handleComplete(): void {
     (this.$refs.map as any).getAMap().then((res: any) => {
-      console.log(res);
+      console.log('handleComplete: ',res);
     });
   }
 }

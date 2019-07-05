@@ -1,12 +1,13 @@
-<template>
+{
+  /* <template>
   <div ref="container" class="cpt-fast-map" :style="{ height: height + 'px' }">
     <div class="fast-map-slot-container">
       <slot v-if="mapLoaded"></slot>
     </div>
   </div>
-</template>
-
-<script lang="ts">
+</template> */
+}
+import "packages/styles/index.scss";
 import cloneDeep from "lodash.clonedeep";
 import { Component, Prop, Vue, Mixins } from "vue-property-decorator";
 
@@ -220,21 +221,18 @@ export default class FastMap extends Mixins(AMapMixin) {
     }
     this.$emit(event.type, event, this.getMapInstance(this.mid));
   }
-}
-</script>
 
-<style lang="scss">
-.cpt-fast-map {
-  position: relative;
-  overflow: hidden;
-
-  .fast-map-slot-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    z-index: 999;
-    overflow: hidden;
-    pointer-events: none;
+  public render() {
+    return (
+      <div
+        ref="container"
+        class="cpt-fast-map"
+        style={{ height: this.height + "px" }}
+      >
+        <div class="fast-map-slot-container">
+          {this.mapLoaded ? this.$slots.default : null}
+        </div>
+      </div>
+    );
   }
 }
-</style>
