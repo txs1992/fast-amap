@@ -1,31 +1,49 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">AMap</router-link>|
+  <div class="cpt-app">
+    <div class="menus">
+      <router-link to="/">Map</router-link>
       <router-link to="/polygon">Polygon</router-link>
     </div>
-    <router-view />
+    <div class="container">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
-<style>
+<script>
+export default {
+  data() {
+    return {
+      visible: true,
+      rightVisible: true,
+      message: 'Hello Vue Menu Sidebar'
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+html,
+body,
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
-#nav {
-  padding: 30px;
-}
+.cpt-app {
+  position: relative;
+  padding: 20px 10px;
+  height: 100%;
+  background: #f1f1f1;
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+  .menus {
+    font-size: 24px;
+    font-weight: bold;
+  }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+  .container {
+    margin-top: 10px;
+    height: 90%;
+  }
 }
 </style>
