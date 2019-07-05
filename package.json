@@ -7,6 +7,7 @@
     "package": "yarn build && yarn build:mini",
     "dev": "webpack-dev-server --inline --progress --config webpack.config.js",
     "lint": "eslint --ext .js,.vue src",
+    "test": "yarn lint",
     "format": "prettier --config ./.prettierrc.yaml --write '**/*.{js,bue,css,scss}'",
     "precommit": "pretty-quick --staged"
   },
