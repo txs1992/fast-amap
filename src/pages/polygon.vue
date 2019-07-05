@@ -21,7 +21,9 @@
         :z-index="50"
         @click="handlePolygonClick"
       ></fast-polygon>
-      <button style="pointer-events: auto" @click="rerenderPolygon">rerender Polygon</button>
+      <button style="pointer-events: auto" @click="rerenderPolygon">
+        rerender Polygon
+      </button>
     </fast-map>
   </div>
 </template>
@@ -45,8 +47,8 @@ export default {
 
   destroyed() {
     const mid = 'polygons'
-    if (registry.getMap(mid)) {
-      registry.deleteMap(mid)
+    if (this.$refs.map.registry.getMap(mid)) {
+      this.$refs.map.registry.deleteMap(mid)
     }
   },
 
