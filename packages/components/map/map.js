@@ -10,10 +10,10 @@ export default {
   mixins: [AMapMixin],
 
   props: {
-    view,
-    center,
-    indoorMap,
-    defaultLayer,
+    view: null,
+    center: null,
+    indoorMap: null,
+    defaultLayer: null,
 
     crs: String,
     mask: Array,

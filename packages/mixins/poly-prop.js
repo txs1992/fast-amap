@@ -1,6 +1,6 @@
 export default {
   props: {
-    extData,
+    extData: null,
     bubble: Boolean,
     draggable: Boolean,
     strokeWeight: Number,
