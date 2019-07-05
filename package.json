@@ -12,9 +12,6 @@
   },
   "description": "## Project setup ``` yarn install ```",
   "main": "lib/fast-amap.mini.js",
-  "directories": {
-    "test": "tests"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/txs1992/vue-fast-amap.git"
