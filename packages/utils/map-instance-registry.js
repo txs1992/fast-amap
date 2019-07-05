@@ -1,4 +1,5 @@
 import { warn } from './utils'
+import Map from './map-shim'
 
 /**
  * 高德地图实例注册表
