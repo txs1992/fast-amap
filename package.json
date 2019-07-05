@@ -11,7 +11,7 @@
     "precommit": "pretty-quick --staged"
   },
   "description": "## Project setup ``` yarn install ```",
-  "main": "src/index.js",
+  "main": "lib/fast-amap.mini.js",
   "directories": {
     "test": "tests"
   },

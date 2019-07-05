@@ -1,15 +1,19 @@
 import Vue from 'vue'
 import App from './app.vue'
+import router from './router'
 
-// 这个是打包后的模块用于测试，开发时将其注释。
-// This is the packaged module for testing and commenting it out during development.
-// import MenuSidebar from '../lib/index.js'
-// // import MenuSidebar from './menu-sidebar/index.js'
+import FastAMap from '../lib/fast-amap.mini'
 
-// Vue.use(MenuSidebar)
+FastAMap.mapOptions.setOptions({
+  key: 'd2d76e2274bf5973ecfb1f68454b6f3b',
+  version: '1.4.15'
+})
+
+Vue.use(FastAMap)
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  router,
   render: h => h(App)
 })

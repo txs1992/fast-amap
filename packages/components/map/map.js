@@ -264,5 +264,33 @@ export default {
       // 数据与 vue 解绑
       return cloneDeep(mapOptions)
     }
+  },
+
+  render(h) {
+    // 渲染模型
+    // <div ref="container" class="cpt-fast-map" :style="{ height: height + 'px' }">
+    //   <div class="fast-map-slot-container">
+    //     <slot v-if="mapLoaded"></slot>
+    //   </div>
+    // </div>
+
+    const slots = this.mapLoaded ? this.$slots.default : null
+    return h(
+      'div',
+      {
+        ref: 'container',
+        class: 'cpt-fast-map',
+        style: { height: `${this.height}px` }
+      },
+      [
+        h(
+          'div',
+          {
+            class: 'fast-map-slot-container'
+          },
+          [slots]
+        )
+      ]
+    )
   }
 }

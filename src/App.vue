@@ -1,6 +1,12 @@
 <template>
   <div class="cpt-app">
-    <div>{{ message }}</div>
+    <div class="menus">
+      <router-link to="/">Map</router-link>
+      <router-link to="/polygon">Polygon</router-link>
+    </div>
+    <div class="container">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -25,13 +31,19 @@ body,
   padding: 0;
 }
 .cpt-app {
-  height: 100%;
   position: relative;
+  padding: 20px 10px;
+  height: 100%;
   background: #f1f1f1;
-  .cpt-menu-sidebar {
-    .menu-wrapper {
-      background: #666;
-    }
+
+  .menus {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .container {
+    margin-top: 10px;
+    height: 90%;
   }
 }
 </style>
