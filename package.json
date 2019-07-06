@@ -2,6 +2,8 @@
   "name": "vue-fast-amap",
   "version": "0.1.0",
   "scripts": {
+    "docs": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
     "build": "rollup -c build/rollup.config.js",
     "build:mini": "rollup -c build/rollup.config.mini.js",
     "package": "yarn build && yarn build:mini",
@@ -67,6 +69,7 @@
     "vue-router": "^3.0.7",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.6.8",
+    "vuepress": "^1.0.2",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3",
     "webpack-dev-middleware": "^3.6.0",
