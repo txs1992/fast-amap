@@ -25,22 +25,6 @@ module.exports = {
           { text: '组件', link: '/components/' }
         ],
         sidebar: 'auto'
-        // sidebar: {
-        //   '/guide/': [
-        //     {
-        //       title: '介绍',
-        //       collapsable: false,
-        //       sidebar: 'auto',
-        //       children: [
-        //         { text: '指南', link: '/guide/' },
-        //         '',
-        //         'getting-started',
-        //         'directory-structure',
-        //         'basic-config'
-        //       ]
-        //     }
-        //   ]
-        // }
       }
     }
   }
