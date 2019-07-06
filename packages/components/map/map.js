@@ -60,9 +60,9 @@ export default {
     },
 
     options: {
-      type: Array,
+      type: Object,
       default() {
-        return []
+        return {}
       }
     },
 

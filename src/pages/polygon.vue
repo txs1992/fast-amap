@@ -45,13 +45,6 @@ export default {
     }
   },
 
-  destroyed() {
-    const mid = 'polygons'
-    if (this.$refs.map.registry.getMap(mid)) {
-      this.$refs.map.registry.deleteMap(mid)
-    }
-  },
-
   methods: {
     handlePolygonClick(event) {
       console.log('handlePolygonClick', event)
