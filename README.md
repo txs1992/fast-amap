@@ -25,6 +25,8 @@
 
 > Fast AMap 是一个基于高德地图封装的一个高性能 Vue 组件库
 
+### [文档](https://txs1992.github.io/fast-amap/)
+
 ## 为什么要做这个库？
 
 这个想法来源于之前开发的一个项目，该项目需要在 zoom 16 的级别下渲染 (100 \* 100) 的小方格，使用高德地图的多边形覆盖物 Polygon 进行渲染，在 mac 13 寸屏幕下渲染 `1k+`，在外接 27 寸(不太记得多少寸了)显示屏下需要渲染近 `3K` 的覆盖物。
@@ -57,7 +59,8 @@ FastAMap.mapOptions.setOptions({
   :options="options"
   :double-click-zoom="false"
   @click="handleClick"
-  @complete="handleComplete">
+  @complete="handleComplete"
+>
   <!-- 在地图中渲染一些自定义的组件或是 DOM -->
   <h1>Hello Fast AMap</h1>
   <!-- 渲染多边形覆盖物 -->

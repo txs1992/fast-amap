@@ -1,6 +1,7 @@
 module.exports = {
   base: '/fast-amap/',
   repo: 'https://github.com/txs1992/fast-amap',
+  dest: './dist',
   head: [
     [
       'style',
@@ -33,7 +34,7 @@ module.exports = {
         ],
         sidebar: {
           '/guide/': ['', 'getting-started', 'development'],
-          '/api/': ['', 'map']
+          '/api/': ['', 'map', 'polygon']
         }
       }
     }
