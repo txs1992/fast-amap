@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>参与 Fast AMap 项目开发 | Fast AMap</title>
+    <meta name="description" content="基于 Vue 的高性能高德地图件库">
+    <style type="text/css">.page-nav, .theme-default-content:not(.custom) { max-width: 90% !important; margin: auto; } </style>
+    
+    <link rel="preload" href="/fast-amap/assets/css/0.styles.7e9c1b8c.css" as="style"><link rel="preload" href="/fast-amap/assets/js/app.ecbe2228.js" as="script"><link rel="preload" href="/fast-amap/assets/js/2.3c2a200f.js" as="script"><link rel="preload" href="/fast-amap/assets/js/10.cc4ee9d7.js" as="script"><link rel="prefetch" href="/fast-amap/assets/js/11.cfc97e09.js"><link rel="prefetch" href="/fast-amap/assets/js/12.d907c171.js"><link rel="prefetch" href="/fast-amap/assets/js/3.d15a89d6.js"><link rel="prefetch" href="/fast-amap/assets/js/4.11d613bd.js"><link rel="prefetch" href="/fast-amap/assets/js/5.29d57cd4.js"><link rel="prefetch" href="/fast-amap/assets/js/6.8774e577.js"><link rel="prefetch" href="/fast-amap/assets/js/7.1300db52.js"><link rel="prefetch" href="/fast-amap/assets/js/8.1b38a037.js"><link rel="prefetch" href="/fast-amap/assets/js/9.7fcb0855.js">
+    <link rel="stylesheet" href="/fast-amap/assets/css/0.styles.7e9c1b8c.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/fast-amap/" class="home-link router-link-active"><!----> <span class="site-name">Fast AMap</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/fast-amap/guide/" class="nav-link router-link-active">指南</a></div><div class="nav-item"><a href="/fast-amap/api/" class="nav-link">API</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">选择语言</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/fast-amap/guide/development.html" class="nav-link router-link-exact-active router-link-active">简体中文</a></li><li class="dropdown-item"><!----> <a href="/fast-amap/en/" class="nav-link">en-US</a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/fast-amap/guide/" class="nav-link router-link-active">指南</a></div><div class="nav-item"><a href="/fast-amap/api/" class="nav-link">API</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">选择语言</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/fast-amap/guide/development.html" class="nav-link router-link-exact-active router-link-active">简体中文</a></li><li class="dropdown-item"><!----> <a href="/fast-amap/en/" class="nav-link">en-US</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/fast-amap/guide/" class="sidebar-link">介绍</a></li><li><a href="/fast-amap/guide/getting-started.html" class="sidebar-link">快速上手</a></li><li><a href="/fast-amap/guide/development.html" class="active sidebar-link">参与 Fast AMap 项目开发</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/fast-amap/guide/development.html#运行项目" class="sidebar-link">运行项目</a></li><li class="sidebar-sub-header"><a href="/fast-amap/guide/development.html#项目结构" class="sidebar-link">项目结构</a></li></ul></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="参与-fast-amap-项目开发"><a href="#参与-fast-amap-项目开发" aria-hidden="true" class="header-anchor">#</a> 参与 Fast AMap 项目开发</h1> <div class="tip custom-block"><p>参与 FastAMap 项目开发，请以 pr 的方式提交你的功能分支。</p></div> <h2 id="运行项目"><a href="#运行项目" aria-hidden="true" class="header-anchor">#</a> 运行项目</h2> <div class="language-shell extra-class"><pre class="language-text"><code>1. 先 fork 项目再 clone 项目到本地
+git clone git@github.com:&lt;your github&gt;/fast-amap.git
+
+2. 进入 fast-amap 项目目录
+cd fast-amap
+
+3. 安装项目目录，建议使用 yarn 安装
+yarn install # 或者 npm install
+
+4. 运行 fast-amap 项目
+yarn dev
+
+5. 打包 fast-amap 项目
+yarn package
+</code></pre></div><h2 id="项目结构"><a href="#项目结构" aria-hidden="true" class="header-anchor">#</a> 项目结构</h2> <div class="language-shell extra-class"><pre class="language-text"><code>fast-amap
+ ├── build                    # rollup 打包配置存放目录
+ ├── docs                     # vuePress 文档存放目录
+ ├── lib                      # 打包后的文件目录
+ ├── packages                 # FastAMap 组件根目录
+ |    ├── components          # 组件存放目录
+ |    ├── mixins              # 公共 mixin
+ |    ├── utils               # 工具库，例如地图注册表，AMap 加载器，AMap 配置对象
+ |    └── index.js            # FastAMap 打包入口文件
+ |
+ ├── public                   # 静态公共目录，存放了 favicon.ico
+ ├── src                      # 本地开发页面存放目录，用于开发调试 FastAMap 组件。
+ ├── .balbelrc
+ ├── .eslintrc.js
+ ├── .gitignore
+ ├── .prettierrc.yaml
+ ├── .tracis.yml
+ ├── index.html
+ ├── LICENSE
+ ├── package.json
+ ├── README.md
+ ├── webpack.config.json
+ └── yarn.lock
+</code></pre></div></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">上次更新: </span> <span class="time">2019/7/7 下午1:23:01</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/fast-amap/guide/getting-started.html" class="prev">
+          快速上手
+        </a></span> <!----></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/fast-amap/assets/js/app.ecbe2228.js" defer></script><script src="/fast-amap/assets/js/2.3c2a200f.js" defer></script><script src="/fast-amap/assets/js/10.cc4ee9d7.js" defer></script>
+  </body>
+</html>
