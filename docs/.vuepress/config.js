@@ -24,7 +24,9 @@ module.exports = {
           { text: '指南', link: '/guide/' },
           { text: '组件', link: '/components/' }
         ],
-        sidebar: 'auto'
+        sidebar: {
+          '/guide/': ['', 'getting-started']
+        }
       }
     }
   }

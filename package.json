@@ -1,5 +1,5 @@
 {
-  "name": "vue-fast-amap",
+  "name": "fast-amap",
   "version": "0.1.0",
   "scripts": {
     "docs": "vuepress dev docs",
@@ -26,9 +26,9 @@
   "author": "txs1992",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/txs1992/vue-fast-amap/issues"
+    "url": "https://github.com/txs1992/fast-amap/issues"
   },
-  "homepage": "https://github.com/txs1992/vue-fast-amap#readme",
+  "homepage": "https://github.com/txs1992/fast-amap#readme",
   "peerDependencies": {
     "lodash.clonedeep": "^4.5.0",
     "vue": "^2.6.10"
