@@ -4,12 +4,12 @@ module.exports = {
   locales: {
     '/': {
       lang: 'zh-CN',
-      title: 'FastAMap',
+      title: 'Fast AMap',
       description: '基于 Vue 的高性能高德地图件库'
     },
     '/en/': {
       lang: 'en-US',
-      title: 'FastAMap',
+      title: 'Fast AMap',
       description: 'Vue-based High Performance Gaud Map Library'
     }
   },
@@ -22,10 +22,11 @@ module.exports = {
         lastUpdated: '上次更新',
         nav: [
           { text: '指南', link: '/guide/' },
-          { text: '组件', link: '/components/' }
+          { text: 'API', link: '/api/' }
         ],
         sidebar: {
-          '/guide/': ['', 'getting-started', 'development']
+          '/guide/': ['', 'getting-started', 'development'],
+          '/api/': ['']
         }
       }
     }
