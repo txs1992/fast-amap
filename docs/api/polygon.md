@@ -37,7 +37,9 @@ FastAMap 是一个高性能的高德地图组件，下面有个按钮可以渲�
 Polygon 组件的事件对象中可以获取 options 中的自定义属性数据，通过 event.target.dataOptions 获取。
 :::
 
+
 | 事件 | 参数| 说明 |
+| - | - | - |
 | click | [MapsEvent](https://lbs.amap.com/api/javascript-api/reference/event#MapsEvent) | 鼠标左键单击事件 |
 | click | MapsEvent | 鼠标左键单击事件 |
 | dblclick | MapsEvent | 鼠标左键双击事件 |
