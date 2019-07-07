@@ -1,6 +1,13 @@
 module.exports = {
   base: '/fast-amap/',
   repo: 'https://github.com/txs1992/fast-amap',
+  head: [
+    [
+      'style',
+      { type: 'text/css' },
+      '.page-nav, .theme-default-content:not(.custom) { max-width: 90% !important; margin: auto; } '
+    ]
+  ],
   locales: {
     '/': {
       lang: 'zh-CN',
@@ -26,7 +33,7 @@ module.exports = {
         ],
         sidebar: {
           '/guide/': ['', 'getting-started', 'development'],
-          '/api/': ['']
+          '/api/': ['', 'map']
         }
       }
     }
