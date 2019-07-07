@@ -2,6 +2,7 @@ import vue from 'rollup-plugin-vue'
 import babel from 'rollup-plugin-babel'
 import postcss from 'rollup-plugin-postcss'
 import commonjs from 'rollup-plugin-commonjs'
+import resolve from 'rollup-plugin-node-resolve'
 import { terser } from 'rollup-plugin-terser'
 
 export default {
@@ -14,6 +15,9 @@ export default {
   plugins: [
     babel({
       exclude: 'node_modules/**'
+    }),
+    resolve({
+      browser: true
     }),
     vue(),
     commonjs(),

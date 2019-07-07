@@ -3,7 +3,7 @@ import App from './app.vue'
 import router from './router'
 
 // import FastAMap from '../lib/fast-amap.mini'
-import FastAMap from '../packages/index'
+// import FastAMap from '../packages/index'
 
 FastAMap.mapOptions.setOptions({
   key: 'd2d76e2274bf5973ecfb1f68454b6f3b',
@@ -11,6 +11,8 @@ FastAMap.mapOptions.setOptions({
 })
 
 Vue.use(FastAMap)
+
+// console.log(FastAMap)
 
 /* eslint-disable no-new */
 new Vue({
