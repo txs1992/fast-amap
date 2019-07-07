@@ -25,7 +25,7 @@ module.exports = {
           { text: '组件', link: '/components/' }
         ],
         sidebar: {
-          '/guide/': ['', 'getting-started']
+          '/guide/': ['', 'getting-started', 'development']
         }
       }
     }

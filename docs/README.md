@@ -2,7 +2,7 @@
 home: true
 # heroImage: /hero.png
 actionText: 快速上手 →
-actionLink: /guide/
+actionLink: /guide/getting-started
 features:
   - title: 高性能
     details: 将高德地图相关实例和数据与 Vue 实例进行解耦，性能无限接近于原生高德地图 SDK。
