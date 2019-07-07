@@ -1,3 +1,4 @@
+import vue from 'rollup-plugin-vue'
 import babel from 'rollup-plugin-babel'
 import postcss from 'rollup-plugin-postcss'
 import commonjs from 'rollup-plugin-commonjs'
@@ -13,6 +14,7 @@ export default {
     babel({
       exclude: 'node_modules/**'
     }),
+    vue(),
     commonjs(),
     postcss({
       extensions: ['.css', '.scss']

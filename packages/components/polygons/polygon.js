@@ -1,6 +1,5 @@
 import cloneDeep from 'lodash.clonedeep'
 
-import '../../styles/index.scss'
 import events from './events'
 import AMapMixin from '../../mixins/a-map'
 import AMapPropMixin from '../../mixins/poly-prop'

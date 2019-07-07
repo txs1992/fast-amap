@@ -11,5 +11,7 @@ yarn add -S fast-amap # 或者：npm install -S fast-amap
 可以通过 [unpkg.com/fast-amap](https://unpkg.com/fast-amap) 获取最新版本资源。
 
 ```html
-<script src="//unpkg.com/fast-amap"></script>
+<script src="https://unpkg.com/fast-amap@0.1.0/lib/fast-amap.mini.js"></script>
 ```
+
+## 示例
