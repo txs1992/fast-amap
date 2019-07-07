@@ -1,6 +1,8 @@
+import vue from 'rollup-plugin-vue'
 import babel from 'rollup-plugin-babel'
 import postcss from 'rollup-plugin-postcss'
 import commonjs from 'rollup-plugin-commonjs'
+import resolve from 'rollup-plugin-node-resolve'
 
 export default {
   input: 'packages/index.js',
@@ -13,6 +15,10 @@ export default {
     babel({
       exclude: 'node_modules/**'
     }),
+    resolve({
+      browser: true
+    }),
+    vue(),
     commonjs(),
     postcss({
       extensions: ['.css', '.scss']

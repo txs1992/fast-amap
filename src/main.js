@@ -12,6 +12,8 @@ FastAMap.mapOptions.setOptions({
 
 Vue.use(FastAMap)
 
+// console.log(FastAMap)
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
