@@ -18,7 +18,7 @@ yarn add fast-amap -S # 或者：npm install -S fast-amap
 
 下面是一个使用 CDN 引入 FastAMap 的简单示例，你可以通过点击下面的 `EDIT ON Codepen` 去 Codepen 网站修改示例，以体验更多配置。
 
-<iframe height="465" style="width: 100%;" scrolling="no" title="FastAMap 示例" src="//codepen.io/taoxusheng/embed/agRbrj/?height=465&theme-id=dark,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
+<iframe height="565" style="width: 100%;" scrolling="no" title="FastAMap 示例" src="//codepen.io/taoxusheng/embed/agRbrj/?height=565&theme-id=dark,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
   See the Pen <a href='https://codepen.io/taoxusheng/pen/agRbrj/'>FastAMap 示例</a> by MT
   (<a href='https://codepen.io/taoxusheng'>@taoxusheng</a>) on <a href='https://codepen.io'>CodePen</a>.
 </iframe>
