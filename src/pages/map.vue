@@ -31,7 +31,7 @@ export default {
     },
 
     handleComplete() {
-      this.$refs.map.getAMap().then(res => {
+      this.$refs.map.getAMapPromise().then(res => {
         console.log(res)
       })
     }

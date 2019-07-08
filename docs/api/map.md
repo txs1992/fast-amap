@@ -94,7 +94,8 @@
 ## 方法
 | 方法           | 参数  | 说明                                                         |
 | -------------- | ----- | ------------------------------------------------------------ |
-| getAMap        | -     | 获取 AMap 类，返回一个 Promise 对象，在 reslove 中返回 AMap 类 |
+| getAMapPromise | -     | 获取 AMap 类，返回一个 Promise 对象，在 reslove 中返回 AMap 类 |
+| getAMapInstance | -     | 获取 AMap 类，请在地图组件 complete 之后获取，否则返回值可能是 Null |
 | getMapInstance | - 或 mid | 根据 mid 获取当前地图实例，默认会根据组件传入的 mid 属性获取 |
 
 :::tip

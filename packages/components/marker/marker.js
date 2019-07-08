@@ -90,7 +90,7 @@ export default {
     },
 
     handleOptionsChange() {
-      this.getAMap().then(AMap => {
+      this.getAMapPromise().then(AMap => {
         const map = this.getMapInstance(this.mid)
         const options = this.getPolygonOptions()
         options.forEach(option => {

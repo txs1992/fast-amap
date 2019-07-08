@@ -111,6 +111,7 @@ export default {
     },
 
     createPolygon(option) {
+      const AMap = this.getAMapInstance()
       const polygon = new AMap.Polygon(cloneDeep(option))
       events.forEach(evnet => {
         polygon.on(evnet, this.handleEvents)
@@ -150,7 +151,7 @@ export default {
     },
 
     handlePolygonsChange() {
-      this.getAMap().then(AMap => {
+      this.getAMapPromise().then(() => {
         const map = this.getMapInstance(this.mid)
         // 如果已经有 polygon 实例，清除所有实例
         this.clearAll()

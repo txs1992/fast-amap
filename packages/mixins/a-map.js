@@ -3,6 +3,8 @@ import MapRegistry from '../utils/map-instance-registry'
 
 const registry = MapRegistry.getRegistryInstance()
 
+let AMapInstance = null
+
 export default {
   props: {
     mid: {
@@ -11,10 +13,19 @@ export default {
     }
   },
 
+  created() {
+    mapOptionLoader().then(AMap => {
+      AMapInstance = AMap
+    })
+  },
+
   methods: {
-    getAMap() {
-      // return promise
+    getAMapPromise() {
       return mapOptionLoader()
+    },
+
+    getAMapInstance() {
+      return AMapInstance
     },
 
     getMapInstance(mid) {

@@ -143,7 +143,7 @@ export default {
   },
 
   mounted() {
-    this.getAMap()
+    this.getAMapPromise()
       .then(AMap => {
         let map = null
         const options = this.createMapOptions()
