@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 const routes = [
   { path: '/', component: () => import('./pages/map.vue') },
+  { path: '/marker', component: () => import('./pages/marker.vue') },
   { path: '/polygon', component: () => import('./pages/polygon.vue') }
 ]
 

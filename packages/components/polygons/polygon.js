@@ -33,7 +33,6 @@ export default {
 
   watch: {
     options: {
-      deep: true,
       immediate: true,
       handler: 'handlePolygonsChange'
     }
@@ -135,7 +134,7 @@ export default {
           ? beforeCreatePolygon(mergeOption, index)
           : mergeOption
 
-        const polygon = this.createPolygon(cloneDeep(polygonOption))
+        const polygon = this.createPolygon(polygonOption)
         polygonOptions.push(polygon)
       })
       map.add(polygonOptions)

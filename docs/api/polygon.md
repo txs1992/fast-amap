@@ -76,11 +76,13 @@ Polygon 组件的事件对象中可以获取 options 中的自定义属性数据
 
 | 方法             |        参数         | 返回值 | 说明                                          |
 | ---------------- | :-----------------: | :----: | --------------------------------------------- |
+| getAMap        | -     | 获取 AMap 类，返回一个 Promise 对象，在 reslove 中返回 AMap 类 |
+| getMapInstance | - 或 mid | 根据 mid 获取当前地图实例，默认会根据组件传入的 mid 属性获取 |
 | hideAll | - | - | 隐藏当前组件所有的 polygon 实例 |
 | showAll | - | - | 显示当前组件所有的 polygon 实例 |
 | clearAll | - | - | 清空当前组件所有的 polygon 实例 |
 | removePolygons   |        Array        |   -    | 删除传入的 polygon 实例，该方法不会导致 vue 重新渲染|
 | getAllPolygons   |          -          | Array  | 获取当前组件所有的 polygon 实例               |
 | getPolygonByProp | propName, propValue |   -    | 根据传入的属性名称与值查找对应的 polygon 实例 |
-| getPolygonByProps | propName, propValues |   -    | 根据传入的属性名称与值的数组查找对应的 polygon 实例数组，该方法对遍历做了优化，建议使用该方法。 |
+| getPolygonByProps | propName, propValues |   -    | 根据传入的属性名称与值的数组查找对应的 polygon 实例数组，该方法对遍历做了优化，建议使用该方法获取 polygon 数组 |
 | addPolygons | options, beforeCreatePolygon | - | options 是一个 polygon 属性的数组，没有的属性会通过组件传递的属性获取。beforeCreatePolygon 是一个可选的回调函数，默认可以不传递，可在创建 polygon 之前调用，将 polygon 属性传入其中，可以通过该方法处理自定义渲染。新增的 polygon 数组会添加在组件中，此时 getAllPolygons 方法获取的数组中包含新增 polygon，该方法不会导致 vue 重新渲染 |
