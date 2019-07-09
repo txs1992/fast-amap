@@ -16,7 +16,7 @@ FastAMap 是一个高性能的高德地图组件，下面有个按钮可以渲�
 ### 方法调用
 
 :::tip
-polygon 组件提供了一些操作 polygon 实例的方法，下面是调用演示。
+使用 FastPolygon 组件提供的一些方法可以应对一些特殊需求，使用这些方法不会导致 vue 重新渲染，请注意过去实例不要被 Vue 绑定导致性能影响。
 :::
 
 <iframe height="565" style="width: 100%;" scrolling="no" title="fast-polygon  方法调用示例" src="//codepen.io/taoxusheng/embed/oraEXb/?height=565&theme-id=dark,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
@@ -76,9 +76,9 @@ Polygon 组件的事件对象中可以获取 options 中的自定义属性数据
 
 | 方法             |        参数         | 返回值 | 说明                                          |
 | ---------------- | :-----------------: | :----: | --------------------------------------------- |
-| getAMap        | -     | 获取 AMap 类，返回一个 Promise 对象，在 reslove 中返回 AMap 类 |
-| getAMapInstance | -     | 获取 AMap 类，请在地图组件 complete 之后获取，否则返回值可能是 Null |
-| getMapInstance | - 或 mid | 根据 mid 获取当前地图实例，默认会根据组件传入的 mid 属性获取 |
+| getAMapPromise  | -     | Promise |获取 AMap 类，返回一个 Promise 对象，在 reslove 中返回 AMap 类 |
+| getAMapInstance | -     | AMap | 获取 AMap 类，请在地图组件 complete 之后获取，否则返回值可能是 Null |
+| getMapInstance | - 或 mid | map |根据 mid 获取当前地图实例，默认会根据组件传入的 mid 属性获取 |
 | hideAll | - | - | 隐藏当前组件所有的 polygon 实例 |
 | showAll | - | - | 显示当前组件所有的 polygon 实例 |
 | clearAll | - | - | 清空当前组件所有的 polygon 实例 |

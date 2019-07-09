@@ -14,7 +14,13 @@
 </iframe>
 
 ## Slot
+
 > 可以将自定义的 DOM 或是其他地图组件传入 slot 中。
+
+:::warning
+### 注意
+Slot 将会在地图实例 complete 事件触发后渲染，所有子组件实例的获取请在 complete 事件后执行，否则会是 Null。在 Slot 中的 DOM 或是组件的事件会派发到地图中，如果想禁止事件派发，请设置样式 `pointer-events: auto`。
+:::
 
 ## 属性
 

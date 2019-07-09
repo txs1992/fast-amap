@@ -35,7 +35,7 @@ module.exports = {
         ],
         sidebar: {
           '/guide/': ['', 'getting-started', 'development'],
-          '/api/': ['', 'map', 'polygon']
+          '/api/': ['', 'map', 'marker', 'polygon']
         }
       }
     }
