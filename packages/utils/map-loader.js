@@ -32,7 +32,10 @@ export default function mapLoader(key, version, url) {
     jsApi.onload = () => {
       if (window.AMap) {
         AMap = window.AMap
-        reslove(AMap)
+        // 如果不加上 setTimeout 在本地开发时，会有一定几率导致刷新页面覆盖物无法显示在地图上。
+        setTimeout(() => {
+          reslove(AMap)
+        }, 0)
       } else {
         warn('AMap SDK Load Failure.')
       }
