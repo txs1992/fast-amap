@@ -23,14 +23,28 @@
         :z-index="50"
         @click="handlePolygonClick"
       ></fast-polygon>
-      <button style="pointer-events: auto" @click="rerenderPolygon">rerender Polygon</button>
+      <button style="pointer-events: auto" @click="rerenderPolygon">
+        rerender Polygon
+      </button>
       <button style="pointer-events: auto" @click="clearAll">clearAll</button>
-      <button style="pointer-events: auto" @click="removePolygon">remove Polygon</button>
-      <button style="pointer-events: auto" @click="findPolygon">find polygon</button>
-      <button style="pointer-events: auto" @click="findPolygons">find polygon list</button>
-      <button style="pointer-events: auto" @click="hidePolygons">hide polygon list</button>
-      <button style="pointer-events: auto" @click="showPolygons">show polygon list</button>
-      <button style="pointer-events: auto" @click="addPolygons">add polygon list</button>
+      <button style="pointer-events: auto" @click="removePolygon">
+        remove Polygon
+      </button>
+      <button style="pointer-events: auto" @click="findPolygon">
+        find polygon
+      </button>
+      <button style="pointer-events: auto" @click="findPolygons">
+        find polygon list
+      </button>
+      <button style="pointer-events: auto" @click="hidePolygons">
+        hide polygon list
+      </button>
+      <button style="pointer-events: auto" @click="showPolygons">
+        show polygon list
+      </button>
+      <button style="pointer-events: auto" @click="addPolygons">
+        add polygon list
+      </button>
     </fast-map>
   </div>
 </template>
