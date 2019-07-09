@@ -78,3 +78,22 @@ markder 组件的事件对象中可以获取 options 中的自定义属性数据
 | touchmove | MapsEvent | 触摸移动进行中时触发事件，仅适用移动设备 |
 | touchend | MapsEvent | 触摸结束时触发事件，仅适用移动设备 |
 
+## 方法
+
+:::tip
+通过 `$refs` 获取组件实例来调用。例如：`this.$refs.myPolygon.getAllMarkers()`，关于 Marker 类的实例方法，请查看官方文档 [Marker](https://lbs.amap.com/api/javascript-api/reference/overlay#marker)
+:::
+
+| 方法             |        参数         | 返回值 | 说明                                          |
+| ---------------- | :-----------------: | :----: | --------------------------------------------- |
+| getAMapPromise  | -     | Promise |获取 AMap 类，返回一个 Promise 对象，在 reslove 中返回 AMap 类 |
+| getAMapInstance | -     | AMap | 获取 AMap 类，请在地图组件 complete 之后获取，否则返回值可能是 Null |
+| getMapInstance | - 或 mid | map |根据 mid 获取当前地图实例，默认会根据组件传入的 mid 属性获取 |
+| hideAll | - | - | 隐藏当前组件所有的 marker 实例 |
+| showAll | - | - | 显示当前组件所有的 marker 实例 |
+| clearAll | - | - | 清空当前组件所有的 marker 实例 |
+| removeMarkers   |        Array        |   -    | 删除传入的 marker 实例，该方法不会导致 vue 重新渲染|
+| getAllMarkers  |          -          | Array  | 获取当前组件所有的 marker 实例               |
+| getMarkerByProp | propName, propValue |   -    | 根据传入的属性名称与值查找对应的 marker 实例 |
+| getMarkersByProps | propName, propValues |   -    | 根据传入的属性名称与值的数组查找对应的 marker 实例数组，该方法对遍历做了优化，建议使用该方法获取 marker 数组 |
+| addMarkers | options, beforeCreatePolygon | - | options 是一个 marker 属性的数组，没有的属性会通过组件传递的属性获取。beforeCreatePolygon 是一个可选的回调函数，默认可以不传递，可在创建 marker 之前调用，将 marker 属性传入其中，可以通过该方法处理自定义渲染。新增的 marker 数组会添加在组件中，此时 getAllMarkers 方法获取的数组中包含新增 marker，该方法不会导致 vue 重新渲染 |
