@@ -78,19 +78,27 @@ export default {
   },
 
   created() {
-    // 由于需要将高德地图与 vue 解耦，所以这里创建的 polygon 数组不能被 vue watch。
+    // 由于需要将高德地图与 vue 解耦，所以这里创建的 marker 数组不能被 vue watch。
     if (!this.markerInstanceList) {
       this.markerInstanceList = []
     }
   },
 
   methods: {
-    handleEvents(event) {
-      this.$emit(event.type, event, this.getMapInstance(this.mid))
+    showAll() {
+      this.markerInstanceList.forEach(instance => instance.show())
+    },
+
+    hideAll() {
+      this.markerInstanceList.forEach(instance => instance.hide())
+    },
+
+    getAllPolygons() {
+      return this.markerInstanceList
     },
 
     handleOptionsChange() {
-      this.getAMapPromise().then(AMap => {
+      this.getAMapPromise().then(() => {
         const map = this.getMapInstance(this.mid)
         const options = this.getPolygonOptions()
         options.forEach(option => {
