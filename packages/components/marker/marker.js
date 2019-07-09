@@ -116,12 +116,18 @@ export default {
         warn('propValues is an array.')
         return
       }
+
       const serarhMap = {}
       this.markerInstanceList.forEach(instance => {
         const data = instance.dataOptions
         serarhMap[data[propName]] = instance
       })
-      return propValues.map(it => serarhMap[it])
+
+      const searchList = []
+      propValues.forEach(v => {
+        if (serarhMap[v]) searchList.push(serarhMap[v])
+      })
+      return searchList
     },
 
     removeMarkers(markers) {
