@@ -11,8 +11,6 @@ export default [
   'dragging',
   'dragend',
   'moving',
-  'moveend',
-  'movealong',
   'touchstart',
   'touchmove',
   'touchend'

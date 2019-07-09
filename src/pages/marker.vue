@@ -116,7 +116,7 @@ export default {
     },
 
     handleMarkerClick(event) {
-      console.log('handleMarkerClick', event)
+      console.log('handleMarkerClick')
     },
 
     handleComplete() {

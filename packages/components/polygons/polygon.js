@@ -50,6 +50,10 @@ export default {
   },
 
   methods: {
+    handleChangeEvnet() {
+      this.$emit('change')
+    },
+
     showAll() {
       this.polygonInstanceList.forEach(instance => instance.show())
     },
@@ -87,9 +91,16 @@ export default {
       return searchList
     },
 
+    removeChangeEvents() {
+      this.polygonInstanceList.forEach(polygon => {
+        polygon.off('change', this.handleChangeEvnet)
+      })
+    },
+
     removePolygons(polygons) {
       const { mid, polygonInstanceList } = this
       const map = this.getMapInstance(mid)
+      this.removeChangeEvents()
       this.removeEvents(polygons, events, 'polygons')
       map.remove(polygons)
       polygons.forEach(polygon => {
@@ -103,6 +114,9 @@ export default {
     createPolygon(option) {
       const AMap = this.getAMapInstance()
       const polygon = new AMap.Polygon(cloneDeep(option))
+
+      // 添加 addEvents 无法注册的事件
+      polygon.on('change', this.handleChangeEvnet)
       this.addEvents(polygon, events)
       polygon.dataOptions = option
       return polygon
@@ -133,6 +147,7 @@ export default {
     clearAll() {
       const { mid, polygonInstanceList: polygons } = this
       const map = this.getMapInstance(mid)
+      this.removeChangeEvents()
       this.removeEvents(polygons, events, 'polygons')
       map.remove(polygons)
       this.polygonInstanceList = []

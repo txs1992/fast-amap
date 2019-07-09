@@ -85,6 +85,14 @@ export default {
   },
 
   methods: {
+    handleMoveendEvent() {
+      this.$emit('moveend')
+    },
+
+    handleMovealongEvent() {
+      this.$emit('movealong')
+    },
+
     showAll() {
       this.markerInstanceList.forEach(instance => instance.show())
     },
@@ -101,6 +109,10 @@ export default {
       const { mid, markerInstanceList: markers } = this
       const map = this.getMapInstance(mid)
       this.removeEvents(markers, events, 'polygons')
+
+      // 删除无法通过 addEvents 注册的事件。
+      this.removeNotEvnetObjectEvnets()
+
       map.remove(markers)
       this.markerInstanceList = []
     },
@@ -130,10 +142,19 @@ export default {
       return searchList
     },
 
+    removeNotEvnetObjectEvnets() {
+      // 删除无法通过 addEvents 注册的事件。
+      this.markerInstanceList.forEach(marker => {
+        marker.off('moveend', this.handleMoveendEvent)
+        marker.off('movealong', this.handleMovealongEvent)
+      })
+    },
+
     removeMarkers(markers) {
       const { mid, markerInstanceList: list } = this
       const map = this.getMapInstance(mid)
       this.removeEvents(markers, events, 'markers')
+      this.removeNotEvnetObjectEvnets()
       map.remove(markers)
       markers.forEach(marker => {
         const index = list.indexOf(marker)
@@ -186,6 +207,11 @@ export default {
       const [x, y] = option.offset
       option.offset = new AMap.Pixel(x, y)
       const marker = new AMap.Marker(cloneDeep(option))
+
+      // 注册无法通过 addEvents 添加的事件
+      marker.on('moveend', this.handleMoveendEvent)
+      marker.on('movealong', this.handleMovealongEvent)
+
       this.addEvents(marker, events)
       marker.dataOptions = option
       return marker
