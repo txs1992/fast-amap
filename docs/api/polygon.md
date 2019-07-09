@@ -16,7 +16,7 @@ FastAMap 是一个高性能的高德地图组件，下面有个按钮可以渲�
 ### 方法调用
 
 :::tip
-使用 FastPolygon 组件提供的一些方法可以应对一些特殊需求，使用这些方法不会导致 vue 重新渲染，请注意过去实例不要被 Vue 绑定导致性能影响。
+使用 FastPolygon 组件提供的一些方法可以应对一些特殊需求，使用这些方法不会导致 vue 重新渲染，请注意通过方法获取的 polygon 实例，不要被 Vue 绑定否则会有性能影响。
 :::
 
 <iframe height="565" style="width: 100%;" scrolling="no" title="fast-polygon  方法调用示例" src="//codepen.io/taoxusheng/embed/oraEXb/?height=565&theme-id=dark,result" frameborder="no" allowtransparency="true" allowfullscreen="true">

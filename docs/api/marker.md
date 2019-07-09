@@ -16,7 +16,7 @@ FastMarker 组件的简单使用示例，请将自定义数据放在 options 参
 ### 综合示例
 
 :::tip
-使用 FastMarker 组件提供的一些方法可以应对一些特殊需求，使用这些方法不会导致 vue 重新渲染，请注意过去实例不要被 Vue 绑定导致性能影响。
+使用 FastMarker 组件提供的一些方法可以应对一些特殊需求，使用这些方法不会导致 vue 重新渲染，请注意通过方法获取的 marker 实例，不要被 Vue 绑定否则会有性能影响。
 :::
 
 <iframe height="565" style="width: 100%;" scrolling="no" title="fast-marker 示例" src="//codepen.io/taoxusheng/embed/ydQqym/?height=565&theme-id=dark,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
