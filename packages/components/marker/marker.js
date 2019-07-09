@@ -117,9 +117,7 @@ export default {
       const [x, y] = option.offset
       option.offset = new AMap.Pixel(x, y)
       const marker = new AMap.Marker(cloneDeep(option))
-      events.forEach(evnet => {
-        marker.on(evnet, this.handleEvents)
-      })
+      this.addEvents(marker, events)
       marker.dataOptions = option
       return marker
     },

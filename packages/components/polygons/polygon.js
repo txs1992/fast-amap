@@ -84,7 +84,7 @@ export default {
     removePolygons(polygons) {
       const { mid, polygonInstanceList } = this
       const map = this.getMapInstance(mid)
-      this.removeEvents(polygons, 'polygons')
+      this.removeEvents(polygons, events, 'polygons')
       map.remove(polygons)
       polygons.forEach(polygon => {
         const index = polygonInstanceList.indexOf(polygon)
@@ -97,9 +97,7 @@ export default {
     createPolygon(option) {
       const AMap = this.getAMapInstance()
       const polygon = new AMap.Polygon(cloneDeep(option))
-      events.forEach(evnet => {
-        polygon.on(evnet, this.handleEvents)
-      })
+      this.addEvents(polygon, events)
       polygon.dataOptions = option
       return polygon
     },
@@ -129,7 +127,7 @@ export default {
     clearAll() {
       const { mid, polygonInstanceList: polygons } = this
       const map = this.getMapInstance(mid)
-      this.removeEvents(polygons, 'polygons')
+      this.removeEvents(polygons, events, 'polygons')
       map.remove(polygons)
       this.polygonInstanceList = []
     },
