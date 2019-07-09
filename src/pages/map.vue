@@ -8,6 +8,8 @@
       :double-click-zoom="false"
       @click="handleClick"
       @complete="handleComplete"
+      @dragstart="handleMovestart"
+      @resize="handleMapmove"
     >
       <h1>amap</h1>
     </fast-map>
@@ -34,6 +36,14 @@ export default {
       this.$refs.map.getAMapPromise().then(res => {
         console.log(res)
       })
+    },
+
+    handleMovestart() {
+      console.log('dragstart')
+    },
+
+    handleMapmove() {
+      console.log('resize')
     }
   }
 }

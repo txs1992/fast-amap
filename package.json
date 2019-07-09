@@ -10,7 +10,7 @@
     "dev": "webpack-dev-server --inline --progress --config webpack.config.js",
     "lint": "eslint --ext .js,.vue src",
     "test": "yarn lint",
-    "format": "prettier --config ./.prettierrc.yaml --write '**/*.{js,bue,css,scss}'",
+    "format": "prettier --config ./.prettierrc.yaml --write '**/*.{js,vue,css,scss}'",
     "precommit": "pretty-quick --staged",
     "deploy": "npm run docs:build && gh-pages -d dist"
   },
