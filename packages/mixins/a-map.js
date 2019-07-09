@@ -1,5 +1,6 @@
 import { mapOptionLoader } from '../utils/map-loader'
 import MapRegistry from '../utils/map-instance-registry'
+import { warn } from '../utils/utils'
 
 const registry = MapRegistry.getRegistryInstance()
 
@@ -29,7 +30,7 @@ export default {
     },
 
     getMapInstance(mid) {
-      return registry.getMap(mid ? mid : this.mid)
+      return registry.getMap(mid || this.mid)
     },
 
     setMapInstance(mid, instance) {

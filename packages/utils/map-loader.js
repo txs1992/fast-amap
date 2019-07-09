@@ -12,9 +12,9 @@ const mapOptions = MapOptions.getOptionsInstance()
  * @param url
  */
 export default function mapLoader(key, version, url) {
-  return new Promise((reslove, reject) => {
+  return new Promise((resolve, reject) => {
     if (AMap) {
-      return reslove(AMap)
+      return resolve(AMap)
     }
 
     if (!url && (!key || !version)) {
@@ -23,7 +23,7 @@ export default function mapLoader(key, version, url) {
       )
     }
 
-    const aMapUrl = url ? url : `${defaultPath}?v=${version}&key=${key}`
+    const aMapUrl = url || `${defaultPath}?v=${version}&key=${key}`
 
     const jsApi = document.createElement('script')
     jsApi.charset = 'utf-8'
@@ -34,7 +34,7 @@ export default function mapLoader(key, version, url) {
         AMap = window.AMap
         // 如果不加上 setTimeout 在本地开发时，会有一定几率导致刷新页面覆盖物无法显示在地图上。
         setTimeout(() => {
-          reslove(AMap)
+          resolve(AMap)
         }, 0)
       } else {
         warn('AMap SDK Load Failure.')

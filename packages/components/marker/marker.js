@@ -205,6 +205,7 @@ export default {
         return
       }
       const [x, y] = option.offset
+      const AMap = this.getAMapInstance()
       option.offset = new AMap.Pixel(x, y)
       const marker = new AMap.Marker(cloneDeep(option))
 
