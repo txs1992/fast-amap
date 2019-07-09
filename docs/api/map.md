@@ -8,13 +8,19 @@
 点击示例右上角的 `EDIT ON Codepen` 去 Codepen 网站修改示例，以体验更多配置。
 :::
 
-<iframe height="465" style="width: 100%;" scrolling="no" title="FastAMap 示例" src="//codepen.io/taoxusheng/embed/agRbrj/?height=465&theme-id=dark,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
+<iframe height="565" style="width: 100%;" scrolling="no" title="FastAMap 示例" src="//codepen.io/taoxusheng/embed/agRbrj/?height=565&theme-id=dark,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
   See the Pen <a href='https://codepen.io/taoxusheng/pen/agRbrj/'>FastAMap 示例</a> by MT
   (<a href='https://codepen.io/taoxusheng'>@taoxusheng</a>) on <a href='https://codepen.io'>CodePen</a>.
 </iframe>
 
 ## Slot
+
 > 可以将自定义的 DOM 或是其他地图组件传入 slot 中。
+
+:::warning
+### 注意
+Slot 将会在地图实例 complete 事件触发后渲染，所有子组件实例的获取请在 complete 事件后执行，否则会是 Null。在 Slot 中的 DOM 或是组件的事件会派发到地图中，如果想禁止事件派发，请设置样式 `pointer-events: auto`。
+:::
 
 ## 属性
 
@@ -94,7 +100,8 @@
 ## 方法
 | 方法           | 参数  | 说明                                                         |
 | -------------- | ----- | ------------------------------------------------------------ |
-| getAMap        | -     | 获取 AMap 类，返回一个 Promise 对象，在 reslove 中返回 AMap 类型 |
+| getAMapPromise | -     | 获取 AMap 类，返回一个 Promise 对象，在 reslove 中返回 AMap 类 |
+| getAMapInstance | -     | 获取 AMap 类，请在地图组件 complete 之后获取，否则返回值可能是 Null |
 | getMapInstance | - 或 mid | 根据 mid 获取当前地图实例，默认会根据组件传入的 mid 属性获取 |
 
 :::tip

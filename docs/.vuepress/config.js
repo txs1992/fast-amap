@@ -7,7 +7,8 @@ module.exports = {
       'style',
       { type: 'text/css' },
       '.page-nav, .theme-default-content:not(.custom) { max-width: 90% !important; margin: auto; } '
-    ]
+    ],
+    ['link', { rel: 'icon', href: './public/favicon.ico' }]
   ],
   locales: {
     '/': {
@@ -34,7 +35,7 @@ module.exports = {
         ],
         sidebar: {
           '/guide/': ['', 'getting-started', 'development'],
-          '/api/': ['', 'map', 'polygon']
+          '/api/': ['', 'map', 'marker', 'polygon']
         }
       }
     }

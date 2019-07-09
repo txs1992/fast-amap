@@ -2,6 +2,7 @@
   <div class="cpt-app">
     <div class="menus">
       <router-link to="/">Map</router-link>
+      <router-link to="/marker">Marker</router-link>
       <router-link to="/polygon">Polygon</router-link>
     </div>
     <div class="container">
@@ -39,6 +40,19 @@ body,
   .menus {
     font-size: 24px;
     font-weight: bold;
+
+    a:link,
+    a:visited,
+    a:hover,
+    a:active {
+      color: #999;
+      text-decoration: none;
+
+      &.router-link-exact-active {
+        color: #191919;
+        text-decoration: underline;
+      }
+    }
   }
 
   .container {

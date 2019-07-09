@@ -143,7 +143,7 @@ export default {
   },
 
   mounted() {
-    this.getAMap()
+    this.getAMapPromise()
       .then(AMap => {
         let map = null
         const options = this.createMapOptions()
@@ -156,9 +156,19 @@ export default {
 
         if (map) {
           this.setMapInstance(this.mid, map)
-          events.forEach(evnetName => {
-            map.on(evnetName, this.handleEvents)
-          })
+          map.on('mapmove', this.handleMapmoveEvent)
+          map.on('complete', this.handleCompleteEvent)
+          map.on('movestart', this.handleMovestartEvent)
+          map.on('moveend', this.handleMoveendEvent)
+          map.on('zoomchange', this.handleZoomchangeEvent)
+          map.on('zoomstart', this.handleZoomstartEvent)
+          map.on('zoomend', this.handleZoomendEvent)
+          map.on('dragstart', this.handleDragstartEvent)
+          map.on('dragging', this.handleDraggingEvent)
+          map.on('dragend', this.handleDragendEvent)
+          map.on('resize', this.handleResizeEvent)
+
+          this.addEvents(map, events)
         }
       })
       .catch(noop)
@@ -168,19 +178,67 @@ export default {
     const map = this.getMapInstance(this.mid)
 
     if (map) {
-      events.forEach(evnetName => {
-        map.off(evnetName, this.handleEvents)
-      })
+      map.off('mapmove', this.handleMapmoveEvent)
+      map.off('complete', this.handleCompleteEvent)
+      map.off('movestart', this.handleMovestartEvent)
+      map.off('moveend', this.handleMoveendEvent)
+      map.off('zoomchange', this.handleZoomchangeEvent)
+      map.off('zoomstart', this.handleZoomstartEvent)
+      map.off('zoomend', this.handleZoomendEvent)
+      map.off('dragstart', this.handleDragstartEvent)
+      map.off('dragging', this.handleDraggingEvent)
+      map.off('dragend', this.handleDragendEvent)
+      map.off('resize', this.handleResizeEvent)
+
+      this.removeEvents([map], events, 'map')
       this.deleteMapInstance(this.mid)
     }
   },
 
   methods: {
-    handleEvents(event) {
-      if (event.type === 'complete') {
-        this.mapLoaded = true
-      }
+    handleCompleteEvent(event) {
+      this.mapLoaded = true
       this.$emit(event.type, event, this.getMapInstance(this.mid))
+    },
+
+    handleMapmoveEvent() {
+      this.$emit('mapmove')
+    },
+
+    handleMovestartEvent() {
+      this.$emit('movestart')
+    },
+
+    handleMoveendEvent() {
+      this.$emit('moveend')
+    },
+
+    handleZoomchangeEvent() {
+      this.$emit('zoomchange')
+    },
+
+    handleZoomstartEvent() {
+      this.$emit('zoomstart')
+    },
+
+    handleZoomendEvent() {
+      this.$emit('zoomend')
+    },
+
+    handleDragstartEvent() {
+      this.$emit('dragstart')
+    },
+
+    handleDraggingEvent() {
+      this.$emit('dragging')
+    },
+
+    handleDragendEvent() {
+      this.$emit('dragend')
+    },
+
+    handleResizeEvent() {
+      this.$emit('resize')
     },
 
     createMapOptions() {
