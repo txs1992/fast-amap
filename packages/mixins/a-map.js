@@ -38,6 +38,22 @@ export default {
 
     deleteMapInstance(mid) {
       registry.deleteMap(mid)
+    },
+
+    handleEvents(event) {
+      this.$emit(event.type, event, this.getMapInstance(this.mid))
+    },
+
+    removeEvents(instanceList, name) {
+      if (Array.isArray(instanceList)) {
+        instanceList.forEach(instance => {
+          events.forEach(evnet => {
+            instance.off(evnet, this.handleEvents)
+          })
+        })
+      } else {
+        warn(`${name} is not an array.`)
+      }
     }
   }
 }

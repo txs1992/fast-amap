@@ -50,22 +50,6 @@ export default {
   },
 
   methods: {
-    handleEvents(event) {
-      this.$emit(event.type, event, this.getMapInstance(this.mid))
-    },
-
-    removeEvents(polygons) {
-      if (Array.isArray(polygons)) {
-        polygons.forEach(instance => {
-          events.forEach(evnet => {
-            instance.off(evnet, this.handleEvents)
-          })
-        })
-      } else {
-        warn('polygons is not an array.')
-      }
-    },
-
     showAll() {
       this.polygonInstanceList.forEach(instance => instance.show())
     },
@@ -100,7 +84,7 @@ export default {
     removePolygons(polygons) {
       const { mid, polygonInstanceList } = this
       const map = this.getMapInstance(mid)
-      this.removeEvents(polygons)
+      this.removeEvents(polygons, 'polygons')
       map.remove(polygons)
       polygons.forEach(polygon => {
         const index = polygonInstanceList.indexOf(polygon)
@@ -145,7 +129,7 @@ export default {
     clearAll() {
       const { mid, polygonInstanceList: polygons } = this
       const map = this.getMapInstance(mid)
-      this.removeEvents(polygons)
+      this.removeEvents(polygons, 'polygons')
       map.remove(polygons)
       this.polygonInstanceList = []
     },
