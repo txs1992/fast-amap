@@ -138,6 +138,7 @@ export default {
 
   data() {
     return {
+      zoomEnded: false,
       mapLoaded: false
     }
   },
@@ -179,6 +180,11 @@ export default {
     handleEvents(event) {
       if (event.type === 'complete') {
         this.mapLoaded = true
+        console.log('complete')
+      }
+      if (event.type === 'zoomend') {
+        this.zoomEnded = true
+        console.log('zoomEnded')
       }
       this.$emit(event.type, event, this.getMapInstance(this.mid))
     },

@@ -44,7 +44,13 @@ export default {
       this.$emit(event.type, event, this.getMapInstance(this.mid))
     },
 
-    removeEvents(instanceList, name) {
+    addEvents(instance, events) {
+      events.forEach(evnet => {
+        instance.on(evnet, this.handleEvents)
+      })
+    },
+
+    removeEvents(instanceList, events, name) {
       if (Array.isArray(instanceList)) {
         instanceList.forEach(instance => {
           events.forEach(evnet => {

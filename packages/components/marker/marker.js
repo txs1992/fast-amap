@@ -93,12 +93,75 @@ export default {
       this.markerInstanceList.forEach(instance => instance.hide())
     },
 
-    getAllPolygons() {
+    getAllMarkers() {
       return this.markerInstanceList
+    },
+
+    clearAll() {
+      const { mid, markerInstanceList: markers } = this
+      const map = this.getMapInstance(mid)
+      this.removeEvents(markers, events, 'polygons')
+      map.remove(markers)
+      this.markerInstanceList = []
+    },
+
+    getMarkerByProp(propName, propValue) {
+      return this.markerInstanceList.find(
+        it => it.dataOptions[propName] === propValue
+      )
+    },
+
+    getMarkerByProps(propName, propValues) {
+      if (!Array.isArray(propValues)) {
+        warn('propValues is an array.')
+        return
+      }
+      const serarhMap = {}
+      this.markerInstanceList.forEach(instance => {
+        const data = instance.dataOptions
+        serarhMap[data[propName]] = instance
+      })
+      return propValues.map(it => serarhMap[it])
+    },
+
+    removeMarkers(markers) {
+      const { mid, markerInstanceList: list } = this
+      const map = this.getMapInstance(mid)
+      this.removeEvents(markers, events, 'markers')
+      map.remove(markers)
+      markers.forEach(marker => {
+        const index = list.indexOf(marker)
+        if (index > -1) {
+          list.splice(index, 1)
+        }
+      })
+    },
+
+    addMarkers(options, beforeCreatePolygon) {
+      const propsOption = this.getPropsOptions()
+      const map = this.getMapInstance(this.mid)
+      const markerOptions = []
+
+      options.forEach((option, index) => {
+        const mergeOption = {
+          ...propsOption,
+          ...option
+        }
+
+        const markerOption = beforeCreatePolygon
+          ? beforeCreatePolygon(mergeOption, index)
+          : mergeOption
+
+        const marker = this.createMarker(markerOption)
+        markerOptions.push(marker)
+      })
+      map.add(markerOptions)
+      this.markerInstanceList = this.markerInstanceList.concat(markerOptions)
     },
 
     handleOptionsChange() {
       this.getAMapPromise().then(() => {
+        this.clearAll()
         const map = this.getMapInstance(this.mid)
         const options = this.getPolygonOptions()
         options.forEach(option => {
