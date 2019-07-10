@@ -102,7 +102,7 @@ export default {
     },
 
     getAllMarkers() {
-      return this.markerInstanceList
+      return this.markerInstanceList.slice(0)
     },
 
     clearAll() {

@@ -16,7 +16,7 @@ FastMarker 组件的简单使用示例，请将自定义数据放在 options 参
 ### 综合示例
 
 :::tip
-使用 FastMarker 组件提供的一些方法可以应对一些特殊需求，使用这些方法不会导致 vue 重新渲染，请注意通过方法获取的 marker 实例，不要被 Vue 绑定否则会有性能影响。
+使用 FastMarker 组件提供的一些方法可以应对一些特殊需求，使用这些方法不会导致 Vue 重新渲染，请注意通过方法获取的 marker 实例，不要被 Vue 绑定否则会有性能影响。
 :::
 
 <iframe height="565" style="width: 100%;" scrolling="no" title="fast-marker 示例" src="//codepen.io/taoxusheng/embed/ydQqym/?height=565&theme-id=dark,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
@@ -92,7 +92,7 @@ markder 组件的事件对象中可以获取 options 中的自定义属性数据
 | hideAll | - | - | 隐藏当前组件所有的 marker 实例 |
 | showAll | - | - | 显示当前组件所有的 marker 实例 |
 | clearAll | - | - | 清空当前组件所有的 marker 实例 |
-| removeMarkers   |        Array        |   -    | 删除传入的 marker 实例，该方法不会导致 vue 重新渲染|
+| removeMarkers   | markers, propName |   -    | 删除传入的 markers 实例，该方法不会导致 vue 重新渲染，propName 是每个 marker 实例 options 中的唯一值，例如 id, key 它用来做查询优化，请保证每个实例 options 中的 propName 值都是唯一的，如果传入该参数将会大大优化性能。 |
 | getAllMarkers  |          -          | Array  | 获取当前组件所有的 marker 实例               |
 | getMarkerByProp | propName, propValue |   -    | 根据传入的属性名称与值查找对应的 marker 实例 |
 | getMarkersByProps | propName, propValues |   -    | 根据传入的属性名称与值的数组查找对应的 marker 实例数组，该方法对遍历做了优化，建议使用该方法获取 marker 数组 |
