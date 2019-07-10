@@ -22,6 +22,8 @@ export default {
     content: [String, Object],
     draggable: Boolean,
     clickable: Boolean,
+    isItemIcon: Boolean,
+    isItemOffset: Boolean,
     raiseOnDrag: Boolean,
     topWhenClick: Boolean,
     autoRotation: Boolean,
@@ -187,7 +189,12 @@ export default {
       }
     },
 
-    addMarkers(options, beforeCreatePolygon) {
+    addMarkers(
+      options,
+      isItemIcon = false,
+      isItemOffset = false,
+      beforeCreatePolygon
+    ) {
       if (!Array.isArray(options)) {
         warn('options is not an Array.')
         return
@@ -196,10 +203,24 @@ export default {
       const map = this.getMapInstance(this.mid)
       const markerOptions = []
 
+      let iconInstance = propsOptions.icon
+      let offsetInstance = propsOptions.offset
+
       options.forEach((option, index) => {
+        // 如果 icon 与 offset 是独立的，那么就为每一个 marker options 都创建一次
+        if (isItemIcon && typeof iconInstance === 'object') {
+          iconInstance = this.createIcon(iconInstance)
+        }
+
+        if (isItemOffset) {
+          offsetInstance = this.createIcon(offsetInstance)
+        }
+
         const mergeOption = {
           ...propsOption,
-          ...option
+          ...option,
+          icon: iconInstance,
+          offset: offsetInstance
         }
 
         const markerOption = beforeCreatePolygon
@@ -226,14 +247,57 @@ export default {
       })
     },
 
-    createMarker(option) {
-      if (!Array.isArray(option.offset)) {
-        warn('offset is not an Array.')
+    createIcon(icon) {
+      const AMap = this.getAMapInstance()
+      const { size, image, imageOffset, imageSize } = icon
+
+      let sizeOption
+      let imageSizeOption
+
+      const imageOffsetOption = this.createOffset(
+        imageOffset,
+        'Icon imageOffset'
+      )
+
+      if (!size) {
+        sizeOption = new AMap.Size(36, 36)
+      } else if (!Array.isArray(size)) {
+        warn('Icon size is not an Array, The default value will be taken here.')
+        sizeOption = new AMap.Size(36, 36)
+      } else {
+        const [sizeX, sizeY] = size
+        sizeOption = new AMap.Size(sizeX, sizeY)
+      }
+
+      if (Array.isArray(imageSize)) {
+        const [sizeX, sizeY] = imageSize
+        imageSizeOption = new AMap.Size(sizeX, sizeY)
+      } else {
+        warn('Icon imageSize is not an Array.')
+      }
+
+      const options = {
+        size: sizeOption,
+        imageOffset: imageOffsetOption,
+        imageSize: imageSizeOption
+      }
+
+      const mergetOption = image ? { ...options, image } : options
+      return new AMap.Icon(mergetOption)
+    },
+
+    createOffset(offset, name = 'offset') {
+      if (!Array.isArray(offset)) {
+        warn(`${name} is not an Array.`)
         return
       }
-      const [x, y] = option.offset
+
+      const [x, y] = offset
+      return new AMap.Pixel(x, y)
+    },
+
+    createMarker(option) {
       const AMap = this.getAMapInstance()
-      option.offset = new AMap.Pixel(x, y)
       const marker = new AMap.Marker(cloneDeep(option))
 
       // 注册无法通过 addEvents 添加的事件
@@ -263,18 +327,34 @@ export default {
         draggable,
         clickable,
         animation,
+        isItemIcon,
         raiseOnDrag,
         topWhenClick,
+        isItemOffset,
         autoRotation
       } = this
 
+      let iconInstance = icon
+      let offsetInstance = offset
+
+      // 如果 icon 是一个对象，并且不是每个 marker 独立的配置
+      // 那么就创建公共的 icon 实例
+      if (typeof icon === 'object' && !isItemIcon) {
+        iconInstance = this.createIcon(icon)
+      }
+
+      // 如果不是独立的 offset，就创建公共的 offset
+      if (!isItemOffset) {
+        offsetInstance = this.createOffset(offset)
+      }
+
       return {
-        icon,
+        icon: iconInstance,
         title,
         label,
         angle,
         shape,
-        offset,
+        offset: offsetInstance,
         shadow,
         cursor,
         bubble,
@@ -292,16 +372,37 @@ export default {
     },
 
     getPolygonOptions() {
-      const { position, options, beforeCreatePolygon } = this
-      const propsOptions = this.getPropsOptions()
+      const {
+        options,
+        position,
+        isItemIcon,
+        isItemOffset,
+        beforeCreatePolygon
+      } = this
 
       const markerOptions = []
 
+      const propsOptions = this.getPropsOptions()
+
+      let iconInstance = propsOptions.icon
+      let offsetInstance = propsOptions.offset
+
       options.forEach((option, index) => {
+        // 如果 icon 与 offset 是独立的，那么就为每一个 marker options 都创建一次
+        if (isItemIcon && typeof iconInstance === 'object') {
+          iconInstance = this.createIcon(iconInstance)
+        }
+
+        if (isItemOffset) {
+          offsetInstance = this.createIcon(offsetInstance)
+        }
+
         const mergeOption = {
           ...propsOptions,
           position: position[index],
-          ...option
+          ...option,
+          icon: iconInstance,
+          offset: offsetInstance
         }
 
         const markerOption = beforeCreatePolygon
