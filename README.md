@@ -3,8 +3,8 @@
 </h1>
 
 <p align="center">
-  <a href="https://img.shields.io/travis/txs1992/fast-amap.svg">
-    <img src="https://img.shields.io/travis/txs1992/fast-amap.svg" />
+  <a href="https://travis-ci.com/txs1992/fast-amap.svg?branch=master">
+    <img src="https://travis-ci.com/txs1992/fast-amap.svg?branch=master" />
   </a>
   <a href="https://img.shields.io/npm/dt/fast-amap.svg">
     <img src="https://img.shields.io/npm/dt/fast-amap.svg" />

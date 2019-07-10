@@ -203,8 +203,8 @@ export default {
       const map = this.getMapInstance(this.mid)
       const markerOptions = []
 
-      let iconInstance = propsOptions.icon
-      let offsetInstance = propsOptions.offset
+      let iconInstance = propsOption.icon
+      let offsetInstance = propsOption.offset
 
       options.forEach((option, index) => {
         // 如果 icon 与 offset 是独立的，那么就为每一个 marker options 都创建一次
@@ -291,6 +291,7 @@ export default {
         warn(`${name} is not an Array.`)
         return
       }
+      const AMap = this.getAMapInstance()
 
       const [x, y] = offset
       return new AMap.Pixel(x, y)
