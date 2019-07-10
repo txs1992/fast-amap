@@ -1,50 +1,29 @@
 <template>
   <div class="page-polygon">
     <fast-map
-      mid="polygons"
       ref="map"
-      :zoom="14"
+      mid="polygons"
+      :zoom="15"
+      :center="[121.472644, 31.231049]"
       :double-click-zoom="false"
       @complete="handleComplete"
     >
       <fast-polygon
-        draggable
         ref="polygon"
-        mid="polygons"
-        :options="polygons"
-        :z-index="50"
-        @click="handlePolygonClick"
-      ></fast-polygon>
-      <fast-polygon
-        ref="polygon2"
         draggable
         mid="polygons"
-        :options="polygons"
+        :options="polygonoOptionsOne"
         :z-index="50"
         @click="handlePolygonClick"
       ></fast-polygon>
-      <button style="pointer-events: auto" @click="rerenderPolygon">
-        rerender Polygon
-      </button>
-      <button style="pointer-events: auto" @click="clearAll">clearAll</button>
-      <button style="pointer-events: auto" @click="removePolygon">
-        remove Polygon
-      </button>
-      <button style="pointer-events: auto" @click="findPolygon">
-        find polygon
-      </button>
-      <button style="pointer-events: auto" @click="findPolygons">
-        find polygon list
-      </button>
-      <button style="pointer-events: auto" @click="hidePolygons">
-        hide polygon list
-      </button>
-      <button style="pointer-events: auto" @click="showPolygons">
-        show polygon list
-      </button>
-      <button style="pointer-events: auto" @click="addPolygons">
-        add polygon list
-      </button>
+      <button style="pointer-events: auto" @click="rerenderPolygon">渲染 2000 个</button>
+      <button style="pointer-events: auto;" @click="getAllPolygons">获取组件所有 polygon</button>
+      <button style="pointer-events: auto;" @click="removePolygons">删除一组 polygon</button>
+      <button style="pointer-events: auto;" @click="findPolygon">查询指定 polygon</button>
+      <button style="pointer-events: auto" @click="findPolygons">查询 polygon 数组</button>
+      <button style="pointer-events: auto" @click="hidePolygons">隐藏组件所有 polygon</button>
+      <button style="pointer-events: auto" @click="showPolygons">显示组件所有 polygon</button>
+      <button style="pointer-events: auto" @click="addPolygons">添加 polygon 数组</button>
     </fast-map>
   </div>
 </template>
@@ -53,27 +32,21 @@
 export default {
   data() {
     return {
-      polygons: [
+      msg: 'hello fast amap',
+      polygonoOptionsOne: [
         {
           myData: 123,
           path: [
-            [121.472644, 31.231049],
-            [121.482644, 31.231049],
-            [121.482644, 31.241049],
-            [121.472644, 31.231049]
+            [121.442644, 31.231049],
+            [121.452644, 31.231049],
+            [121.452644, 31.241049],
+            [121.442644, 31.231049]
           ]
-        },
+        }
+      ],
+      polygonoOptionsTwo: [
         {
           myData: 456,
-          path: [
-            [121.472644, 31.231049],
-            [121.482644, 31.231049],
-            [121.482644, 31.241049],
-            [121.472644, 31.231049]
-          ]
-        },
-        {
-          myData: 789,
           path: [
             [121.472644, 31.231049],
             [121.482644, 31.231049],
@@ -86,31 +59,20 @@ export default {
   },
 
   methods: {
-    handlePolygonClick(event) {
-      console.log('handlePolygonClick', event)
-    },
-
     handleComplete() {
-      console.log('handleComplete')
-    },
-
-    clearAll() {
-      this.$refs.polygon.clearAll()
-      this.$refs.polygon2.clearAll()
-    },
-
-    findPolygon() {
-      console.log(
-        'findPolygon: ',
-        this.$refs.polygon.getPolygonByProp('myData', 123)
-      )
+      console.log('map complete', this.$refs.map.getMapInstance())
     },
 
     findPolygons() {
-      console.log(
-        'findPolygons: ',
-        this.$refs.polygon.getPolygonByProps('myData', [123, 789])
-      )
+      this.$refs.polygon.getPolygonByProps('myData', [123, 789])
+    },
+
+    hidePolygons() {
+      this.$refs.polygon.hideAll()
+    },
+
+    showPolygons() {
+      this.$refs.polygon.showAll()
     },
 
     addPolygons() {
@@ -139,22 +101,25 @@ export default {
       this.$refs.polygon.addPolygons(options)
     },
 
-    hidePolygons() {
-      this.$refs.polygon.hideAll()
-    },
-
-    showPolygons() {
-      this.$refs.polygon.showAll()
-    },
-
-    removePolygon() {
+    removePolygons() {
       const instance = this.$refs.polygon
       const polygons = instance.getAllPolygons()
       instance.removePolygons(polygons)
     },
 
+    findPolygon() {
+      this.$refs.polygon.getPolygonByProp('myData', 123)
+    },
+
+    getAllPolygons() {
+      this.$refs.polygon.getAllPolygons()
+    },
+
+    handlePolygonClick(event) {
+      console.log('handlePolygonClick', event.target.dataOptions)
+    },
+
     rerenderPolygon() {
-      console.time('test')
       const list = []
       for (let i = 0; i < 2000; i++) {
         let num = 0.01 * i
@@ -167,8 +132,7 @@ export default {
           ]
         })
       }
-      this.polygons = list
-      console.timeEnd('test')
+      this.polygonoOptionsOne = list
     }
   }
 }
