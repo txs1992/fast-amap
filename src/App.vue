@@ -3,6 +3,7 @@
     <div class="menus">
       <router-link to="/">Map</router-link>
       <router-link to="/marker">Marker</router-link>
+      <router-link to="/icon">Icon</router-link>
       <router-link to="/polygon">Polygon</router-link>
     </div>
     <div class="container">
