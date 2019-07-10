@@ -111,7 +111,7 @@ export default {
       this.removeEvents(markers, events, 'polygons')
 
       // 删除无法通过 addEvents 注册的事件。
-      this.removeNotEvnetObjectEvnets()
+      this.removeNotEvnetObjectEvnets(markers)
 
       map.remove(markers)
       this.markerInstanceList = []
@@ -142,19 +142,26 @@ export default {
       return searchList
     },
 
-    removeNotEvnetObjectEvnets() {
+    removeNotEvnetObjectEvnets(markers) {
       // 删除无法通过 addEvents 注册的事件。
-      this.markerInstanceList.forEach(marker => {
+      markers.forEach(marker => {
         marker.off('moveend', this.handleMoveendEvent)
         marker.off('movealong', this.handleMovealongEvent)
       })
     },
 
     removeMarkers(markers) {
+      if (!Array.isArray(markers)) {
+        warn('markers is not an Array.')
+        return
+      }
+
       const { mid, markerInstanceList: list } = this
       const map = this.getMapInstance(mid)
+
       this.removeEvents(markers, events, 'markers')
-      this.removeNotEvnetObjectEvnets()
+      this.removeNotEvnetObjectEvnets(markers)
+
       map.remove(markers)
       markers.forEach(marker => {
         const index = list.indexOf(marker)
@@ -165,6 +172,10 @@ export default {
     },
 
     addMarkers(options, beforeCreatePolygon) {
+      if (!Array.isArray(options)) {
+        warn('options is not an Array.')
+        return
+      }
       const propsOption = this.getPropsOptions()
       const map = this.getMapInstance(this.mid)
       const markerOptions = []

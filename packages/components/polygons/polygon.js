@@ -91,17 +91,23 @@ export default {
       return searchList
     },
 
-    removeChangeEvents() {
-      this.polygonInstanceList.forEach(polygon => {
+    removeChangeEvents(polygons) {
+      polygons.forEach(polygon => {
         polygon.off('change', this.handleChangeEvnet)
       })
     },
 
     removePolygons(polygons) {
+      if (!Array.isArray(polygons)) {
+        warn('polygons is not an Array.')
+        return
+      }
       const { mid, polygonInstanceList } = this
       const map = this.getMapInstance(mid)
-      this.removeChangeEvents()
+
+      this.removeChangeEvents(polygons)
       this.removeEvents(polygons, events, 'polygons')
+
       map.remove(polygons)
       polygons.forEach(polygon => {
         const index = polygonInstanceList.indexOf(polygon)
@@ -123,6 +129,10 @@ export default {
     },
 
     addPolygons(options, beforeCreatePolygon) {
+      if (!Array.isArray(options)) {
+        warn('options is not an Array.')
+        return
+      }
       const propsOption = this.getPropsOptions()
       const map = this.getMapInstance(this.mid)
       const polygonOptions = []
@@ -147,7 +157,7 @@ export default {
     clearAll() {
       const { mid, polygonInstanceList: polygons } = this
       const map = this.getMapInstance(mid)
-      this.removeChangeEvents()
+      this.removeChangeEvents(polygons)
       this.removeEvents(polygons, events, 'polygons')
       map.remove(polygons)
       this.polygonInstanceList = []
