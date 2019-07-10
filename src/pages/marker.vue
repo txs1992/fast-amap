@@ -77,7 +77,7 @@ export default {
         list.push(i)
       }
       const markers = this.$refs.marker.getMarkerByProps('myData', list)
-      this.$refs.marker.removeMarkers(markers)
+      this.$refs.marker.removeMarkers(markers, 'myData')
       console.log('delete markers for: ', markers)
     },
 

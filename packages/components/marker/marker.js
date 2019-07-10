@@ -129,15 +129,15 @@ export default {
         return
       }
 
-      const serarhMap = {}
+      const searchMap = {}
       this.markerInstanceList.forEach(instance => {
         const data = instance.dataOptions
-        serarhMap[data[propName]] = instance
+        searchMap[data[propName]] = instance
       })
 
       const searchList = []
       propValues.forEach(v => {
-        if (serarhMap[v]) searchList.push(serarhMap[v])
+        if (searchMap[v]) searchList.push(searchMap[v])
       })
       return searchList
     },
@@ -150,7 +150,7 @@ export default {
       })
     },
 
-    removeMarkers(markers) {
+    removeMarkers(markers, propName) {
       if (!Array.isArray(markers)) {
         warn('markers is not an Array.')
         return
@@ -163,12 +163,28 @@ export default {
       this.removeNotEvnetObjectEvnets(markers)
 
       map.remove(markers)
-      markers.forEach(marker => {
-        const index = list.indexOf(marker)
-        if (index > -1) {
-          list.splice(index, 1)
-        }
-      })
+
+      if (propName) {
+        const searchMap = {}
+
+        list.forEach((item, index) => {
+          searchMap[item.dataOptions[propName]] = index
+        })
+
+        markers.forEach(marker => {
+          const index = searchMap[marker.dataOptions[propName]]
+          if (index > -1) {
+            list.splice(index, 1)
+          }
+        })
+      } else {
+        markers.forEach(marker => {
+          const index = list.indexOf(marker)
+          if (index > -1) {
+            list.splice(index, 1)
+          }
+        })
+      }
     },
 
     addMarkers(options, beforeCreatePolygon) {

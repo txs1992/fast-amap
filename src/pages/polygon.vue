@@ -104,7 +104,7 @@ export default {
     removePolygons() {
       const instance = this.$refs.polygon
       const polygons = instance.getAllPolygons()
-      instance.removePolygons(polygons)
+      instance.removePolygons(polygons, 'myData')
     },
 
     findPolygon() {
