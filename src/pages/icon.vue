@@ -40,6 +40,10 @@ export default {
       markerOptions: [
         {
           myData: 1,
+          position: [121.462644, 31.231049]
+        },
+        {
+          myData: 2,
           position: [121.472644, 31.231049]
         }
       ]
