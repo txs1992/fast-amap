@@ -18,28 +18,14 @@
         :options="markerOptions"
         @click="handleMarkerClick"
       ></fast-marker>
-      <button style="pointer-events: auto" @click="renderMarker">
-        rerender Marker
-      </button>
+      <button style="pointer-events: auto" @click="renderMarker">rerender Marker</button>
       <button style="pointer-events: auto" @click="clearAll">clearAll</button>
-      <button style="pointer-events: auto" @click="removeMarkers">
-        remove Markers
-      </button>
-      <button style="pointer-events: auto" @click="findMarker">
-        find Marker
-      </button>
-      <button style="pointer-events: auto" @click="findMarkers">
-        find Marker list
-      </button>
-      <button style="pointer-events: auto" @click="hideMarkers">
-        hide Marker list
-      </button>
-      <button style="pointer-events: auto" @click="showMarkers">
-        show Marker list
-      </button>
-      <button style="pointer-events: auto" @click="addMarkers">
-        add Marker list
-      </button>
+      <button style="pointer-events: auto" @click="removeMarkers">remove Markers</button>
+      <button style="pointer-events: auto" @click="findMarker">find Marker</button>
+      <button style="pointer-events: auto" @click="findMarkers">find Marker list</button>
+      <button style="pointer-events: auto" @click="hideMarkers">hide Marker list</button>
+      <button style="pointer-events: auto" @click="showMarkers">show Marker list</button>
+      <button style="pointer-events: auto" @click="addMarkers">add Marker list</button>
     </fast-map>
   </div>
 </template>
@@ -91,7 +77,7 @@ export default {
         list.push(i)
       }
       const markers = this.$refs.marker.getMarkerByProps('myData', list)
-      this.$refs.marker.removeMarkers(markers)
+      this.$refs.marker.removeMarkers(markers, 'myData')
       console.log('delete markers for: ', markers)
     },
 

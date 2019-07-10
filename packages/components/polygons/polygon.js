@@ -78,37 +78,59 @@ export default {
         return
       }
 
-      const serarhMap = {}
+      const searchMap = {}
       this.polygonInstanceList.forEach(instance => {
         const data = instance.dataOptions
-        serarhMap[data[propName]] = instance
+        searchMap[data[propName]] = instance
       })
 
       const searchList = []
       propValues.forEach(v => {
-        if (serarhMap[v]) searchList.push(serarhMap[v])
+        if (searchMap[v]) searchList.push(searchMap[v])
       })
       return searchList
     },
 
-    removeChangeEvents() {
-      this.polygonInstanceList.forEach(polygon => {
+    removeChangeEvents(polygons) {
+      polygons.forEach(polygon => {
         polygon.off('change', this.handleChangeEvnet)
       })
     },
 
-    removePolygons(polygons) {
-      const { mid, polygonInstanceList } = this
+    removePolygons(polygons, propName) {
+      if (!Array.isArray(polygons)) {
+        warn('polygons is not an Array.')
+        return
+      }
+      const { mid, polygonInstanceList: list } = this
       const map = this.getMapInstance(mid)
-      this.removeChangeEvents()
+
+      this.removeChangeEvents(polygons)
       this.removeEvents(polygons, events, 'polygons')
+
       map.remove(polygons)
-      polygons.forEach(polygon => {
-        const index = polygonInstanceList.indexOf(polygon)
-        if (index > -1) {
-          polygonInstanceList.splice(index, 1)
-        }
-      })
+
+      if (propName) {
+        const searchMap = {}
+
+        list.forEach((item, index) => {
+          searchMap[item.dataOptions[propName]] = index
+        })
+
+        polygons.forEach(polygon => {
+          const index = searchMap[polygon.dataOptions[propName]]
+          if (index > -1) {
+            list.splice(index, 1)
+          }
+        })
+      } else {
+        polygons.forEach(polygon => {
+          const index = list.indexOf(polygon)
+          if (index > -1) {
+            list.splice(index, 1)
+          }
+        })
+      }
     },
 
     createPolygon(option) {
@@ -123,6 +145,10 @@ export default {
     },
 
     addPolygons(options, beforeCreatePolygon) {
+      if (!Array.isArray(options)) {
+        warn('options is not an Array.')
+        return
+      }
       const propsOption = this.getPropsOptions()
       const map = this.getMapInstance(this.mid)
       const polygonOptions = []
@@ -147,7 +173,7 @@ export default {
     clearAll() {
       const { mid, polygonInstanceList: polygons } = this
       const map = this.getMapInstance(mid)
-      this.removeChangeEvents()
+      this.removeChangeEvents(polygons)
       this.removeEvents(polygons, events, 'polygons')
       map.remove(polygons)
       this.polygonInstanceList = []
