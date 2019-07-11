@@ -86,6 +86,10 @@ export default {
     }
   },
 
+  beforeDestroy() {
+    this.clearAll()
+  },
+
   methods: {
     handleMoveendEvent() {
       this.$emit('moveend')
@@ -213,7 +217,7 @@ export default {
         }
 
         if (isItemOffset) {
-          offsetInstance = this.createIcon(offsetInstance)
+          offsetInstance = this.createOffset(offsetInstance)
         }
 
         const mergeOption = {
