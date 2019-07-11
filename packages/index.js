@@ -1,4 +1,5 @@
 import FastMap from './components/map/index'
+import FastText from './components/text/index'
 import FastMarker from './components/marker/index'
 import FastPolygons from './components/polygons/index'
 
@@ -7,7 +8,9 @@ import mapLoader, { mapOptionLoader } from './utils/map-loader'
 import MapRegistry from './utils/map-instance-registry'
 
 function install(Vue) {
-  ;[FastMap, FastMarker, FastPolygons].forEach(cpt => cpt.install(Vue))
+  ;[FastMap, FastText, FastMarker, FastPolygons].forEach(cpt =>
+    cpt.install(Vue)
+  )
 }
 
 const registry = MapRegistry.getRegistryInstance()
