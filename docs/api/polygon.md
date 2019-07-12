@@ -54,7 +54,6 @@ Polygon 组件的事件对象中可以获取 options 中的自定义属性数据
 | 事件       |                                      参数                                      | 说明                                     |
 | ---------- | :----------------------------------------------------------------------------: | ---------------------------------------- |
 | click      | [MapsEvent](https://lbs.amap.com/api/javascript-api/reference/event#MapsEvent) | 鼠标左键单击事件                         |
-| click      |                                   MapsEvent                                    | 鼠标左键单击事件                         |
 | dblclick   |                                   MapsEvent                                    | 鼠标左键双击事件                         |
 | rightclick |                                   MapsEvent                                    | 右键单击                                 |
 | hide       |                                 {type, target}                                 | 隐藏                                     |
@@ -82,7 +81,7 @@ Polygon 组件的事件对象中可以获取 options 中的自定义属性数据
 | hideAll | - | - | 隐藏当前组件所有的 polygon 实例 |
 | showAll | - | - | 显示当前组件所有的 polygon 实例 |
 | clearAll | - | - | 清空当前组件所有的 polygon 实例 |
-| removePolygons   | polygons, propName |   -    | 删除传入的 polygon 实例，该方法不会导致 vue 重新渲染，propName 是每个 polygon 实例 options 中的唯一值，例如 id, key 它用来做查询优化，请保证每个实例 options 中的 propName 值都是唯一的，如果传入该参数将会大大优化性能。|
+| removePolygons   | polygons, propName |   -    | 删除传入的 polygon 实例数组，该方法不会导致 vue 重新渲染，propName 是每个 polygon 实例 options 中的唯一值，例如 id, key 它用来做查询优化，请保证每个实例 options 中的 propName 值都是唯一的，如果传入该参数将会大大优化性能。|
 | getAllPolygons   |          -          | Array  | 获取当前组件所有的 polygon 实例               |
 | getPolygonByProp | propName, propValue |   -    | 根据传入的属性名称与值查找对应的 polygon 实例 |
 | getPolygonByProps | propName, propValues |   -    | 根据传入的属性名称与值的数组查找对应的 polygon 实例数组，该方法对遍历做了优化，建议使用该方法获取 polygon 数组 |

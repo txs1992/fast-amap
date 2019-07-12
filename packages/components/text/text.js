@@ -96,6 +96,10 @@ export default {
       })
     },
 
+    getAllTexts() {
+      return this.textInstanceList.slice(0)
+    },
+
     showAll() {
       this.textInstanceList.forEach(text => text.show())
     },
