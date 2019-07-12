@@ -217,7 +217,7 @@ export default {
         }
 
         if (isItemOffset) {
-          offsetInstance = this.createOffset(offsetInstance)
+          offsetInstance = this.$_amapMixin_createOffset(offsetInstance)
         }
 
         const mergeOption = {
@@ -258,7 +258,7 @@ export default {
       let sizeOption
       let imageSizeOption
 
-      const imageOffsetOption = this.createOffset(
+      const imageOffsetOption = this.$_amapMixin_createOffset(
         imageOffset,
         'Icon imageOffset'
       )
@@ -288,17 +288,6 @@ export default {
 
       const mergetOption = image ? { ...options, image } : options
       return new AMap.Icon(mergetOption)
-    },
-
-    createOffset(offset, name = 'offset') {
-      if (!Array.isArray(offset)) {
-        warn(`${name} is not an Array.`)
-        return
-      }
-      const AMap = this.getAMapInstance()
-
-      const [x, y] = offset
-      return new AMap.Pixel(x, y)
     },
 
     createMarker(option) {
@@ -350,7 +339,7 @@ export default {
 
       // 如果不是独立的 offset，就创建公共的 offset
       if (!isItemOffset) {
-        offsetInstance = this.createOffset(offset)
+        offsetInstance = this.$_amapMixin_createOffset(offset)
       }
 
       return {

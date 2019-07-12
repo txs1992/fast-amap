@@ -33,6 +33,23 @@ export default {
       return registry.getMap(mid || this.mid)
     },
 
+    $_amapMixin_createOffset(offset, name = 'offset') {
+      if (!Array.isArray(offset)) {
+        warn(`${name} is not an Array.`)
+        return
+      }
+      const AMap = this.getAMapInstance()
+
+      const [x, y] = offset
+      let offsetPixel = null
+      try {
+        offsetPixel = new AMap.Pixel(x, y)
+      } catch (e) {
+        warn(`${name} creation failed.`, e)
+      }
+      return offsetPixel
+    },
+
     $_amapMixin_setMapInstance(mid, instance) {
       registry.setMap(mid, instance)
     },

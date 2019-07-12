@@ -145,20 +145,17 @@ export default {
       const propsOption = this.getPropsOptions()
       const map = this.getMapInstance(this.mid)
       const textOptions = []
-
-      let iconInstance = propsOption.icon
       let offsetInstance = propsOption.offset
 
       options.forEach((option, index) => {
         // 如果 offset 是独立的，那么就为每一个 text options 都创建一次
         if (isItemOffset) {
-          offsetInstance = this.createOffset(offsetInstance)
+          offsetInstance = this.$_amapMixin_createOffset(offsetInstance)
         }
 
         const mergeOption = {
           ...propsOption,
           ...option,
-          icon: iconInstance,
           offset: offsetInstance
         }
 
@@ -237,23 +234,6 @@ export default {
       return text
     },
 
-    createOffset(offset, name = 'offset') {
-      if (!Array.isArray(offset)) {
-        warn(`${name} is not an Array.`)
-        return
-      }
-      const AMap = this.getAMapInstance()
-
-      const [x, y] = offset
-      let offsetPixel = null
-      try {
-        offsetPixel = new AMap.Pixel(x, y)
-      } catch (e) {
-        warn(`${name} creation failed.`, e)
-      }
-      return offsetPixel
-    },
-
     getPropsOptions() {
       const {
         text,
@@ -283,7 +263,7 @@ export default {
 
       // 如果不是独立的 offset，就创建公共的 offset
       if (!isItemOffset) {
-        offsetInstance = this.createOffset(offset)
+        offsetInstance = this.$_amapMixin_createOffset(offset)
       }
 
       return {
@@ -322,7 +302,7 @@ export default {
       options.forEach((option, index) => {
         // 如果 offset 是独立的，那么就为每一个 text options 都创建一次
         if (isItemOffset) {
-          offsetInstance = this.createOffset(offsetInstance)
+          offsetInstance = this.$_amapMixin_createOffset(offsetInstance)
         }
 
         const mergeOption = {
