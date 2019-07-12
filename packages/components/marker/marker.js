@@ -114,7 +114,7 @@ export default {
     clearAll() {
       const { mid, markerInstanceList: markers } = this
       const map = this.getMapInstance(mid)
-      this.removeEvents(markers, events, 'polygons')
+      this.removeEvents(markers, events, 'markers')
 
       // 删除无法通过 addEvents 注册的事件。
       this.removeNotEvnetObjectEvnets(markers)
