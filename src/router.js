@@ -5,6 +5,7 @@ const routes = [
   { path: '/', component: () => import('./pages/map.vue') },
   { path: '/marker', component: () => import('./pages/marker.vue') },
   { path: '/icon', component: () => import('./pages/icon.vue') },
+  { path: '/text', component: () => import('./pages/text.vue') },
   { path: '/polygon', component: () => import('./pages/polygon.vue') }
 ]
 

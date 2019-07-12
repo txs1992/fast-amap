@@ -86,6 +86,10 @@ export default {
     }
   },
 
+  beforeDestroy() {
+    this.clearAll()
+  },
+
   methods: {
     handleMoveendEvent() {
       this.$emit('moveend')
@@ -110,9 +114,9 @@ export default {
     clearAll() {
       const { mid, markerInstanceList: markers } = this
       const map = this.getMapInstance(mid)
-      this.removeEvents(markers, events, 'polygons')
+      this.$_amapMixin_removeEvents(markers, events, 'markers')
 
-      // 删除无法通过 addEvents 注册的事件。
+      // 删除无法通过 $_amapMixin_addEvents 注册的事件。
       this.removeNotEvnetObjectEvnets(markers)
 
       map.remove(markers)
@@ -145,7 +149,7 @@ export default {
     },
 
     removeNotEvnetObjectEvnets(markers) {
-      // 删除无法通过 addEvents 注册的事件。
+      // 删除无法通过 $_amapMixin_addEvents 注册的事件。
       markers.forEach(marker => {
         marker.off('moveend', this.handleMoveendEvent)
         marker.off('movealong', this.handleMovealongEvent)
@@ -161,7 +165,7 @@ export default {
       const { mid, markerInstanceList: list } = this
       const map = this.getMapInstance(mid)
 
-      this.removeEvents(markers, events, 'markers')
+      this.$_amapMixin_removeEvents(markers, events, 'markers')
       this.removeNotEvnetObjectEvnets(markers)
 
       map.remove(markers)
@@ -173,10 +177,10 @@ export default {
           searchMap[item.dataOptions[propName]] = index
         })
 
-        markers.forEach(marker => {
+        markers.forEach((marker, len) => {
           const index = searchMap[marker.dataOptions[propName]]
           if (index > -1) {
-            list.splice(index, 1)
+            list.splice(index - len, 1)
           }
         })
       } else {
@@ -213,7 +217,7 @@ export default {
         }
 
         if (isItemOffset) {
-          offsetInstance = this.createIcon(offsetInstance)
+          offsetInstance = this.$_amapMixin_createOffset(offsetInstance)
         }
 
         const mergeOption = {
@@ -254,7 +258,7 @@ export default {
       let sizeOption
       let imageSizeOption
 
-      const imageOffsetOption = this.createOffset(
+      const imageOffsetOption = this.$_amapMixin_createOffset(
         imageOffset,
         'Icon imageOffset'
       )
@@ -286,26 +290,15 @@ export default {
       return new AMap.Icon(mergetOption)
     },
 
-    createOffset(offset, name = 'offset') {
-      if (!Array.isArray(offset)) {
-        warn(`${name} is not an Array.`)
-        return
-      }
-      const AMap = this.getAMapInstance()
-
-      const [x, y] = offset
-      return new AMap.Pixel(x, y)
-    },
-
     createMarker(option) {
       const AMap = this.getAMapInstance()
       const marker = new AMap.Marker(cloneDeep(option))
 
-      // 注册无法通过 addEvents 添加的事件
+      // 注册无法通过 $_amapMixin_addEvents 添加的事件
       marker.on('moveend', this.handleMoveendEvent)
       marker.on('movealong', this.handleMovealongEvent)
 
-      this.addEvents(marker, events)
+      this.$_amapMixin_addEvents(marker, events)
       marker.dataOptions = option
       return marker
     },
@@ -346,7 +339,7 @@ export default {
 
       // 如果不是独立的 offset，就创建公共的 offset
       if (!isItemOffset) {
-        offsetInstance = this.createOffset(offset)
+        offsetInstance = this.$_amapMixin_createOffset(offset)
       }
 
       return {

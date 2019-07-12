@@ -106,7 +106,7 @@ export default {
       const map = this.getMapInstance(mid)
 
       this.removeChangeEvents(polygons)
-      this.removeEvents(polygons, events, 'polygons')
+      this.$_amapMixin_removeEvents(polygons, events, 'polygons')
 
       map.remove(polygons)
 
@@ -117,10 +117,10 @@ export default {
           searchMap[item.dataOptions[propName]] = index
         })
 
-        polygons.forEach(polygon => {
+        polygons.forEach((polygon, len) => {
           const index = searchMap[polygon.dataOptions[propName]]
           if (index > -1) {
-            list.splice(index, 1)
+            list.splice(index - len, 1)
           }
         })
       } else {
@@ -137,9 +137,9 @@ export default {
       const AMap = this.getAMapInstance()
       const polygon = new AMap.Polygon(cloneDeep(option))
 
-      // 添加 addEvents 无法注册的事件
+      // 添加 $_amapMixin_addEvents 无法注册的事件
       polygon.on('change', this.handleChangeEvnet)
-      this.addEvents(polygon, events)
+      this.$_amapMixin_addEvents(polygon, events)
       polygon.dataOptions = option
       return polygon
     },
@@ -174,7 +174,7 @@ export default {
       const { mid, polygonInstanceList: polygons } = this
       const map = this.getMapInstance(mid)
       this.removeChangeEvents(polygons)
-      this.removeEvents(polygons, events, 'polygons')
+      this.$_amapMixin_removeEvents(polygons, events, 'polygons')
       map.remove(polygons)
       this.polygonInstanceList = []
     },
