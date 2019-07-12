@@ -110,3 +110,12 @@ markder 组件的事件对象中可以获取 options 中的自定义属性数据
 | getMarkerByProp   |                  propName, propValue                   |    -    | 根据传入的属性名称与值查找对应的 marker 实例                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | getMarkersByProps |                  propName, propValues                  |    -    | 根据传入的属性名称与值的数组查找对应的 marker 实例数组，该方法对遍历做了优化，建议使用该方法获取 marker 数组                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | addMarkers        | options, isItemIcon, isItemOffset, beforeCreatePolygon |    -    | options 是一个 marker 属性的数组，没有的属性会通过组件传递的属性获取。<br/><br/>isItemIcon 默认是 false, 当 isItemIcon 为 true 将会为 options 数组中每个对象的 icon 属性创建 Icon 实例，默认 fals 共用组件传入的 icon 属性所创建的 Icon 实例。 <br/><br/>isItemOffset 默认是 false, 当 isItemOffset 为 true 将会为 options 数组中每个对象的 offset 属性创建 Pixel 实例，默认 fals 共用组件传入的 offset 属性所创建的 Pixel 实例。 <br/><br/>beforeCreatePolygon 是一个可选的回调函数，默认可以不传递，可在创建 marker 之前调用，将 marker 属性传入其中，可以通过该方法处理自定义渲染。新增的 marker 数组会添加在组件中，此时 getAllMarkers 方法获取的数组中包含新增 marker，该方法不会导致 vue 重新渲染 |
+
+## Icon 属性
+
+| 属性 | 类型 | 默认值 | 说明 |
+| - | :-: | :-: | - |
+| size | Array | - | 图标尺寸，默认值 [36, 36] |
+| imageOffset | Array | - | 图标取图偏移量。当image中指定了一个大图时，可通过size和imageOffset配合，显示图标的指定范围。例如：[-13, -30] |
+| image | string | - | 图标的取图地址。默认为蓝色图钉图片 |
+| imageSize | Array | - | 图标所用图片大小，根据所设置的大小拉伸或压缩图片，等同于CSS中的background-size属性。可用于实现高清屏的高清效果。例如：[36, 36] |
