@@ -177,10 +177,10 @@ export default {
           searchMap[item.dataOptions[propName]] = index
         })
 
-        markers.forEach(marker => {
+        markers.forEach((marker, len) => {
           const index = searchMap[marker.dataOptions[propName]]
           if (index > -1) {
-            list.splice(index, 1)
+            list.splice(index - len, 1)
           }
         })
       } else {

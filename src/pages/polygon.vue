@@ -16,9 +16,10 @@
         :z-index="50"
         @click="handlePolygonClick"
       ></fast-polygon>
-      <button style="pointer-events: auto" @click="rerenderPolygon">渲染 2000 个</button>
+      <button style="pointer-events: auto" @click="rerenderPolygon">渲染 200 个</button>
       <button style="pointer-events: auto;" @click="getAllPolygons">获取组件所有 polygon</button>
       <button style="pointer-events: auto;" @click="removePolygons">删除一组 polygon</button>
+      <button style="pointer-events: auto;" @click="clearAll">删除所有 polygon</button>
       <button style="pointer-events: auto;" @click="findPolygon">查询指定 polygon</button>
       <button style="pointer-events: auto" @click="findPolygons">查询 polygon 数组</button>
       <button style="pointer-events: auto" @click="hidePolygons">隐藏组件所有 polygon</button>
@@ -67,6 +68,10 @@ export default {
       this.$refs.polygon.getPolygonByProps('myData', [123, 789])
     },
 
+    clearAll() {
+      this.$refs.polygon.clearAll()
+    },
+
     hidePolygons() {
       this.$refs.polygon.hideAll()
     },
@@ -103,7 +108,17 @@ export default {
 
     removePolygons() {
       const instance = this.$refs.polygon
-      const polygons = instance.getAllPolygons()
+      const polygons = instance.getPolygonByProps('myData', [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ])
       instance.removePolygons(polygons, 'myData')
     },
 
@@ -121,9 +136,10 @@ export default {
 
     rerenderPolygon() {
       const list = []
-      for (let i = 0; i < 2000; i++) {
+      for (let i = 0; i < 200; i++) {
         let num = 0.01 * i
         list.push({
+          myData: i,
           path: [
             [121.472644 + num, 31.231049 + num],
             [121.482644 + num, 31.231049 + num],

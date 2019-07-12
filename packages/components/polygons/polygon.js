@@ -117,10 +117,10 @@ export default {
           searchMap[item.dataOptions[propName]] = index
         })
 
-        polygons.forEach(polygon => {
+        polygons.forEach((polygon, len) => {
           const index = searchMap[polygon.dataOptions[propName]]
           if (index > -1) {
-            list.splice(index, 1)
+            list.splice(index - len, 1)
           }
         })
       } else {
