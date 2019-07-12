@@ -114,9 +114,9 @@ export default {
     clearAll() {
       const { mid, markerInstanceList: markers } = this
       const map = this.getMapInstance(mid)
-      this.removeEvents(markers, events, 'markers')
+      this.$_amapMixin_removeEvents(markers, events, 'markers')
 
-      // 删除无法通过 addEvents 注册的事件。
+      // 删除无法通过 $_amapMixin_addEvents 注册的事件。
       this.removeNotEvnetObjectEvnets(markers)
 
       map.remove(markers)
@@ -149,7 +149,7 @@ export default {
     },
 
     removeNotEvnetObjectEvnets(markers) {
-      // 删除无法通过 addEvents 注册的事件。
+      // 删除无法通过 $_amapMixin_addEvents 注册的事件。
       markers.forEach(marker => {
         marker.off('moveend', this.handleMoveendEvent)
         marker.off('movealong', this.handleMovealongEvent)
@@ -165,7 +165,7 @@ export default {
       const { mid, markerInstanceList: list } = this
       const map = this.getMapInstance(mid)
 
-      this.removeEvents(markers, events, 'markers')
+      this.$_amapMixin_removeEvents(markers, events, 'markers')
       this.removeNotEvnetObjectEvnets(markers)
 
       map.remove(markers)
@@ -305,11 +305,11 @@ export default {
       const AMap = this.getAMapInstance()
       const marker = new AMap.Marker(cloneDeep(option))
 
-      // 注册无法通过 addEvents 添加的事件
+      // 注册无法通过 $_amapMixin_addEvents 添加的事件
       marker.on('moveend', this.handleMoveendEvent)
       marker.on('movealong', this.handleMovealongEvent)
 
-      this.addEvents(marker, events)
+      this.$_amapMixin_addEvents(marker, events)
       marker.dataOptions = option
       return marker
     },

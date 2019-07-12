@@ -33,29 +33,29 @@ export default {
       return registry.getMap(mid || this.mid)
     },
 
-    setMapInstance(mid, instance) {
+    $_amapMixin_setMapInstance(mid, instance) {
       registry.setMap(mid, instance)
     },
 
-    deleteMapInstance(mid) {
+    $_amapMixin_deleteMapInstance(mid) {
       registry.deleteMap(mid)
     },
 
-    handleEvents(event) {
+    $_amapMixin_handleEvents(event) {
       this.$emit(event.type, event, this.getMapInstance(this.mid))
     },
 
-    addEvents(instance, events) {
+    $_amapMixin_addEvents(instance, events) {
       events.forEach(evnet => {
-        instance.on(evnet, this.handleEvents)
+        instance.on(evnet, this._amapMixin_handleEvents)
       })
     },
 
-    removeEvents(instanceList, events, name) {
+    $_amapMixin_removeEvents(instanceList, events, name) {
       if (Array.isArray(instanceList)) {
         instanceList.forEach(instance => {
           events.forEach(evnet => {
-            instance.off(evnet, this.handleEvents)
+            instance.off(evnet, this._amapMixin_handleEvents)
           })
         })
       } else {

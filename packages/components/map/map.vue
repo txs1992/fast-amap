@@ -155,7 +155,7 @@ export default {
         }
 
         if (map) {
-          this.setMapInstance(this.mid, map)
+          this.$_amapMixin_setMapInstance(this.mid, map)
           map.on('mapmove', this.handleMapmoveEvent)
           map.on('complete', this.handleCompleteEvent)
           map.on('movestart', this.handleMovestartEvent)
@@ -168,7 +168,7 @@ export default {
           map.on('dragend', this.handleDragendEvent)
           map.on('resize', this.handleResizeEvent)
 
-          this.addEvents(map, events)
+          this.$_amapMixin_addEvents(map, events)
         }
       })
       .catch(noop)
@@ -190,8 +190,8 @@ export default {
       map.off('dragend', this.handleDragendEvent)
       map.off('resize', this.handleResizeEvent)
 
-      this.removeEvents([map], events, 'map')
-      this.deleteMapInstance(this.mid)
+      this.$_amapMixin_removeEvents([map], events, 'map')
+      this.$_amapMixin_deleteMapInstance(this.mid)
     }
   },
 

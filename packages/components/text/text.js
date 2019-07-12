@@ -184,7 +184,7 @@ export default {
       const { mid, textInstanceList: list } = this
       const map = this.getMapInstance(mid)
 
-      this.removeEvents(texts, events, 'texts')
+      this.$_amapMixin_removeEvents(texts, events, 'texts')
       this.removeNotEvnetObjectEvnets(texts)
 
       map.remove(texts)
@@ -215,9 +215,9 @@ export default {
     clearAll() {
       const { mid, textInstanceList: texts } = this
       const map = this.getMapInstance(mid)
-      this.removeEvents(texts, events, 'texts')
+      this.$_amapMixin_removeEvents(texts, events, 'texts')
 
-      // 删除无法通过 addEvents 注册的事件。
+      // 删除无法通过 $_amapMixin_addEvents 注册的事件。
       this.removeNotEvnetObjectEvnets(texts)
       console.log(texts)
       map.remove(texts)
@@ -228,11 +228,11 @@ export default {
       const AMap = this.getAMapInstance()
       const text = new AMap.Text(cloneDeep(option))
 
-      // 注册无法通过 addEvents 添加的事件
+      // 注册无法通过 $_amapMixin_addEvents 添加的事件
       text.on('moveend', this.handleMoveendEvent)
       text.on('movealong', this.handleMovealongEvent)
 
-      this.addEvents(text, events)
+      this.$_amapMixin_addEvents(text, events)
       text.dataOptions = option
       return text
     },
@@ -345,7 +345,7 @@ export default {
     },
 
     removeNotEvnetObjectEvnets(texts) {
-      // 删除无法通过 addEvents 注册的事件。
+      // 删除无法通过 $_amapMixin_addEvents 注册的事件。
       texts.forEach(text => {
         text.off('moveend', this.handleMoveendEvent)
         text.off('movealong', this.handleMovealongEvent)
