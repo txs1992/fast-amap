@@ -9,7 +9,7 @@
     "package": "yarn build && yarn build:mini",
     "dev": "yarn lint && yarn format && webpack-dev-server --inline --progress --config webpack.config.js",
     "lint": "eslint --ext .js,.vue packages",
-    "test": "yarn lint",
+    "test": "jest -c",
     "format": "prettier --config ./.prettierrc.yaml --write '**/*.{js,vue,css,scss}'",
     "precommit": "pretty-quick --staged",
     "deploy": "npm run docs:build && gh-pages -d dist"
@@ -54,6 +54,7 @@
     "express": "^4.16.4",
     "gh-pages": "^2.0.1",
     "html-webpack-plugin": "^3.2.0",
+    "jest": "^24.8.0",
     "node-sass": "^4.11.0",
     "prettier": "^1.16.4",
     "pretty-quick": "^1.10.0",
