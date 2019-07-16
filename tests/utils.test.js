@@ -31,17 +31,17 @@ describe('test MapRegistry util library', () => {
     })
   })
 
-  test('test the getMap function', () => {
+  test('test getMap function', () => {
     expect(registry.getMap()).toBeUndefined()
     expect(registry.getMap(1)).toBeUndefined()
   })
 
-  test('test the setMap function', () => {
+  test('test setMap function', () => {
     expect(registry.setMap(12, { mid: 12 })).toBeUndefined()
     expect(registry.getMap(12)).toEqual({ mid: 12 })
   })
 
-  test('test the deleteMap function', () => {
+  test('test deleteMap function', () => {
     expect(registry.deleteMap(12)).toBeUndefined()
     expect(registry.getMap(12)).toBeUndefined()
   })
