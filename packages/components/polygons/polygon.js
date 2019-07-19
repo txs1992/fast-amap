@@ -195,6 +195,7 @@ export default {
 
     getPropsOptions() {
       const {
+        cursor,
         bubble,
         zIndex,
         extData,
@@ -209,6 +210,7 @@ export default {
       } = this
 
       return {
+        cursor,
         bubble,
         zIndex,
         extData,
