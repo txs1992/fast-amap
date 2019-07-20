@@ -11,7 +11,7 @@ export default {
   mixins: [AMapMixin, AMapPropMixin],
 
   props: {
-    beforeCreatePolygon: Function,
+    beforeCreate: Function,
 
     options: {
       type: Array,
@@ -144,7 +144,7 @@ export default {
       return polygon
     },
 
-    addPolygons(options, beforeCreatePolygon) {
+    addPolygons(options, beforeCreate) {
       if (!Array.isArray(options)) {
         warn('options is not an Array.')
         return
@@ -159,8 +159,8 @@ export default {
           ...option
         }
 
-        const polygonOption = beforeCreatePolygon
-          ? beforeCreatePolygon(mergeOption, index)
+        const polygonOption = beforeCreate
+          ? beforeCreate(mergeOption, index)
           : mergeOption
 
         const polygon = this.createPolygon(polygonOption)
@@ -226,7 +226,7 @@ export default {
     },
 
     getPolygonOptions() {
-      const { path, options, beforeCreatePolygon } = this
+      const { path, options, beforeCreate } = this
       const propsOptions = this.getPropsOptions()
 
       const polygonOptions = []
@@ -238,8 +238,8 @@ export default {
           ...option
         }
 
-        const polygonOption = beforeCreatePolygon
-          ? beforeCreatePolygon(mergeOption, index)
+        const polygonOption = beforeCreate
+          ? beforeCreate(mergeOption, index)
           : mergeOption
 
         polygonOptions.push(cloneDeep(polygonOption))

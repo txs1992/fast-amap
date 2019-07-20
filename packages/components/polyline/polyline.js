@@ -1,6 +1,6 @@
 import cloneDeep from 'lodash.clonedeep'
 
-// import { warn } from '../../utils/utils'
+import { warn } from '../../utils/utils'
 import events from '../polygons/events'
 import AMapMixin from '../../mixins/a-map'
 
@@ -12,7 +12,7 @@ export default {
   mixins: [AMapMixin, PolyPropMixin],
 
   props: {
-    beforeCreatePolyline: Function,
+    beforeCreate: Function,
     geodesic: Boolean,
     isOutline: Boolean,
 
@@ -90,7 +90,7 @@ export default {
       )
     },
 
-    addPolylines(options, beforeCreatePolyline) {
+    addPolylines(options, beforeCreate) {
       if (!Array.isArray(options)) {
         warn('options is not an Array.')
         return
@@ -105,8 +105,8 @@ export default {
           ...option
         }
 
-        const polylineOption = beforeCreatePolyline
-          ? beforeCreatePolyline(mergeOption, index)
+        const polylineOption = beforeCreate
+          ? beforeCreate(mergeOption, index)
           : mergeOption
 
         const polyline = this.createPolyline(polylineOption)
@@ -248,7 +248,7 @@ export default {
     },
 
     getPolylineOptions() {
-      const { path, options, beforeCreatePolyline } = this
+      const { path, options, beforeCreate } = this
       const propsOptions = this.getPropsOptions()
 
       const polylineOptions = []
@@ -260,8 +260,8 @@ export default {
           ...option
         }
 
-        const polylineOption = beforeCreatePolyline
-          ? beforeCreatePolyline(mergeOption, index)
+        const polylineOption = beforeCreate
+          ? beforeCreate(mergeOption, index)
           : mergeOption
 
         polylineOptions.push(cloneDeep(polylineOption))
