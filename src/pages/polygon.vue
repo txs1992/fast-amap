@@ -16,15 +16,33 @@
         :z-index="50"
         @click="handlePolygonClick"
       ></fast-polygon>
-      <button style="pointer-events: auto" @click="rerenderPolygon">渲染 200 个</button>
-      <button style="pointer-events: auto;" @click="getAllPolygons">获取组件所有 polygon</button>
-      <button style="pointer-events: auto;" @click="removePolygons">删除一组 polygon</button>
-      <button style="pointer-events: auto;" @click="clearAll">删除所有 polygon</button>
-      <button style="pointer-events: auto;" @click="findPolygon">查询指定 polygon</button>
-      <button style="pointer-events: auto" @click="findPolygons">查询 polygon 数组</button>
-      <button style="pointer-events: auto" @click="hidePolygons">隐藏组件所有 polygon</button>
-      <button style="pointer-events: auto" @click="showPolygons">显示组件所有 polygon</button>
-      <button style="pointer-events: auto" @click="addPolygons">添加 polygon 数组</button>
+      <button style="pointer-events: auto" @click="rerenderPolygon">
+        渲染 200 个
+      </button>
+      <button style="pointer-events: auto;" @click="getAllPolygons">
+        获取组件所有 polygon
+      </button>
+      <button style="pointer-events: auto;" @click="removePolygons">
+        删除一组 polygon
+      </button>
+      <button style="pointer-events: auto;" @click="clearAll">
+        删除所有 polygon
+      </button>
+      <button style="pointer-events: auto;" @click="findPolygon">
+        查询指定 polygon
+      </button>
+      <button style="pointer-events: auto" @click="findPolygons">
+        查询 polygon 数组
+      </button>
+      <button style="pointer-events: auto" @click="hidePolygons">
+        隐藏组件所有 polygon
+      </button>
+      <button style="pointer-events: auto" @click="showPolygons">
+        显示组件所有 polygon
+      </button>
+      <button style="pointer-events: auto" @click="addPolygons">
+        添加 polygon 数组
+      </button>
     </fast-map>
   </div>
 </template>

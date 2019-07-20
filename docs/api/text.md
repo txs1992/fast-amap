@@ -75,4 +75,4 @@
 | getAllTexts   |          -          | Array  | 获取当前组件所有的 text 实例               |
 | getTextByProp | propName, propValue |   -    | 根据传入的属性名称与值查找对应的 text 实例 |
 | getTextByProps | propName, propValues |   -    | 根据传入的属性名称与值的数组查找对应的 text 实例数组，该方法对遍历做了优化，建议使用该方法获取 text 数组 |
-| addTexts        | options, isItemOffset, beforeCreatePolygon |    -    | options 是一个 texts 属性的数组，没有的属性会通过组件传递的属性获取。<br/><br/>isItemOffset 默认是 false, 当 isItemOffset 为 true 将会为 options 数组中每个对象的 offset 属性创建 Pixel 实例，默认 fals 共用组件传入的 offset 属性所创建的 Pixel 实例。 <br/><br/>beforeCreatePolygon 是一个可选的回调函数，默认可以不传递，可在创建 text 之前调用，将 text 属性传入其中，可以通过该方法处理自定义渲染。新增的 text 数组会添加在组件中，此时 getAllMarkers 方法获取的数组中包含新增 text，该方法不会导致 vue 重新渲染 |
+| addTexts        | options, isItemOffset, beforeCreate |    -    | options 是一个 texts 属性的数组，没有的属性会通过组件传递的属性获取。<br/><br/>isItemOffset 默认是 false, 当 isItemOffset 为 true 将会为 options 数组中每个对象的 offset 属性创建 Pixel 实例，默认 fals 共用组件传入的 offset 属性所创建的 Pixel 实例。 <br/><br/>beforeCreate 是一个可选的回调函数，默认可以不传递，可在创建 text 之前调用，将 text 属性传入其中，可以通过该方法处理自定义渲染。新增的 text 数组会添加在组件中，此时 getAllMarkers 方法获取的数组中包含新增 text，该方法不会导致 vue 重新渲染 |

@@ -2,6 +2,7 @@ export default {
   props: {
     extData: null,
     bubble: Boolean,
+    cursor: String,
     draggable: Boolean,
     strokeWeight: Number,
 

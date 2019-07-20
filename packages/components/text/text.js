@@ -24,7 +24,7 @@ export default {
     topWhenClick: Boolean,
     autoRotation: Boolean,
     isItemOffset: Boolean,
-    beforeCreatePolygon: Function,
+    beforeCreate: Function,
 
     anchor: {
       type: String,
@@ -141,7 +141,7 @@ export default {
       return searchList
     },
 
-    addTexts(options, isItemOffset = false, beforeCreatePolygon) {
+    addTexts(options, isItemOffset = false, beforeCreate) {
       if (!Array.isArray(options)) {
         warn('options is not an Array.')
         return
@@ -165,8 +165,8 @@ export default {
 
         mergeOption.style = mergeOption.styleOption
 
-        const textOption = beforeCreatePolygon
-          ? beforeCreatePolygon(mergeOption, index)
+        const textOption = beforeCreate
+          ? beforeCreate(mergeOption, index)
           : mergeOption
 
         const text = this.createText(textOption)
@@ -295,7 +295,7 @@ export default {
     },
 
     getPolygonOptions() {
-      const { options, position, isItemOffset, beforeCreatePolygon } = this
+      const { options, position, isItemOffset, beforeCreate } = this
 
       const textOptions = []
 
@@ -318,8 +318,8 @@ export default {
 
         mergeOption.style = mergeOption.styleOption
 
-        const textOption = beforeCreatePolygon
-          ? beforeCreatePolygon(mergeOption, index)
+        const textOption = beforeCreate
+          ? beforeCreate(mergeOption, index)
           : mergeOption
 
         textOptions.push(cloneDeep(textOption))

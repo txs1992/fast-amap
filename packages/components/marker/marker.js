@@ -28,7 +28,7 @@ export default {
     topWhenClick: Boolean,
     autoRotation: Boolean,
 
-    beforeCreatePolygon: Function,
+    beforeCreate: Function,
 
     anchor: {
       type: String,
@@ -197,7 +197,7 @@ export default {
       options,
       isItemIcon = false,
       isItemOffset = false,
-      beforeCreatePolygon
+      beforeCreate
     ) {
       if (!Array.isArray(options)) {
         warn('options is not an Array.')
@@ -227,8 +227,8 @@ export default {
           offset: offsetInstance
         }
 
-        const markerOption = beforeCreatePolygon
-          ? beforeCreatePolygon(mergeOption, index)
+        const markerOption = beforeCreate
+          ? beforeCreate(mergeOption, index)
           : mergeOption
 
         const marker = this.createMarker(markerOption)
@@ -366,13 +366,7 @@ export default {
     },
 
     getPolygonOptions() {
-      const {
-        options,
-        position,
-        isItemIcon,
-        isItemOffset,
-        beforeCreatePolygon
-      } = this
+      const { options, position, isItemIcon, isItemOffset, beforeCreate } = this
 
       const markerOptions = []
 
@@ -399,8 +393,8 @@ export default {
           offset: offsetInstance
         }
 
-        const markerOption = beforeCreatePolygon
-          ? beforeCreatePolygon(mergeOption, index)
+        const markerOption = beforeCreate
+          ? beforeCreate(mergeOption, index)
           : mergeOption
 
         markerOptions.push(cloneDeep(markerOption))
