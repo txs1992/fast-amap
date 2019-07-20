@@ -113,7 +113,9 @@ export default {
         polylineOptions.push(polyline)
       })
       map.add(polylineOptions)
-      this.polylineInstanceList = this.polylineInstanceList.concat(polylineOptions)
+      this.polylineInstanceList = this.polylineInstanceList.concat(
+        polylineOptions
+      )
     },
 
     getPolylineByProps(propName, propValues) {

@@ -366,13 +366,7 @@ export default {
     },
 
     getPolygonOptions() {
-      const {
-        options,
-        position,
-        isItemIcon,
-        isItemOffset,
-        beforeCreate
-      } = this
+      const { options, position, isItemIcon, isItemOffset, beforeCreate } = this
 
       const markerOptions = []
 
