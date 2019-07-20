@@ -1,17 +1,9 @@
-<template>
-  <div ref="container" class="cpt-fast-map" :style="{ height: height + 'px' }">
-    <div class="fast-map-slot-container">
-      <slot v-if="mapLoaded"></slot>
-    </div>
-  </div>
-</template>
-
-<script>
 import cloneDeep from 'lodash.clonedeep'
 
 import AMapMixin from '../../mixins/a-map'
 import { noop } from '../../utils/utils'
 import events from './events'
+import '../../styles/map.scss'
 
 export default {
   name: 'FastMap',
@@ -331,22 +323,33 @@ export default {
       // 数据与 vue 解绑
       return cloneDeep(mapOptions)
     }
+  },
+
+  render(h) {
+    // 渲染模型
+    // <div ref="container" class="cpt-fast-map" :style="{ height: height + 'px' }">
+    //   <div class="fast-map-slot-container">
+    //     <slot v-if="mapLoaded"></slot>
+    //   </div>
+    // </div>
+
+    const slots = this.mapLoaded ? this.$slots.default : null
+    return h(
+      'div',
+      {
+        ref: 'container',
+        class: 'cpt-fast-map',
+        style: { height: `${this.height}px` }
+      },
+      [
+        h(
+          'div',
+          {
+            class: 'fast-map-slot-container'
+          },
+          [slots]
+        )
+      ]
+    )
   }
 }
-</script>
-
-<style lang="scss">
-.cpt-fast-map {
-  position: relative;
-  overflow: hidden;
-
-  .fast-map-slot-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    z-index: 999;
-    overflow: hidden;
-    pointer-events: none;
-  }
-}
-</style>
