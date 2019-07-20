@@ -12,7 +12,7 @@ export default {
   mixins: [AMapMixin, PolyPropMixin],
 
   props: {
-    beforeCreatePolygon: Function,
+    beforeCreatePolyline: Function,
     geodesic: Boolean,
     isOutline: Boolean,
 
@@ -70,6 +70,105 @@ export default {
         })
         map.add(this.polylineInstanceList)
       })
+    },
+
+    hideAll() {
+      this.polylineInstanceList.forEach(polyline => polyline.hide())
+    },
+
+    showAll() {
+      this.polylineInstanceList.forEach(polyline => polyline.show())
+    },
+
+    getAllPolylines() {
+      return this.polylineInstanceList.slice(0)
+    },
+
+    getPolylineByProp(propName, propValue) {
+      return this.polylineInstanceList.find(
+        it => it.dataOptions[propName] === propValue
+      )
+    },
+
+    addPolylines(options, beforeCreatePolyline) {
+      if (!Array.isArray(options)) {
+        warn('options is not an Array.')
+        return
+      }
+      const propsOption = this.getPropsOptions()
+      const map = this.getMapInstance(this.mid)
+      const polylineOptions = []
+
+      options.forEach((option, index) => {
+        const mergeOption = {
+          ...propsOption,
+          ...option
+        }
+
+        const polylineOption = beforeCreatePolyline
+          ? beforeCreatePolyline(mergeOption, index)
+          : mergeOption
+
+        const polyline = this.createPolyline(polylineOption)
+        polylineOptions.push(polyline)
+      })
+      map.add(polylineOptions)
+      this.polylineInstanceList = this.polylineInstanceList.concat(polylineOptions)
+    },
+
+    getPolylineByProps(propName, propValues) {
+      if (!Array.isArray(propValues)) {
+        warn('propValues is an array.')
+        return
+      }
+
+      const searchMap = {}
+      this.polylineInstanceList.forEach(instance => {
+        const data = instance.dataOptions
+        searchMap[data[propName]] = instance
+      })
+
+      const searchList = []
+      propValues.forEach(v => {
+        if (searchMap[v]) searchList.push(searchMap[v])
+      })
+      return searchList
+    },
+
+    removePolylines(polylines, propName) {
+      if (!Array.isArray(polylines)) {
+        warn('polylines is not an Array.')
+        return
+      }
+      const { mid, polylineInstanceList: list } = this
+      const map = this.getMapInstance(mid)
+
+      this.removeChangeEvents(polylines)
+      this.$_amapMixin_removeEvents(polylines, events, 'polylines')
+
+      map.remove(polylines)
+
+      if (propName) {
+        const searchMap = {}
+
+        list.forEach((item, index) => {
+          searchMap[item.dataOptions[propName]] = index
+        })
+
+        polylines.forEach((polyline, len) => {
+          const index = searchMap[polyline.dataOptions[propName]]
+          if (index > -1) {
+            list.splice(index - len, 1)
+          }
+        })
+      } else {
+        polylines.forEach(polyline => {
+          const index = list.indexOf(polyline)
+          if (index > -1) {
+            list.splice(index, 1)
+          }
+        })
+      }
     },
 
     createPolyline(option) {
@@ -149,7 +248,7 @@ export default {
     },
 
     getPolylineOptions() {
-      const { path, options, beforeCreatePolygon } = this
+      const { path, options, beforeCreatePolyline } = this
       const propsOptions = this.getPropsOptions()
 
       const polylineOptions = []
@@ -161,8 +260,8 @@ export default {
           ...option
         }
 
-        const polylineOption = beforeCreatePolygon
-          ? beforeCreatePolygon(mergeOption, index)
+        const polylineOption = beforeCreatePolyline
+          ? beforeCreatePolyline(mergeOption, index)
           : mergeOption
 
         polylineOptions.push(cloneDeep(polylineOption))

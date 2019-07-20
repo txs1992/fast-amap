@@ -63,7 +63,7 @@ export default {
     },
 
     getAllPolygons() {
-      return this.polygonInstanceList
+      return this.polygonInstanceList.slice(0)
     },
 
     getPolygonByProp(propName, propValue) {
