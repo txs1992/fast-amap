@@ -1,6 +1,6 @@
 {
   "name": "fast-amap",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "scripts": {
     "docs": "vuepress dev docs",
     "docs:build": "vuepress build docs",
