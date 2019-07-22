@@ -30,3 +30,20 @@ describe('MapRegistry', () => {
   })
 })
 
+describe('MapOptions', () => {
+  const mapOptions = MapOptions.getOptionsInstance()
+
+  it('getOptionsInstance are not empty', () => {
+    expect(MapOptions.getOptionsInstance()).to.deep.equal(mapOptions)
+    expect(MapOptions.getOptionsInstance()).to.deep.equal({ options: null })
+  })
+
+  it('getOptions test', () => {
+    expect(mapOptions.getOptions()).to.be.null
+  })
+
+  it('setOptions test', () => {
+    mapOptions.setOptions({ key: 'x', version: '1.2' })
+    expect(mapOptions.getOptions()).to.deep.equal({ key: 'x', version: '1.2' })
+  })
+})
