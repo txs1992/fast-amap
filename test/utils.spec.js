@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import Map from '../packages/utils/map-shim'
-import mapLoader from '../packages/utils/map-loader'
+import mapLoader, { mapOptionLoader } from '../packages/utils/map-loader'
 import MapOptions from '../packages/utils/map-options'
 import MapRegistry from '../packages/utils/map-instance-registry'
 
@@ -94,5 +94,35 @@ describe('MapShim', () => {
       [1, { name: 'mt' }],
       [2, { name: 'txs1992' }]
     ])
+  })
+})
+
+describe('mapLoader', () => {
+  it('test mapLoader function', done => {
+    mapLoader('d2d76e2274bf5973ecfb1f68454b6f3b', '1.4.15')
+      .then(amap => {
+        expect(amap).to.be.an('object')
+        expect(amap.v).to.be.a('string')
+        expect(amap.v).to.equal('1.4.15')
+        done()
+      })
+      .catch(() => done(new Error()))
+  })
+
+  it('test mapOptionLoader function', done => {
+    const mapOptions = MapOptions.getOptionsInstance()
+    mapOptions.setOptions({
+      key: 'd2d76e2274bf5973ecfb1f68454b6f3b',
+      version: '1.4.15'
+    })
+
+    mapOptionLoader()
+      .then(amap => {
+        expect(amap).to.be.an('object')
+        expect(amap.v).to.be.a('string')
+        expect(amap.v).to.equal('1.4.15')
+        done()
+      })
+      .catch(() => done(new Error()))
   })
 })
