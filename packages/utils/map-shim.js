@@ -46,7 +46,7 @@ export default function Map() {
   }
 
   function entries() {
-    return maps
+    return maps.slice()
   }
 
   return {
