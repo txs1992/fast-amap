@@ -1,22 +1,22 @@
 language: node_js
 node_js:
   - 11.0
-# script: node_modules/karma/bin/karma start ./karma.conf.js --singleRun
-# before_install:
-#   - export CHROME_BIN=chromium-browser
-#   - export DISPLAY=:99.0
-#   - sh -e /etc/init.d/xvfb start
-dist: trusty # needs Ubuntu Trusty
-# Note: if you switch to sudo: false, you'll need to launch Chrome with --no-sandbox.
-# See https://github.com/travis-ci/travis-ci/issues/8836
-sudo: required
-addons:
-  chrome: stable # have Travis install Chrome stable.
-cache:
-  yarn: true
-  directories:
-    - node_modules
-install:
-  - yarn
-script:
-  - yarn test
+script: node_modules/karma/bin/karma start ./karma.conf.js --singleRun
+before_install:
+  - export CHROME_BIN=chromium-browser
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+# dist: trusty # needs Ubuntu Trusty
+# # Note: if you switch to sudo: false, you'll need to launch Chrome with --no-sandbox.
+# # See https://github.com/travis-ci/travis-ci/issues/8836
+# sudo: required
+# addons:
+#   chrome: stable # have Travis install Chrome stable.
+# cache:
+#   yarn: true
+#   directories:
+#     - node_modules
+# install:
+#   - yarn
+# script:
+#   - yarn test
