@@ -1,9 +1,6 @@
 language: node_js
 node_js:
-  - 5.0
-  - 6.0
-  - 7.0
-  - 8.0
+  - 11.0
 # script: node_modules/karma/bin/karma start ./karma.conf.js --singleRun
 # before_install:
 #   - export CHROME_BIN=chromium-browser
