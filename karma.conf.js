@@ -32,7 +32,17 @@ module.exports = function(config) {
       'test/**/*.spec.js': ['webpack']
     },
 
+    client: {
+      mocha: {
+        timeout: 4000
+      }
+    },
+
     webpack: webpackConfig,
+
+    webpackMiddleware: {
+      noInfo: true
+    },
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
@@ -54,20 +64,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['MyHeadlessChrome'],
-
-    customLaunchers: {
-      MyHeadlessChrome: {
-        base: 'Chrome',
-        flags: [
-          '--no-sandbox'
-          // '--disable-translate',
-          // '--disable-extensions',
-          // '--no-first-run',
-          // '--remote-debugging-port=9223'
-        ]
-      }
-    },
+    browsers: ['ChromeHeadless'],
 
     browserDisconnectTimeout: 10000,
     browserDisconnectTolerance: 3,
