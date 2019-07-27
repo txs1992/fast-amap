@@ -1,5 +1,3 @@
-import cloneDeep from 'lodash.clonedeep'
-
 import { warn } from '../../utils/utils'
 import events from './events'
 import AMapMixin from '../../mixins/a-map'
@@ -226,7 +224,7 @@ export default {
 
     createText(option) {
       const AMap = this.getAMapInstance()
-      const text = new AMap.Text(cloneDeep(option))
+      const text = new AMap.Text(option)
 
       // 注册无法通过 $_amapMixin_addEvents 添加的事件
       text.on('moveend', this.handleMoveendEvent)
@@ -321,7 +319,7 @@ export default {
           ? beforeCreate(mergeOption, index)
           : mergeOption
 
-        textOptions.push(cloneDeep(textOption))
+        textOptions.push(textOption)
       })
 
       return textOptions

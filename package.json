@@ -85,7 +85,5 @@
     "webpack-dev-middleware": "^3.6.0",
     "webpack-dev-server": "^3.2.1"
   },
-  "dependencies": {
-    "lodash.clonedeep": "^4.5.0"
-  }
+  "dependencies": {}
 }

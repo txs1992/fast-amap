@@ -1,5 +1,3 @@
-import cloneDeep from 'lodash.clonedeep'
-
 import AMapMixin from '../../mixins/a-map'
 import { noop } from '../../utils/utils'
 import events from './events'
@@ -320,8 +318,7 @@ export default {
         mapOptions.defaultLayer = defaultLayer
       }
 
-      // 数据与 vue 解绑
-      return cloneDeep(mapOptions)
+      return mapOptions
     }
   },
 
