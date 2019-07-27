@@ -220,7 +220,6 @@ export default {
 
       // 删除无法通过 $_amapMixin_addEvents 注册的事件。
       this.removeNotEvnetObjectEvnets(texts)
-      console.log(texts)
       map.remove(texts)
       this.textInstanceList = []
     },

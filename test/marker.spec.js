@@ -96,7 +96,7 @@ describe('FastMarker', () => {
       .catch(() => done(new Error()))
   })
 
-  it('test marker getAllMarkers', done => {
+  it('test marker getAllMarkers function', done => {
     mapWrapper.vm
       .getAMapPromise()
       .then(() => {
@@ -112,7 +112,7 @@ describe('FastMarker', () => {
       .catch(() => done(new Error()))
   })
 
-  it('test marker addMarkers', done => {
+  it('test marker addMarkers function', done => {
     mapWrapper.vm
       .getAMapPromise()
       .then(() => {
@@ -140,7 +140,7 @@ describe('FastMarker', () => {
       .catch(() => done(new Error()))
   })
 
-  it('test marker removeMarkers', done => {
+  it('test marker removeMarkers function', done => {
     mapWrapper.vm
       .getAMapPromise()
       .then(() => {
@@ -157,7 +157,7 @@ describe('FastMarker', () => {
       .catch(() => done(new Error()))
   })
 
-  it('test marker clearAll', done => {
+  it('test marker clearAll function', done => {
     mapWrapper.vm
       .getAMapPromise()
       .then(() => {
@@ -174,12 +174,12 @@ describe('FastMarker', () => {
       .catch(() => done(new Error()))
   })
 
-  it('test marker showAll', () => {
+  it('test marker showAll function', () => {
     const wrapper = createMarker()
     expect(wrapper.vm.showAll).to.be.an('function')
   })
 
-  it('test marker hideAll', () => {
+  it('test marker hideAll function', () => {
     const wrapper = createMarker()
     expect(wrapper.vm.hideAll).to.be.an('function')
   })
