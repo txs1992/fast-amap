@@ -24,5 +24,9 @@ export default {
   mapOptions,
   mapLoader,
   mapOptionLoader,
-  ...components
+  FastMap,
+  FastText,
+  FastMarker,
+  FastPolyline,
+  FastPolygon
 }

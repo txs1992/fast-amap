@@ -5,7 +5,7 @@
       ref="map"
       mid="polyline"
       :zoom="4"
-      :zooms="[3,18]"
+      :zooms="[3, 18]"
       :center="[121.472644, 31.231049]"
       @complete="handleComplete"
     >
@@ -22,15 +22,33 @@
         :double-click-zoom="false"
         :stroke-dasharray="[10, 5]"
       ></fast-polyline>
-      <button style="pointer-events: auto" @click="renderPolyline">重新渲染一组</button>
-      <button style="pointer-events: auto;" @click="getAll">获取组件所有 polyline</button>
-      <button style="pointer-events: auto;" @click="removePolylines">删除一组 polyline</button>
-      <button style="pointer-events: auto;" @click="removeAll">删除所有 polyline</button>
-      <button style="pointer-events: auto;" @click="findPolyline">查询指定 polyline</button>
-      <button style="pointer-events: auto" @click="findPolylines">查询 polyline 数组</button>
-      <button style="pointer-events: auto" @click="hideAllPolylines">隐藏组件所有 polyline</button>
-      <button style="pointer-events: auto" @click="showAllPolylines">显示组件所有 polyline</button>
-      <button style="pointer-events: auto" @click="addPolylines">添加 polyline 数组</button>
+      <button style="pointer-events: auto" @click="renderPolyline">
+        重新渲染一组
+      </button>
+      <button style="pointer-events: auto;" @click="getAll">
+        获取组件所有 polyline
+      </button>
+      <button style="pointer-events: auto;" @click="removePolylines">
+        删除一组 polyline
+      </button>
+      <button style="pointer-events: auto;" @click="removeAll">
+        删除所有 polyline
+      </button>
+      <button style="pointer-events: auto;" @click="findPolyline">
+        查询指定 polyline
+      </button>
+      <button style="pointer-events: auto" @click="findPolylines">
+        查询 polyline 数组
+      </button>
+      <button style="pointer-events: auto" @click="hideAllPolylines">
+        隐藏组件所有 polyline
+      </button>
+      <button style="pointer-events: auto" @click="showAllPolylines">
+        显示组件所有 polyline
+      </button>
+      <button style="pointer-events: auto" @click="addPolylines">
+        添加 polyline 数组
+      </button>
     </fast-map>
   </div>
 </template>
