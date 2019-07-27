@@ -1,5 +1,3 @@
-import cloneDeep from 'lodash.clonedeep'
-
 import { warn } from '../../utils/utils'
 import events from '../polygons/events'
 import AMapMixin from '../../mixins/a-map'
@@ -175,7 +173,7 @@ export default {
 
     createPolyline(option) {
       const AMap = this.getAMapInstance()
-      const polyline = new AMap.Polyline(cloneDeep(option))
+      const polyline = new AMap.Polyline(option)
 
       // 添加 $_amapMixin_addEvents 无法注册的事件
       polyline.on('change', this.handleChangeEvnet)
@@ -266,7 +264,7 @@ export default {
           ? beforeCreate(mergeOption, index)
           : mergeOption
 
-        polylineOptions.push(cloneDeep(polylineOption))
+        polylineOptions.push(polylineOption)
       })
 
       return polylineOptions

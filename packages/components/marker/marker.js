@@ -1,5 +1,3 @@
-import cloneDeep from 'lodash.clonedeep'
-
 import { warn } from '../../utils/utils'
 import events from './events'
 import AMapMixin from '../../mixins/a-map'
@@ -292,7 +290,7 @@ export default {
 
     createMarker(option) {
       const AMap = this.getAMapInstance()
-      const marker = new AMap.Marker(cloneDeep(option))
+      const marker = new AMap.Marker(option)
 
       // 注册无法通过 $_amapMixin_addEvents 添加的事件
       marker.on('moveend', this.handleMoveendEvent)
@@ -397,7 +395,7 @@ export default {
           ? beforeCreate(mergeOption, index)
           : mergeOption
 
-        markerOptions.push(cloneDeep(markerOption))
+        markerOptions.push(markerOption)
       })
 
       return markerOptions
