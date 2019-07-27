@@ -64,7 +64,7 @@ export default {
 
     $_amapMixin_addEvents(instance, events) {
       events.forEach(evnet => {
-        instance.on(evnet, this._amapMixin_handleEvents)
+        instance.on(evnet, this.$_amapMixin_handleEvents)
       })
     },
 
@@ -72,7 +72,7 @@ export default {
       if (Array.isArray(instanceList)) {
         instanceList.forEach(instance => {
           events.forEach(evnet => {
-            instance.off(evnet, this._amapMixin_handleEvents)
+            instance.off(evnet, this.$_amapMixin_handleEvents)
           })
         })
       } else {
