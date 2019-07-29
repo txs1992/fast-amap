@@ -96,7 +96,7 @@ export default {
 
     removePolylines() {
       const polyline = this.$refs.polyline
-      const list = polyline.getPolylineByProps('myData', [1, 2])
+      const list = polyline.getInstanceByProps('myData', [1, 2])
       polyline.removePolylines(list)
     },
 
@@ -105,12 +105,12 @@ export default {
     },
 
     findPolyline() {
-      console.log(this.$refs.polyline.getPolylineByProp('myData', 1))
+      console.log(this.$refs.polyline.getInstanceByProp('myData', 1))
     },
 
     findPolylines() {
       console.log(
-        this.$refs.polyline.getPolylineByProps('myData', [1, 2, 3, 4])
+        this.$refs.polyline.getInstanceByProps('myData', [1, 2, 3, 4])
       )
     },
 
@@ -128,7 +128,7 @@ export default {
     },
 
     getAll() {
-      console.log(this.$refs.polyline.getAllPolylines())
+      console.log(this.$refs.polyline.getAll())
     },
 
     handleComplete() {
