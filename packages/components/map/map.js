@@ -132,6 +132,15 @@ export default {
     }
   },
 
+  watch: {
+    center() {
+      if (this.mapLoaded) {
+        const map = this.getMapInstance(this.mid)
+        map.setCenter(this.center)
+      }
+    }
+  },
+
   mounted() {
     this.getAMapPromise()
       .then(AMap => {
