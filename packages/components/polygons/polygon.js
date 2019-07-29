@@ -9,15 +9,6 @@ export default {
   mixins: [AMapMixin, AMapPropMixin],
 
   props: {
-    beforeCreate: Function,
-
-    options: {
-      type: Array,
-      default() {
-        return []
-      }
-    },
-
     fillColor: {
       type: String,
       default: '#FFAAA00'

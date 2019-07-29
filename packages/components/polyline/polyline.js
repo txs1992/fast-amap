@@ -10,7 +10,6 @@ export default {
   mixins: [AMapMixin, PolyPropMixin],
 
   props: {
-    beforeCreate: Function,
     geodesic: Boolean,
     isOutline: Boolean,
 
@@ -32,13 +31,6 @@ export default {
     borderWeight: {
       type: Number,
       default: 1
-    },
-
-    options: {
-      type: Array,
-      default() {
-        return []
-      }
     }
   },
 

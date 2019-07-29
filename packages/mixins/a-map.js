@@ -11,7 +11,16 @@ export default {
     mid: {
       type: [String, Number],
       required: true
-    }
+    },
+
+    options: {
+      type: Array,
+      default() {
+        return []
+      }
+    },
+
+    beforeCreate: Function
   },
 
   created() {

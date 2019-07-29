@@ -22,7 +22,6 @@ export default {
     topWhenClick: Boolean,
     autoRotation: Boolean,
     isItemOffset: Boolean,
-    beforeCreate: Function,
 
     anchor: {
       type: String,
@@ -44,13 +43,6 @@ export default {
     visible: {
       type: Boolean,
       default: true
-    },
-
-    options: {
-      type: Array,
-      default() {
-        return []
-      }
     },
 
     position: {
