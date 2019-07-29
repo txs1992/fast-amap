@@ -63,7 +63,7 @@ describe('FastPolygon', () => {
           done()
         })
         setTimeout(() => {
-          const polygon = wrapper.vm.getPolygonByProp('myData', 1)
+          const polygon = wrapper.vm.getInstanceByProp('myData', 1)
           if (polygon.bf.click[0].tb) {
             // 模拟 polygon 覆盖物点击事件
             polygon.bf.click[0].tb({ type: 'click' })
@@ -73,13 +73,13 @@ describe('FastPolygon', () => {
       .catch(() => done(new Error()))
   })
 
-  it('test getPolygonByProp function', done => {
+  it('test getInstanceByProp function', done => {
     mapWrapper.vm
       .getAMapPromise()
       .then(() => {
         const wrapper = createPolygon()
         setTimeout(() => {
-          const polygon = wrapper.vm.getPolygonByProp('myData', 1)
+          const polygon = wrapper.vm.getInstanceByProp('myData', 1)
           expect(polygon).to.be.an('object')
           expect(polygon.CLASS_NAME).to.be.a('string')
           expect(polygon.CLASS_NAME).to.equal('AMap.Polygon')
@@ -89,13 +89,13 @@ describe('FastPolygon', () => {
       .catch(() => done(new Error()))
   })
 
-  it('test getPolygonByProps function', done => {
+  it('test getInstanceByProps function', done => {
     mapWrapper.vm
       .getAMapPromise()
       .then(() => {
         const wrapper = createPolygon()
         setTimeout(() => {
-          const polygons = wrapper.vm.getPolygonByProps('myData', [1, 2])
+          const polygons = wrapper.vm.getInstanceByProps('myData', [1, 2])
           expect(polygons.length).to.be.equal(2)
           expect(polygons).to.be.an('array')
           expect(polygons[0].CLASS_NAME).to.be.a('string')
@@ -106,13 +106,13 @@ describe('FastPolygon', () => {
       .catch(() => done(new Error()))
   })
 
-  it('test polygon getAllPolygons function', done => {
+  it('test polygon getAll function', done => {
     mapWrapper.vm
       .getAMapPromise()
       .then(() => {
         const wrapper = createPolygon()
         setTimeout(() => {
-          const polygons = wrapper.vm.getAllPolygons()
+          const polygons = wrapper.vm.getAll()
           expect(polygons).to.be.an('array')
           expect(polygons.length).to.be.equal(2)
           expect(polygons[0].CLASS_NAME).to.equal('AMap.Polygon')
@@ -128,7 +128,7 @@ describe('FastPolygon', () => {
       .then(() => {
         const wrapper = createPolygon()
         setTimeout(() => {
-          const polygons = wrapper.vm.getAllPolygons()
+          const polygons = wrapper.vm.getAll()
           expect(polygons.length).to.be.equal(2)
 
           const options = [
@@ -143,7 +143,7 @@ describe('FastPolygon', () => {
           ]
 
           wrapper.vm.addPolygons(options)
-          expect(wrapper.vm.getAllPolygons().length).to.be.equal(4)
+          expect(wrapper.vm.getAll().length).to.be.equal(4)
           done()
         }, 0)
       })
@@ -156,11 +156,11 @@ describe('FastPolygon', () => {
       .then(() => {
         const wrapper = createPolygon()
         setTimeout(() => {
-          const polygons = wrapper.vm.getAllPolygons()
+          const polygons = wrapper.vm.getAll()
           expect(polygons).to.be.an('array')
           expect(polygons.length).to.be.equal(2)
           wrapper.vm.removePolygons(polygons, 'myData')
-          expect(wrapper.vm.getAllPolygons().length).to.be.equal(0)
+          expect(wrapper.vm.getAll().length).to.be.equal(0)
           done()
         }, 0)
       })
@@ -173,11 +173,11 @@ describe('FastPolygon', () => {
       .then(() => {
         const wrapper = createPolygon()
         setTimeout(() => {
-          const polygons = wrapper.vm.getAllPolygons()
+          const polygons = wrapper.vm.getAll()
           expect(polygons).to.be.an('array')
           expect(polygons.length).to.be.equal(2)
           wrapper.vm.clearAll()
-          expect(wrapper.vm.getAllPolygons().length).to.be.equal(0)
+          expect(wrapper.vm.getAll().length).to.be.equal(0)
           done()
         }, 0)
       })

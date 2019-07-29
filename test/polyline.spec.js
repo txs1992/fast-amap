@@ -63,7 +63,7 @@ describe('FastPolyline', () => {
           done()
         })
         setTimeout(() => {
-          const polyline = wrapper.vm.getPolylineByProp('myData', 1)
+          const polyline = wrapper.vm.getInstanceByProp('myData', 1)
           if (polyline.bf.click[0].tb) {
             // 模拟 polyline 覆盖物点击事件
             polyline.bf.click[0].tb({ type: 'click' })
@@ -73,13 +73,13 @@ describe('FastPolyline', () => {
       .catch(() => done(new Error()))
   })
 
-  it('test getPolylineByProp function', done => {
+  it('test getInstanceByProp function', done => {
     mapWrapper.vm
       .getAMapPromise()
       .then(() => {
         const wrapper = createPolyline()
         setTimeout(() => {
-          const polyline = wrapper.vm.getPolylineByProp('myData', 1)
+          const polyline = wrapper.vm.getInstanceByProp('myData', 1)
           expect(polyline).to.be.an('object')
           expect(polyline.CLASS_NAME).to.be.a('string')
           expect(polyline.CLASS_NAME).to.equal('AMap.Polyline')
@@ -89,13 +89,13 @@ describe('FastPolyline', () => {
       .catch(() => done(new Error()))
   })
 
-  it('test getPolylineByProps function', done => {
+  it('test getInstanceByProps function', done => {
     mapWrapper.vm
       .getAMapPromise()
       .then(() => {
         const wrapper = createPolyline()
         setTimeout(() => {
-          const polylines = wrapper.vm.getPolylineByProps('myData', [1, 2])
+          const polylines = wrapper.vm.getInstanceByProps('myData', [1, 2])
           expect(polylines.length).to.be.equal(2)
           expect(polylines).to.be.an('array')
           expect(polylines[0].CLASS_NAME).to.be.a('string')
@@ -106,13 +106,13 @@ describe('FastPolyline', () => {
       .catch(() => done(new Error()))
   })
 
-  it('test polyline getAllPolylines function', done => {
+  it('test polyline getAll function', done => {
     mapWrapper.vm
       .getAMapPromise()
       .then(() => {
         const wrapper = createPolyline()
         setTimeout(() => {
-          const polylines = wrapper.vm.getAllPolylines()
+          const polylines = wrapper.vm.getAll()
           expect(polylines).to.be.an('array')
           expect(polylines.length).to.be.equal(2)
           expect(polylines[0].CLASS_NAME).to.equal('AMap.Polyline')
@@ -128,7 +128,7 @@ describe('FastPolyline', () => {
       .then(() => {
         const wrapper = createPolyline()
         setTimeout(() => {
-          const polylines = wrapper.vm.getAllPolylines()
+          const polylines = wrapper.vm.getAll()
           expect(polylines.length).to.be.equal(2)
 
           const options = [
@@ -143,7 +143,7 @@ describe('FastPolyline', () => {
           ]
 
           wrapper.vm.addPolylines(options)
-          expect(wrapper.vm.getAllPolylines().length).to.be.equal(4)
+          expect(wrapper.vm.getAll().length).to.be.equal(4)
           done()
         }, 0)
       })
@@ -156,11 +156,11 @@ describe('FastPolyline', () => {
       .then(() => {
         const wrapper = createPolyline()
         setTimeout(() => {
-          const polylines = wrapper.vm.getAllPolylines()
+          const polylines = wrapper.vm.getAll()
           expect(polylines).to.be.an('array')
           expect(polylines.length).to.be.equal(2)
           wrapper.vm.removePolylines(polylines, 'myData')
-          expect(wrapper.vm.getAllPolylines().length).to.be.equal(0)
+          expect(wrapper.vm.getAll().length).to.be.equal(0)
           done()
         }, 0)
       })
@@ -173,11 +173,11 @@ describe('FastPolyline', () => {
       .then(() => {
         const wrapper = createPolyline()
         setTimeout(() => {
-          const polylines = wrapper.vm.getAllPolylines()
+          const polylines = wrapper.vm.getAll()
           expect(polylines).to.be.an('array')
           expect(polylines.length).to.be.equal(2)
           wrapper.vm.clearAll()
-          expect(wrapper.vm.getAllPolylines().length).to.be.equal(0)
+          expect(wrapper.vm.getAll().length).to.be.equal(0)
           done()
         }, 0)
       })
