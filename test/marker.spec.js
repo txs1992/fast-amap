@@ -53,7 +53,7 @@ describe('FastMarker', () => {
           done()
         })
         setTimeout(() => {
-          const marker = wrapper.vm.getMarkerByProp('myData', 1)
+          const marker = wrapper.vm.getInstanceByProp('myData', 1)
           if (marker.bf.click[0].tb) {
             // 模拟 marker 覆盖物点击事件
             marker.bf.click[0].tb({ type: 'click' })
@@ -63,13 +63,13 @@ describe('FastMarker', () => {
       .catch(() => done(new Error()))
   })
 
-  it('test getMarkerByProp function', done => {
+  it('test getInstanceByProp function', done => {
     mapWrapper.vm
       .getAMapPromise()
       .then(() => {
         const wrapper = createMarker()
         setTimeout(() => {
-          const marker = wrapper.vm.getMarkerByProp('myData', 1)
+          const marker = wrapper.vm.getInstanceByProp('myData', 1)
           expect(marker).to.be.an('object')
           expect(marker.CLASS_NAME).to.be.a('string')
           expect(marker.CLASS_NAME).to.equal('AMap.Marker')
@@ -79,13 +79,13 @@ describe('FastMarker', () => {
       .catch(() => done(new Error()))
   })
 
-  it('test getMarkerByProps function', done => {
+  it('test getInstanceByProps function', done => {
     mapWrapper.vm
       .getAMapPromise()
       .then(() => {
         const wrapper = createMarker()
         setTimeout(() => {
-          const markers = wrapper.vm.getMarkerByProps('myData', [1, 2])
+          const markers = wrapper.vm.getInstanceByProps('myData', [1, 2])
           expect(markers.length).to.be.equal(2)
           expect(markers).to.be.an('array')
           expect(markers[0].CLASS_NAME).to.be.a('string')
@@ -96,13 +96,13 @@ describe('FastMarker', () => {
       .catch(() => done(new Error()))
   })
 
-  it('test marker getAllMarkers function', done => {
+  it('test marker getAll function', done => {
     mapWrapper.vm
       .getAMapPromise()
       .then(() => {
         const wrapper = createMarker()
         setTimeout(() => {
-          const markers = wrapper.vm.getAllMarkers()
+          const markers = wrapper.vm.getAll()
           expect(markers).to.be.an('array')
           expect(markers.length).to.be.equal(2)
           expect(markers[0].CLASS_NAME).to.equal('AMap.Marker')
@@ -118,7 +118,7 @@ describe('FastMarker', () => {
       .then(() => {
         const wrapper = createMarker()
         setTimeout(() => {
-          const markers = wrapper.vm.getAllMarkers()
+          const markers = wrapper.vm.getAll()
           expect(markers.length).to.be.equal(2)
 
           const options = [
@@ -133,7 +133,7 @@ describe('FastMarker', () => {
           ]
 
           wrapper.vm.addMarkers(options)
-          expect(wrapper.vm.getAllMarkers().length).to.be.equal(4)
+          expect(wrapper.vm.getAll().length).to.be.equal(4)
           done()
         }, 0)
       })
@@ -146,11 +146,11 @@ describe('FastMarker', () => {
       .then(() => {
         const wrapper = createMarker()
         setTimeout(() => {
-          const markers = wrapper.vm.getAllMarkers()
+          const markers = wrapper.vm.getAll()
           expect(markers).to.be.an('array')
           expect(markers.length).to.be.equal(2)
           wrapper.vm.removeMarkers(markers, 'myData')
-          expect(wrapper.vm.getAllMarkers().length).to.be.equal(0)
+          expect(wrapper.vm.getAll().length).to.be.equal(0)
           done()
         }, 0)
       })
@@ -163,11 +163,11 @@ describe('FastMarker', () => {
       .then(() => {
         const wrapper = createMarker()
         setTimeout(() => {
-          const markers = wrapper.vm.getAllMarkers()
+          const markers = wrapper.vm.getAll()
           expect(markers).to.be.an('array')
           expect(markers.length).to.be.equal(2)
           wrapper.vm.clearAll()
-          expect(wrapper.vm.getAllMarkers().length).to.be.equal(0)
+          expect(wrapper.vm.getAll().length).to.be.equal(0)
           done()
         }, 0)
       })

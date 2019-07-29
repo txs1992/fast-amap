@@ -90,7 +90,7 @@ export default {
       for (let i = 0; i < 80; i++) {
         list.push(i)
       }
-      const markers = this.$refs.marker.getMarkerByProps('myData', list)
+      const markers = this.$refs.marker.getInstanceByProps('myData', list)
       this.$refs.marker.removeMarkers(markers, 'myData')
       console.log('delete markers for: ', markers)
     },
@@ -98,14 +98,14 @@ export default {
     findMarker() {
       console.log(
         'findMarker: ',
-        this.$refs.marker.getMarkerByProp('myData', 15)
+        this.$refs.marker.getInstanceByProp('myData', 1)
       )
     },
 
     findMarkers() {
       console.log(
         'findMarker: ',
-        this.$refs.marker.getMarkerByProps('myData', [1, 4, 9, 44, 66])
+        this.$refs.marker.getInstanceByProps('myData', [1, 4, 9, 44, 66])
       )
     },
 

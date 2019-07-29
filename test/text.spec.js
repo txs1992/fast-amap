@@ -63,7 +63,7 @@ describe('FastText', () => {
           done()
         })
         setTimeout(() => {
-          const text = wrapper.vm.getTextByProp('myData', 1)
+          const text = wrapper.vm.getInstanceByProp('myData', 1)
           if (text.bf.click[0].tb) {
             // 模拟 text 覆盖物点击事件
             text.bf.click[0].tb({ type: 'click' })
@@ -73,13 +73,13 @@ describe('FastText', () => {
       .catch(() => done(new Error()))
   })
 
-  it('test getTextByProp function', done => {
+  it('test getInstanceByProp function', done => {
     mapWrapper.vm
       .getAMapPromise()
       .then(() => {
         const wrapper = createText()
         setTimeout(() => {
-          const text = wrapper.vm.getTextByProp('myData', 1)
+          const text = wrapper.vm.getInstanceByProp('myData', 1)
           expect(text).to.be.an('object')
           expect(text.CLASS_NAME).to.be.a('string')
           expect(text.CLASS_NAME).to.equal('AMap.Text')
@@ -89,13 +89,13 @@ describe('FastText', () => {
       .catch(() => done(new Error()))
   })
 
-  it('test getTextByProps function', done => {
+  it('test getInstanceByProps function', done => {
     mapWrapper.vm
       .getAMapPromise()
       .then(() => {
         const wrapper = createText()
         setTimeout(() => {
-          const texts = wrapper.vm.getTextByProps('myData', [1, 2])
+          const texts = wrapper.vm.getInstanceByProps('myData', [1, 2])
           expect(texts.length).to.be.equal(2)
           expect(texts).to.be.an('array')
           expect(texts[0].CLASS_NAME).to.be.a('string')
@@ -106,13 +106,13 @@ describe('FastText', () => {
       .catch(() => done(new Error()))
   })
 
-  it('test text getAllTexts function', done => {
+  it('test text getAll function', done => {
     mapWrapper.vm
       .getAMapPromise()
       .then(() => {
         const wrapper = createText()
         setTimeout(() => {
-          const texts = wrapper.vm.getAllTexts()
+          const texts = wrapper.vm.getAll()
           expect(texts).to.be.an('array')
           expect(texts.length).to.be.equal(2)
           expect(texts[0].CLASS_NAME).to.equal('AMap.Text')
@@ -128,7 +128,7 @@ describe('FastText', () => {
       .then(() => {
         const wrapper = createText()
         setTimeout(() => {
-          const texts = wrapper.vm.getAllTexts()
+          const texts = wrapper.vm.getAll()
           expect(texts.length).to.be.equal(2)
 
           const options = [
@@ -143,7 +143,7 @@ describe('FastText', () => {
           ]
 
           wrapper.vm.addTexts(options)
-          expect(wrapper.vm.getAllTexts().length).to.be.equal(4)
+          expect(wrapper.vm.getAll().length).to.be.equal(4)
           done()
         }, 0)
       })
@@ -156,11 +156,11 @@ describe('FastText', () => {
       .then(() => {
         const wrapper = createText()
         setTimeout(() => {
-          const texts = wrapper.vm.getAllTexts()
+          const texts = wrapper.vm.getAll()
           expect(texts).to.be.an('array')
           expect(texts.length).to.be.equal(2)
           wrapper.vm.removeTexts(texts, 'myData')
-          expect(wrapper.vm.getAllTexts().length).to.be.equal(0)
+          expect(wrapper.vm.getAll().length).to.be.equal(0)
           done()
         }, 0)
       })
@@ -173,11 +173,11 @@ describe('FastText', () => {
       .then(() => {
         const wrapper = createText()
         setTimeout(() => {
-          const texts = wrapper.vm.getAllTexts()
+          const texts = wrapper.vm.getAll()
           expect(texts).to.be.an('array')
           expect(texts.length).to.be.equal(2)
           wrapper.vm.clearAll()
-          expect(wrapper.vm.getAllTexts().length).to.be.equal(0)
+          expect(wrapper.vm.getAll().length).to.be.equal(0)
           done()
         }, 0)
       })

@@ -83,7 +83,7 @@ export default {
     },
 
     findPolygons() {
-      this.$refs.polygon.getPolygonByProps('myData', [123, 789])
+      this.$refs.polygon.getInstanceByProps('myData', [123, 789])
     },
 
     clearAll() {
@@ -126,7 +126,7 @@ export default {
 
     removePolygons() {
       const instance = this.$refs.polygon
-      const polygons = instance.getPolygonByProps('myData', [
+      const polygons = instance.getInstanceByProps('myData', [
         0,
         1,
         2,
@@ -141,11 +141,11 @@ export default {
     },
 
     findPolygon() {
-      this.$refs.polygon.getPolygonByProp('myData', 123)
+      this.$refs.polygon.getInstanceByProp('myData', 123)
     },
 
     getAllPolygons() {
-      this.$refs.polygon.getAllPolygons()
+      this.$refs.polygon.getAll()
     },
 
     handlePolygonClick(event) {

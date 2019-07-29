@@ -60,7 +60,7 @@
 ## 方法
 
 :::tip
-通过 `$refs` 获取组件实例来调用。例如：`this.$refs.myText.getAllTexts()`，关于 Polygon 类的实例方法，请查看官方文档 [Polygon](https://lbs.amap.com/api/javascript-api/reference/overlay#text)
+通过 `$refs` 获取组件实例来调用。例如：`this.$refs.myText.getAll()`，关于 Polygon 类的实例方法，请查看官方文档 [Polygon](https://lbs.amap.com/api/javascript-api/reference/overlay#text)
 :::
 
 | 方法             |        参数         | 返回值 | 说明                                          |
@@ -72,7 +72,7 @@
 | showAll | - | - | 显示当前组件所有的 text 实例 |
 | clearAll | - | - | 清空当前组件所有的 text 实例 |
 | removeTexts   | texts, propName |   -    | 删除传入的 text 实例数组，该方法不会导致 vue 重新渲染，propName 是每个 polygon 实例 options 中的唯一值，例如 id, key 它用来做查询优化，请保证每个实例 options 中的 propName 值都是唯一的，如果传入该参数将会大大优化性能。|
-| getAllTexts   |          -          | Array  | 获取当前组件所有的 text 实例               |
-| getTextByProp | propName, propValue |   -    | 根据传入的属性名称与值查找对应的 text 实例 |
-| getTextByProps | propName, propValues |   -    | 根据传入的属性名称与值的数组查找对应的 text 实例数组，该方法对遍历做了优化，建议使用该方法获取 text 数组 |
-| addTexts        | options, isItemOffset, beforeCreate |    -    | options 是一个 texts 属性的数组，没有的属性会通过组件传递的属性获取。<br/><br/>isItemOffset 默认是 false, 当 isItemOffset 为 true 将会为 options 数组中每个对象的 offset 属性创建 Pixel 实例，默认 fals 共用组件传入的 offset 属性所创建的 Pixel 实例。 <br/><br/>beforeCreate 是一个可选的回调函数，默认可以不传递，可在创建 text 之前调用，将 text 属性传入其中，可以通过该方法处理自定义渲染。新增的 text 数组会添加在组件中，此时 getAllMarkers 方法获取的数组中包含新增 text，该方法不会导致 vue 重新渲染 |
+| getAll   |          -          | Array  | 获取当前组件所有的 text 实例               |
+| getInstanceByProp | propName, propValue |   -    | 根据传入的属性名称与值查找对应的 text 实例 |
+| getInstanceByProps | propName, propValues |   -    | 根据传入的属性名称与值的数组查找对应的 text 实例数组，该方法对遍历做了优化，建议使用该方法获取 text 数组 |
+| addTexts        | options, isItemOffset, beforeCreate |    -    | options 是一个 texts 属性的数组，没有的属性会通过组件传递的属性获取。<br/><br/>isItemOffset 默认是 false, 当 isItemOffset 为 true 将会为 options 数组中每个对象的 offset 属性创建 Pixel 实例，默认 fals 共用组件传入的 offset 属性所创建的 Pixel 实例。 <br/><br/>beforeCreate 是一个可选的回调函数，默认可以不传递，可在创建 text 之前调用，将 text 属性传入其中，可以通过该方法处理自定义渲染。新增的 text 数组会添加在组件中，此时 getAll 方法获取的数组中包含新增 text，该方法不会导致 vue 重新渲染 |

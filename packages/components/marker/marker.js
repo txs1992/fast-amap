@@ -26,8 +26,6 @@ export default {
     topWhenClick: Boolean,
     autoRotation: Boolean,
 
-    beforeCreate: Function,
-
     anchor: {
       type: String,
       default: 'top-left'
@@ -41,13 +39,6 @@ export default {
     visible: {
       type: Boolean,
       default: true
-    },
-
-    options: {
-      type: Array,
-      default() {
-        return []
-      }
     },
 
     offset: {
@@ -77,17 +68,6 @@ export default {
     }
   },
 
-  created() {
-    // 由于需要将高德地图与 vue 解耦，所以这里创建的 marker 数组不能被 vue watch。
-    if (!this.markerInstanceList) {
-      this.markerInstanceList = []
-    }
-  },
-
-  beforeDestroy() {
-    this.clearAll()
-  },
-
   methods: {
     handleMoveendEvent() {
       this.$emit('moveend')
@@ -97,53 +77,10 @@ export default {
       this.$emit('movealong')
     },
 
-    showAll() {
-      this.markerInstanceList.forEach(instance => instance.show())
-    },
-
-    hideAll() {
-      this.markerInstanceList.forEach(instance => instance.hide())
-    },
-
-    getAllMarkers() {
-      return this.markerInstanceList.slice(0)
-    },
-
     clearAll() {
-      const { mid, markerInstanceList: markers } = this
-      const map = this.getMapInstance(mid)
-      this.$_amapMixin_removeEvents(markers, events, 'markers')
-
-      // 删除无法通过 $_amapMixin_addEvents 注册的事件。
-      this.removeNotEvnetObjectEvnets(markers)
-
-      map.remove(markers)
-      this.markerInstanceList = []
-    },
-
-    getMarkerByProp(propName, propValue) {
-      return this.markerInstanceList.find(
-        it => it.dataOptions[propName] === propValue
-      )
-    },
-
-    getMarkerByProps(propName, propValues) {
-      if (!Array.isArray(propValues)) {
-        warn('propValues is an array.')
-        return
-      }
-
-      const searchMap = {}
-      this.markerInstanceList.forEach(instance => {
-        const data = instance.dataOptions
-        searchMap[data[propName]] = instance
+      this.$_amapMixin_clearAll('markers', events, instances => {
+        this.removeNotEvnetObjectEvnets(instances)
       })
-
-      const searchList = []
-      propValues.forEach(v => {
-        if (searchMap[v]) searchList.push(searchMap[v])
-      })
-      return searchList
     },
 
     removeNotEvnetObjectEvnets(markers) {
@@ -155,40 +92,15 @@ export default {
     },
 
     removeMarkers(markers, propName) {
-      if (!Array.isArray(markers)) {
-        warn('markers is not an Array.')
-        return
-      }
-
-      const { mid, markerInstanceList: list } = this
-      const map = this.getMapInstance(mid)
-
-      this.$_amapMixin_removeEvents(markers, events, 'markers')
-      this.removeNotEvnetObjectEvnets(markers)
-
-      map.remove(markers)
-
-      if (propName) {
-        const searchMap = {}
-
-        list.forEach((item, index) => {
-          searchMap[item.dataOptions[propName]] = index
-        })
-
-        markers.forEach((marker, len) => {
-          const index = searchMap[marker.dataOptions[propName]]
-          if (index > -1) {
-            list.splice(index - len, 1)
-          }
-        })
-      } else {
-        markers.forEach(marker => {
-          const index = list.indexOf(marker)
-          if (index > -1) {
-            list.splice(index, 1)
-          }
-        })
-      }
+      this.$_amapMixin_removeInstances(
+        'markers',
+        events,
+        markers,
+        propName,
+        () => {
+          this.removeNotEvnetObjectEvnets(markers)
+        }
+      )
     },
 
     addMarkers(
@@ -233,19 +145,19 @@ export default {
         markerOptions.push(marker)
       })
       map.add(markerOptions)
-      this.markerInstanceList = this.markerInstanceList.concat(markerOptions)
+      this.instanceList = this.instanceList.concat(markerOptions)
     },
 
     handleOptionsChange() {
       this.getAMapPromise().then(() => {
         this.clearAll()
         const map = this.getMapInstance(this.mid)
-        const options = this.getPolygonOptions()
+        const options = this.getMarkerOptions()
         options.forEach(option => {
           const marker = this.createMarker(option)
-          this.markerInstanceList.push(marker)
+          this.instanceList.push(marker)
         })
-        map.add(this.markerInstanceList)
+        map.add(this.instanceList)
       })
     },
 
@@ -363,7 +275,7 @@ export default {
       }
     },
 
-    getPolygonOptions() {
+    getMarkerOptions() {
       const { options, position, isItemIcon, isItemOffset, beforeCreate } = this
 
       const markerOptions = []
@@ -400,9 +312,5 @@ export default {
 
       return markerOptions
     }
-  },
-
-  render() {
-    return null
   }
 }
