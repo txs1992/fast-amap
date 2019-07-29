@@ -27,57 +27,9 @@ export default {
     }
   },
 
-  created() {
-    // 由于需要将高德地图与 vue 解耦，所以这里创建的 polygon 数组不能被 vue watch。
-    if (!this.polygonInstanceList) {
-      this.polygonInstanceList = []
-    }
-  },
-
-  beforeDestroy() {
-    this.clearAll()
-  },
-
   methods: {
     handleChangeEvnet() {
       this.$emit('change')
-    },
-
-    showAll() {
-      this.polygonInstanceList.forEach(instance => instance.show())
-    },
-
-    hideAll() {
-      this.polygonInstanceList.forEach(instance => instance.hide())
-    },
-
-    getAllPolygons() {
-      return this.polygonInstanceList.slice(0)
-    },
-
-    getPolygonByProp(propName, propValue) {
-      return this.polygonInstanceList.find(
-        it => it.dataOptions[propName] === propValue
-      )
-    },
-
-    getPolygonByProps(propName, propValues) {
-      if (!Array.isArray(propValues)) {
-        warn('propValues is an array.')
-        return
-      }
-
-      const searchMap = {}
-      this.polygonInstanceList.forEach(instance => {
-        const data = instance.dataOptions
-        searchMap[data[propName]] = instance
-      })
-
-      const searchList = []
-      propValues.forEach(v => {
-        if (searchMap[v]) searchList.push(searchMap[v])
-      })
-      return searchList
     },
 
     removeChangeEvents(polygons) {
@@ -87,39 +39,15 @@ export default {
     },
 
     removePolygons(polygons, propName) {
-      if (!Array.isArray(polygons)) {
-        warn('polygons is not an Array.')
-        return
-      }
-      const { mid, polygonInstanceList: list } = this
-      const map = this.getMapInstance(mid)
-
-      this.removeChangeEvents(polygons)
-      this.$_amapMixin_removeEvents(polygons, events, 'polygons')
-
-      map.remove(polygons)
-
-      if (propName) {
-        const searchMap = {}
-
-        list.forEach((item, index) => {
-          searchMap[item.dataOptions[propName]] = index
-        })
-
-        polygons.forEach((polygon, len) => {
-          const index = searchMap[polygon.dataOptions[propName]]
-          if (index > -1) {
-            list.splice(index - len, 1)
-          }
-        })
-      } else {
-        polygons.forEach(polygon => {
-          const index = list.indexOf(polygon)
-          if (index > -1) {
-            list.splice(index, 1)
-          }
-        })
-      }
+      this.$_amapMixin_removeInstances(
+        'polygons',
+        events,
+        polygons,
+        propName,
+        () => {
+          this.removeChangeEvents(polygons)
+        }
+      )
     },
 
     createPolygon(option) {
@@ -156,16 +84,13 @@ export default {
         polygonOptions.push(polygon)
       })
       map.add(polygonOptions)
-      this.polygonInstanceList = this.polygonInstanceList.concat(polygonOptions)
+      this.instanceList = this.instanceList.concat(polygonOptions)
     },
 
     clearAll() {
-      const { mid, polygonInstanceList: polygons } = this
-      const map = this.getMapInstance(mid)
-      this.removeChangeEvents(polygons)
-      this.$_amapMixin_removeEvents(polygons, events, 'polygons')
-      map.remove(polygons)
-      this.polygonInstanceList = []
+      this.$_amapMixin_clearAll('polygons', events, instances => {
+        this.removeChangeEvents(instances)
+      })
     },
 
     handlePolygonsChange() {
@@ -176,9 +101,9 @@ export default {
         const options = this.getPolygonOptions()
         options.forEach(option => {
           const polygon = this.createPolygon(option)
-          this.polygonInstanceList.push(polygon)
+          this.instanceList.push(polygon)
         })
-        map.add(this.polygonInstanceList)
+        map.add(this.instanceList)
       })
     },
 
@@ -236,9 +161,5 @@ export default {
 
       return polygonOptions
     }
-  },
-
-  render() {
-    return null
   }
 }

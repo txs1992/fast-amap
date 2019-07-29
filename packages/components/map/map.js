@@ -58,6 +58,13 @@ export default {
       }
     },
 
+    options: {
+      type: Object,
+      default() {
+        return {}
+      }
+    },
+
     viewMode: {
       type: String,
       default: '2D'

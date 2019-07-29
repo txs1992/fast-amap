@@ -65,13 +65,6 @@ export default {
     }
   },
 
-  created() {
-    // 由于需要将高德地图与 vue 解耦，所以这里创建的 text 数组不能被 vue watch。
-    if (!this.textInstanceList) {
-      this.textInstanceList = []
-    }
-  },
-
   methods: {
     handleOptionsChange() {
       this.getAMapPromise().then(() => {
@@ -80,22 +73,10 @@ export default {
         const options = this.getPolygonOptions()
         options.forEach(option => {
           const text = this.createText(option)
-          this.textInstanceList.push(text)
+          this.instanceList.push(text)
         })
-        map.add(this.textInstanceList)
+        map.add(this.instanceList)
       })
-    },
-
-    getAllTexts() {
-      return this.textInstanceList.slice(0)
-    },
-
-    showAll() {
-      this.textInstanceList.forEach(text => text.show())
-    },
-
-    hideAll() {
-      this.textInstanceList.forEach(text => text.hide())
     },
 
     handleMoveendEvent() {
@@ -104,31 +85,6 @@ export default {
 
     handleMovealongEvent() {
       this.$emit('movealong')
-    },
-
-    getTextByProp(propName, propValue) {
-      return this.textInstanceList.find(
-        it => it.dataOptions[propName] === propValue
-      )
-    },
-
-    getTextByProps(propName, propValues) {
-      if (!Array.isArray(propValues)) {
-        warn('propValues is an array.')
-        return
-      }
-
-      const searchMap = {}
-      this.textInstanceList.forEach(instance => {
-        const data = instance.dataOptions
-        searchMap[data[propName]] = instance
-      })
-
-      const searchList = []
-      propValues.forEach(v => {
-        if (searchMap[v]) searchList.push(searchMap[v])
-      })
-      return searchList
     },
 
     addTexts(options, isItemOffset = false, beforeCreate) {
@@ -163,55 +119,19 @@ export default {
         textOptions.push(text)
       })
       map.add(textOptions)
-      this.textInstanceList = this.textInstanceList.concat(textOptions)
+      this.instanceList = this.instanceList.concat(textOptions)
     },
 
     removeTexts(texts, propName) {
-      if (!Array.isArray(texts)) {
-        warn('texts is not an Array.')
-        return
-      }
-
-      const { mid, textInstanceList: list } = this
-      const map = this.getMapInstance(mid)
-
-      this.$_amapMixin_removeEvents(texts, events, 'texts')
-      this.removeNotEvnetObjectEvnets(texts)
-
-      map.remove(texts)
-
-      if (propName) {
-        const searchMap = {}
-
-        list.forEach((item, index) => {
-          searchMap[item.dataOptions[propName]] = index
-        })
-
-        texts.forEach((text, len) => {
-          const index = searchMap[text.dataOptions[propName]]
-          if (index > -1) {
-            list.splice(index - len, 1)
-          }
-        })
-      } else {
-        texts.forEach(text => {
-          const index = list.indexOf(text)
-          if (index > -1) {
-            list.splice(index, 1)
-          }
-        })
-      }
+      this.$_amapMixin_removeInstances('texts', events, texts, propName, () => {
+        this.removeNotEvnetObjectEvnets(texts)
+      })
     },
 
     clearAll() {
-      const { mid, textInstanceList: texts } = this
-      const map = this.getMapInstance(mid)
-      this.$_amapMixin_removeEvents(texts, events, 'texts')
-
-      // 删除无法通过 $_amapMixin_addEvents 注册的事件。
-      this.removeNotEvnetObjectEvnets(texts)
-      map.remove(texts)
-      this.textInstanceList = []
+      this.$_amapMixin_clearAll('texts', events, instances => {
+        this.removeNotEvnetObjectEvnets(instances)
+      })
     },
 
     createText(option) {
@@ -324,9 +244,5 @@ export default {
         text.off('movealong', this.handleMovealongEvent)
       })
     }
-  },
-
-  render() {
-    return null
   }
 }
