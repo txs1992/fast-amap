@@ -70,11 +70,11 @@ describe('FastBezierCurve', () => {
         })
         setTimeout(() => {
           const bezierCurve = wrapper.vm.getInstanceByProp('myData', 1)
-          if (bezierCurve && bezierCurve.bf.click[0].tb) {
-            // 模拟 bezierCurve 覆盖物点击事件
-            bezierCurve.bf.click[0].tb({ type: 'click' })
-          }
-        }, 1000)
+          expect(bezierCurve).to.be.an('object')
+          expect(bezierCurve.CLASS_NAME).to.be.a('string')
+          expect(bezierCurve.CLASS_NAME).to.equal('AMap.BezierCurve')
+          bezierCurve.bf.click[0].tb({ type: 'click' })
+        }, 0)
       })
       .catch(() => done(new Error()))
   })
