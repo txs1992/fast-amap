@@ -21,14 +21,30 @@
         :style-option="styleOption"
         @click="handleTextClick"
       ></fast-text>
-      <button style="pointer-events: auto" @click="renderTexts">重新渲染 text 组件</button>
-      <button style="pointer-events: auto" @click="clearAll">清除 text 组件</button>
-      <button style="pointer-events: auto" @click="removeTexts">删除一组 text 实例</button>
-      <button style="pointer-events: auto" @click="findText">查找一个 text 实例</button>
-      <button style="pointer-events: auto" @click="findTextList">查找一组 text 实例</button>
-      <button style="pointer-events: auto" @click="hideAll">隐藏 text 组件实例</button>
-      <button style="pointer-events: auto" @click="showAll">显示 text 组件实例</button>
-      <button style="pointer-events: auto" @click="addTexts">添加一组 text 实例</button>
+      <button style="pointer-events: auto" @click="renderTexts">
+        重新渲染 text 组件
+      </button>
+      <button style="pointer-events: auto" @click="clearAll">
+        清除 text 组件
+      </button>
+      <button style="pointer-events: auto" @click="removeTexts">
+        删除一组 text 实例
+      </button>
+      <button style="pointer-events: auto" @click="findText">
+        查找一个 text 实例
+      </button>
+      <button style="pointer-events: auto" @click="findTextList">
+        查找一组 text 实例
+      </button>
+      <button style="pointer-events: auto" @click="hideAll">
+        隐藏 text 组件实例
+      </button>
+      <button style="pointer-events: auto" @click="showAll">
+        显示 text 组件实例
+      </button>
+      <button style="pointer-events: auto" @click="addTexts">
+        添加一组 text 实例
+      </button>
     </fast-map>
   </div>
 </template>
