@@ -1,4 +1,3 @@
-import { warn } from '../../utils/utils'
 import events from './events'
 import AMapMixin from '../../mixins/a-map'
 

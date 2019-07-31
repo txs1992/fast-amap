@@ -9,7 +9,14 @@ import MapOptions from './utils/map-options'
 import mapLoader, { mapOptionLoader } from './utils/map-loader'
 import MapRegistry from './utils/map-instance-registry'
 
-const components = [FastMap, FastText, FastMarker, FastPolyline, FastPolygon, FastBezierCurve]
+const components = [
+  FastMap,
+  FastText,
+  FastMarker,
+  FastPolyline,
+  FastPolygon,
+  FastBezierCurve
+]
 
 function install(Vue) {
   components.forEach(cpt => cpt.install(Vue))
