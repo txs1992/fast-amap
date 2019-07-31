@@ -13,12 +13,12 @@
 
 | 属性        |      类型       | 默认值 | 说明                                                                                                                                             |
 | ----------- | :-------------: | :----: | --- |
-| **mid**     | number / string |   -    | 地图实例的唯一 marker 组件通过 mid 获取对应的地图实例，然后将覆盖物渲染在对应的地图实例中。                                                      |
-| **options** |      Array      |   -    | 这里是对 marker 的扩展，该数组中存放 marker options 对象，当前对象的属性会覆盖通过 prop 传递的属性。若是 offset 数组是每个 text 实例独立的，应该与自定义数据放在该数组中。 |
+| **mid**     | number / string |   -    | 地图实例的唯一 Text 组件通过 mid 获取对应的地图实例，然后将覆盖物渲染在对应的地图实例中。                                                      |
+| **options** |      Array      |   -    | 这里是对 Text 的扩展，该数组中存放 Text options 对象，当前对象的属性会覆盖通过 prop 传递的属性。若是 offset 数组是每个 text 实例独立的，应该与自定义数据放在该数组中。 |
 | isItemOffset | boolean  | false | 当 isItemIcon 为 true，将会为每一个 options 数组中的对象的 offset 属性创建一个 Pixel 实例，默认将复用组件传入的 offset 属性创建的 Pixel 实例。默认 false 共用 Pixel 实例。|
 | text | string | - | 标记显示的文本内容 |
 | anchor       | string | top-left | 设置点标记锚点。 <br/>默认值：'top-left' <br/>可选值：'top-left', 'top-center', 'top-right', 'middle-left', 'center', 'middle-right', 'bottom-left', 'bottom-center', 'bottom-right' |
-| offset       | Array | - | marker 组件会获取 offset 属性去创建 Pixel。例如：[-10,-34] 会执行 new Pixel(-10,-34)<br/>点标记显示位置偏移量，默认值为 Pixel(-10,-34)。Marker 指定 position 后，默认以 marker 左上角位为基准点（若设置了 anchor，则以 anchor 设置位置为基准点），对准所给定的 position 位置，若需使 marker 指定位置对准在 position 处，需根据 marker 的尺寸设置一定的偏移量。 |
+| offset       | Array | - | Text 组件会获取 offset 属性去创建 Pixel。例如：[-10,-34] 会执行 new Pixel(-10,-34)<br/>点标记显示位置偏移量，默认值为 Pixel(-10,-34)Text 指定 position 后，默认以 Text 左上角位为基准点（若设置了 anchor，则以 anchor 设置位置为基准点），对准所给定的 position 位置，若需使 Text 指定位置对准在 position 处，需根据 Text 的尺寸设置一定的偏移量。 |
 | topWhenClick | boolean | false | 鼠标点击时是否置顶，默认false ，不置顶 |
 | bubble | boolean | false | 是否将覆盖物的鼠标或touch等事件冒泡到地图上，默认值：false |
 | draggable | boolean | false | 设置点标记是否可拖拽移动，默认为false |
@@ -49,7 +49,7 @@
 | dragstart  |                                   MapsEvent                                    | 开始拖拽点标记时触发事件                                                                                                                                                                                                                            |
 | dragging   |                                   MapsEvent                                    | 鼠标拖拽移动点标记时触发事件                                                                                                                                                                                                                        |
 | dragend    |                                   MapsEvent                                    | 点标记拖拽移动结束触发事件                                                                                                                                                                                                                          |
-| moving     |                                     Object                                     | 点标记在执行 moveTo，moveAlong 动画时触发事件，Object 对象的格式是{passedPath:Array.<[LngLat](https://lbs.amap.com/api/javascript-api/reference/core/#LngLat)>}。<br/>其中 passedPath 为 Marker 对象在 moveAlong 或者 moveTo 过程中已经走过的路径。 |
+| moving     |                                     Object                                     | 点标记在执行 moveTo，moveAlong 动画时触发事件，Object 对象的格式是{passedPath:Array.<[LngLat](https://lbs.amap.com/api/javascript-api/reference/core/#LngLat)>}。<br/>其中 passedPath 为 Text 对象在 moveAlong 或者 moveTo 过程中已经走过的路径。 |
 | moveend    |                                       -                                        | 点标记执行 moveTo 动画结束时触发事件，也可以由 moveAlong 方法触发                                                                                                                                                                                   |
 | movealong  |                                       -                                        | 点标记执行 moveAlong 动画一次后触发事件                                                                                                                                                                                                             |
 | touchstart |                                   MapsEvent                                    | 触摸开始时触发事件，仅适用移动设备                                                                                                                                                                                                                  |

@@ -35,7 +35,15 @@ module.exports = {
         ],
         sidebar: {
           '/guide/': ['', 'getting-started', 'development'],
-          '/api/': ['', 'map', 'marker', 'text', 'polygon', 'polyline']
+          '/api/': [
+            '',
+            'map',
+            'marker',
+            'text',
+            'polygon',
+            'polyline',
+            'bezierCurve'
+          ]
         }
       }
     }
