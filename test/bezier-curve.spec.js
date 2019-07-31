@@ -74,7 +74,7 @@ describe('FastBezierCurve', () => {
             // 模拟 bezierCurve 覆盖物点击事件
             bezierCurve.bf.click[0].tb({ type: 'click' })
           }
-        }, 10)
+        }, 1000)
       })
       .catch(() => done(new Error()))
   })
