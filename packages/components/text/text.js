@@ -1,4 +1,3 @@
-import { warn } from '../../utils/utils'
 import events from './events'
 import AMapMixin from '../../mixins/a-map'
 
@@ -61,24 +60,11 @@ export default {
   watch: {
     options: {
       immediate: true,
-      handler: 'handleOptionsChange'
+      handler: '$_amapMixin_handleOptionsChange'
     }
   },
 
   methods: {
-    handleOptionsChange() {
-      this.getAMapPromise().then(() => {
-        this.clearAll()
-        const map = this.getMapInstance(this.mid)
-        const options = this.getPolygonOptions()
-        options.forEach(option => {
-          const text = this.createText(option)
-          this.instanceList.push(text)
-        })
-        map.add(this.instanceList)
-      })
-    },
-
     handleMoveendEvent() {
       this.$emit('moveend')
     },
@@ -88,38 +74,13 @@ export default {
     },
 
     addTexts(options, isItemOffset = false, beforeCreate) {
-      if (!Array.isArray(options)) {
-        warn('options is not an Array.')
-        return
-      }
-      const propsOption = this.getPropsOptions()
-      const map = this.getMapInstance(this.mid)
-      const textOptions = []
-      let offsetInstance = propsOption.offset
-
-      options.forEach((option, index) => {
+      this.$_amapMixin_addInstances(options, beforeCreate, option => {
         // 如果 offset 是独立的，那么就为每一个 text options 都创建一次
         if (isItemOffset) {
-          offsetInstance = this.$_amapMixin_createOffset(offsetInstance)
+          option.offset = this.$_amapMixin_createOffset(option.offset)
         }
-
-        const mergeOption = {
-          ...propsOption,
-          ...option,
-          offset: offsetInstance
-        }
-
-        mergeOption.style = mergeOption.styleOption
-
-        const textOption = beforeCreate
-          ? beforeCreate(mergeOption, index)
-          : mergeOption
-
-        const text = this.createText(textOption)
-        textOptions.push(text)
+        option.style = option.styleOption
       })
-      map.add(textOptions)
-      this.instanceList = this.instanceList.concat(textOptions)
     },
 
     removeTexts(texts, propName) {
@@ -134,7 +95,7 @@ export default {
       })
     },
 
-    createText(option) {
+    createInstance(option) {
       const AMap = this.getAMapInstance()
       const text = new AMap.Text(option)
 
@@ -203,38 +164,14 @@ export default {
       }
     },
 
-    getPolygonOptions() {
-      const { options, position, isItemOffset, beforeCreate } = this
-
-      const textOptions = []
-
-      const propsOptions = this.getPropsOptions()
-
-      let offsetInstance = propsOptions.offset
-
-      options.forEach((option, index) => {
+    getInstanceOptions() {
+      return this.$_amapMixin_getInstanceOptions(option => {
         // 如果 offset 是独立的，那么就为每一个 text options 都创建一次
-        if (isItemOffset) {
-          offsetInstance = this.$_amapMixin_createOffset(offsetInstance)
+        if (this.isItemOffset) {
+          option.offset = this.$_amapMixin_createOffset(option.offset)
         }
-
-        const mergeOption = {
-          ...propsOptions,
-          position: position[index],
-          ...option,
-          offset: offsetInstance
-        }
-
-        mergeOption.style = mergeOption.styleOption
-
-        const textOption = beforeCreate
-          ? beforeCreate(mergeOption, index)
-          : mergeOption
-
-        textOptions.push(textOption)
+        option.style = option.styleOption
       })
-
-      return textOptions
     },
 
     removeNotEvnetObjectEvnets(texts) {

@@ -3,12 +3,20 @@ import FastText from './components/text/index'
 import FastMarker from './components/marker/index'
 import FastPolygon from './components/polygons/index'
 import FastPolyline from './components/polyline/index'
+import FastBezierCurve from './components/bezier-curve/index'
 
 import MapOptions from './utils/map-options'
 import mapLoader, { mapOptionLoader } from './utils/map-loader'
 import MapRegistry from './utils/map-instance-registry'
 
-const components = [FastMap, FastText, FastMarker, FastPolyline, FastPolygon]
+const components = [
+  FastMap,
+  FastText,
+  FastMarker,
+  FastPolyline,
+  FastPolygon,
+  FastBezierCurve
+]
 
 function install(Vue) {
   components.forEach(cpt => cpt.install(Vue))
@@ -28,5 +36,6 @@ export default {
   FastText,
   FastMarker,
   FastPolyline,
-  FastPolygon
+  FastPolygon,
+  FastBezierCurve
 }

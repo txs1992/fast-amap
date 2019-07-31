@@ -64,7 +64,7 @@ export default {
   watch: {
     options: {
       immediate: true,
-      handler: 'handleOptionsChange'
+      handler: '$_amapMixin_handleOptionsChange'
     }
   },
 
@@ -80,6 +80,19 @@ export default {
     clearAll() {
       this.$_amapMixin_clearAll('markers', events, instances => {
         this.removeNotEvnetObjectEvnets(instances)
+      })
+    },
+
+    getInstanceOptions() {
+      const { isItemIcon, isItemOffset } = this
+      return this.$_amapMixin_getInstanceOptions(option => {
+        // 如果 icon 与 offset 是独立的，那么就为每一个 marker options 都创建一次
+        if (isItemIcon && typeof option.icon === 'object') {
+          option.icon = this.createIcon(option.icon)
+        }
+        if (isItemOffset) {
+          option.offset = this.createIcon(option.offset)
+        }
       })
     },
 
@@ -109,55 +122,14 @@ export default {
       isItemOffset = false,
       beforeCreate
     ) {
-      if (!Array.isArray(options)) {
-        warn('options is not an Array.')
-        return
-      }
-      const propsOption = this.getPropsOptions()
-      const map = this.getMapInstance(this.mid)
-      const markerOptions = []
-
-      let iconInstance = propsOption.icon
-      let offsetInstance = propsOption.offset
-
-      options.forEach((option, index) => {
+      this.$_amapMixin_addInstances(options, beforeCreate, option => {
         // 如果 icon 与 offset 是独立的，那么就为每一个 marker options 都创建一次
-        if (isItemIcon && typeof iconInstance === 'object') {
-          iconInstance = this.createIcon(iconInstance)
+        if (isItemIcon && typeof option.icon === 'object') {
+          option.icon = this.createIcon(option.icon)
         }
-
         if (isItemOffset) {
-          offsetInstance = this.$_amapMixin_createOffset(offsetInstance)
+          option.offset = this.$_amapMixin_createOffset(option.offset)
         }
-
-        const mergeOption = {
-          ...propsOption,
-          ...option,
-          icon: iconInstance,
-          offset: offsetInstance
-        }
-
-        const markerOption = beforeCreate
-          ? beforeCreate(mergeOption, index)
-          : mergeOption
-
-        const marker = this.createMarker(markerOption)
-        markerOptions.push(marker)
-      })
-      map.add(markerOptions)
-      this.instanceList = this.instanceList.concat(markerOptions)
-    },
-
-    handleOptionsChange() {
-      this.getAMapPromise().then(() => {
-        this.clearAll()
-        const map = this.getMapInstance(this.mid)
-        const options = this.getMarkerOptions()
-        options.forEach(option => {
-          const marker = this.createMarker(option)
-          this.instanceList.push(marker)
-        })
-        map.add(this.instanceList)
       })
     },
 
@@ -200,7 +172,7 @@ export default {
       return new AMap.Icon(mergetOption)
     },
 
-    createMarker(option) {
+    createInstance(option) {
       const AMap = this.getAMapInstance()
       const marker = new AMap.Marker(option)
 
@@ -273,44 +245,6 @@ export default {
         topWhenClick,
         autoRotation
       }
-    },
-
-    getMarkerOptions() {
-      const { options, position, isItemIcon, isItemOffset, beforeCreate } = this
-
-      const markerOptions = []
-
-      const propsOptions = this.getPropsOptions()
-
-      let iconInstance = propsOptions.icon
-      let offsetInstance = propsOptions.offset
-
-      options.forEach((option, index) => {
-        // 如果 icon 与 offset 是独立的，那么就为每一个 marker options 都创建一次
-        if (isItemIcon && typeof iconInstance === 'object') {
-          iconInstance = this.createIcon(iconInstance)
-        }
-
-        if (isItemOffset) {
-          offsetInstance = this.createIcon(offsetInstance)
-        }
-
-        const mergeOption = {
-          ...propsOptions,
-          position: position[index],
-          ...option,
-          icon: iconInstance,
-          offset: offsetInstance
-        }
-
-        const markerOption = beforeCreate
-          ? beforeCreate(mergeOption, index)
-          : mergeOption
-
-        markerOptions.push(markerOption)
-      })
-
-      return markerOptions
     }
   }
 }

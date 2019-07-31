@@ -13,7 +13,9 @@
       @resize="handleMapmove"
     >
       <h1>amap</h1>
-      <button style="pointer-events: auto" @click="changeCenter">change center</button>
+      <button style="pointer-events: auto" @click="changeCenter">
+        change center
+      </button>
     </fast-map>
   </div>
 </template>

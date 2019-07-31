@@ -124,15 +124,15 @@ export default {
           searchMap[item.dataOptions[propName]] = index
         })
 
-        instances.forEach((polygon, len) => {
-          const index = searchMap[polygon.dataOptions[propName]]
+        instances.forEach((instance, len) => {
+          const index = searchMap[instance.dataOptions[propName]]
           if (index > -1) {
             list.splice(index - len, 1)
           }
         })
       } else {
-        instances.forEach(polygon => {
-          const index = list.indexOf(polygon)
+        instances.forEach(instance => {
+          const index = list.indexOf(instance)
           if (index > -1) {
             list.splice(index, 1)
           }
@@ -185,6 +185,72 @@ export default {
       } else {
         warn(`${name} is not an array.`)
       }
+    },
+
+    $_amapMixin_getInstanceOptions(beforeOption) {
+      const { path, options, beforeCreate } = this
+      const propsOptions = this.getPropsOptions()
+
+      const instanceOptions = []
+
+      options.forEach((option, index) => {
+        const mergeOption = {
+          ...propsOptions,
+          path: path ? path[index] : [],
+          ...option
+        }
+
+        if (beforeOption) beforeOption(mergeOption)
+
+        const instanceOption = beforeCreate
+          ? beforeCreate(mergeOption, index)
+          : mergeOption
+
+        instanceOptions.push(instanceOption)
+      })
+
+      return instanceOptions
+    },
+
+    $_amapMixin_handleOptionsChange() {
+      this.getAMapPromise().then(() => {
+        this.clearAll()
+        const map = this.getMapInstance(this.mid)
+        const options = this.getInstanceOptions()
+        options.forEach(option => {
+          const text = this.createInstance(option)
+          this.instanceList.push(text)
+        })
+        map.add(this.instanceList)
+      })
+    },
+
+    $_amapMixin_addInstances(options, beforeCreate, beforeOption) {
+      if (!Array.isArray(options)) {
+        warn('options is not an Array.')
+        return
+      }
+      const propsOption = this.getPropsOptions()
+      const map = this.getMapInstance(this.mid)
+      const polylineOptions = []
+
+      options.forEach((option, index) => {
+        const mergeOption = {
+          ...propsOption,
+          ...option
+        }
+
+        if (beforeOption) beforeOption(mergeOption)
+
+        const polylineOption = beforeCreate
+          ? beforeCreate(mergeOption, index)
+          : mergeOption
+
+        const polyline = this.createInstance(polylineOption)
+        polylineOptions.push(polyline)
+      })
+      map.add(polylineOptions)
+      this.instanceList = this.instanceList.concat(polylineOptions)
     }
   },
 

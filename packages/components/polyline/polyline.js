@@ -1,4 +1,3 @@
-import { warn } from '../../utils/utils'
 import events from '../polygons/events'
 import AMapMixin from '../../mixins/a-map'
 
@@ -37,49 +36,13 @@ export default {
   watch: {
     options: {
       immediate: true,
-      handler: 'handlePolygonsChange'
+      handler: '$_amapMixin_handleOptionsChange'
     }
   },
 
   methods: {
-    handlePolygonsChange() {
-      this.getAMapPromise().then(() => {
-        const map = this.getMapInstance(this.mid)
-        // 如果已经有 polyline 实例，清除所有实例
-        this.clearAll()
-        const options = this.getPolylineOptions()
-        options.forEach(option => {
-          const polyline = this.createPolyline(option)
-          this.instanceList.push(polyline)
-        })
-        map.add(this.instanceList)
-      })
-    },
-
     addPolylines(options, beforeCreate) {
-      if (!Array.isArray(options)) {
-        warn('options is not an Array.')
-        return
-      }
-      const propsOption = this.getPropsOptions()
-      const map = this.getMapInstance(this.mid)
-      const polylineOptions = []
-
-      options.forEach((option, index) => {
-        const mergeOption = {
-          ...propsOption,
-          ...option
-        }
-
-        const polylineOption = beforeCreate
-          ? beforeCreate(mergeOption, index)
-          : mergeOption
-
-        const polyline = this.createPolyline(polylineOption)
-        polylineOptions.push(polyline)
-      })
-      map.add(polylineOptions)
-      this.instanceList = this.instanceList.concat(polylineOptions)
+      this.$_amapMixin_addInstances(options, beforeCreate)
     },
 
     removePolylines(polylines, propName) {
@@ -94,7 +57,7 @@ export default {
       )
     },
 
-    createPolyline(option) {
+    createInstance(option) {
       const AMap = this.getAMapInstance()
       const polyline = new AMap.Polyline(option)
 
@@ -167,27 +130,8 @@ export default {
       }
     },
 
-    getPolylineOptions() {
-      const { path, options, beforeCreate } = this
-      const propsOptions = this.getPropsOptions()
-
-      const polylineOptions = []
-
-      options.forEach((option, index) => {
-        const mergeOption = {
-          ...propsOptions,
-          path: path[index],
-          ...option
-        }
-
-        const polylineOption = beforeCreate
-          ? beforeCreate(mergeOption, index)
-          : mergeOption
-
-        polylineOptions.push(polylineOption)
-      })
-
-      return polylineOptions
+    getInstanceOptions() {
+      return this.$_amapMixin_getInstanceOptions()
     }
   }
 }

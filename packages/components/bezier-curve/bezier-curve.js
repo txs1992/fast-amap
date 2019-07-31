@@ -1,22 +1,17 @@
-import events from './events'
+import events from '../polygons/events'
 import AMapMixin from '../../mixins/a-map'
-import AMapPropMixin from '../../mixins/poly-prop'
+import PolyPropMixin from '../../mixins/poly-prop'
 
 export default {
-  name: 'FastPolygon',
+  name: 'FastBezierCurve',
 
-  mixins: [AMapMixin, AMapPropMixin],
+  mixins: [AMapMixin, PolyPropMixin],
 
   props: {
-    fillColor: {
-      type: String,
-      default: '#FFAAA00'
-    },
-
-    fillOpacity: {
-      type: Number,
-      default: 0.9
-    }
+    showDir: Boolean,
+    isOutline: Boolean,
+    outlineColor: String,
+    borderWeight: Number
   },
 
   watch: {
@@ -31,41 +26,41 @@ export default {
       this.$emit('change')
     },
 
-    removeChangeEvents(polygons) {
-      polygons.forEach(polygon => {
-        polygon.off('change', this.handleChangeEvnet)
+    removeChangeEvents(instances) {
+      instances.forEach(instance => {
+        instance.off('change', this.handleChangeEvnet)
       })
     },
 
-    removePolygons(polygons, propName) {
+    removeBezierCurves(instances, propName) {
       this.$_amapMixin_removeInstances(
-        'polygons',
+        'bezierCurves',
         events,
-        polygons,
+        instances,
         propName,
         () => {
-          this.removeChangeEvents(polygons)
+          this.removeChangeEvents(instances)
         }
       )
     },
 
     createInstance(option) {
       const AMap = this.getAMapInstance()
-      const polygon = new AMap.Polygon(option)
+      const instance = new AMap.BezierCurve(option)
 
       // 添加 $_amapMixin_addEvents 无法注册的事件
-      polygon.on('change', this.handleChangeEvnet)
-      this.$_amapMixin_addEvents(polygon, events)
-      polygon.dataOptions = option
-      return polygon
+      instance.on('change', this.handleChangeEvnet)
+      this.$_amapMixin_addEvents(instance, events)
+      instance.dataOptions = option
+      return instance
     },
 
-    addPolygons(options, beforeCreate) {
+    addBezierCurves(options, beforeCreate) {
       this.$_amapMixin_addInstances(options, beforeCreate)
     },
 
     clearAll() {
-      this.$_amapMixin_clearAll('polygons', events, instances => {
+      this.$_amapMixin_clearAll('bezierCurve', events, instances => {
         this.removeChangeEvents(instances)
       })
     },
@@ -76,12 +71,14 @@ export default {
         bubble,
         zIndex,
         extData,
+        showDir,
         draggable,
-        fillColor,
-        fillOpacity,
+        isOutline,
         strokeColor,
         strokeStyle,
         strokeWeight,
+        outlineColor,
+        borderWeight,
         strokeOpacity,
         strokeDasharray
       } = this
@@ -91,12 +88,14 @@ export default {
         bubble,
         zIndex,
         extData,
+        showDir,
         draggable,
-        fillColor,
-        fillOpacity,
+        isOutline,
         strokeColor,
         strokeStyle,
         strokeWeight,
+        outlineColor,
+        borderWeight,
         strokeOpacity,
         strokeDasharray
       }
