@@ -23,7 +23,7 @@ export default {
   watch: {
     options: {
       immediate: true,
-      handler: 'handlePolygonsChange'
+      handler: '$_amapMixin_handleOptionsChange'
     }
   },
 
@@ -50,7 +50,7 @@ export default {
       )
     },
 
-    createPolygon(option) {
+    createInstance(option) {
       const AMap = this.getAMapInstance()
       const polygon = new AMap.Polygon(option)
 
@@ -62,48 +62,12 @@ export default {
     },
 
     addPolygons(options, beforeCreate) {
-      if (!Array.isArray(options)) {
-        warn('options is not an Array.')
-        return
-      }
-      const propsOption = this.getPropsOptions()
-      const map = this.getMapInstance(this.mid)
-      const polygonOptions = []
-
-      options.forEach((option, index) => {
-        const mergeOption = {
-          ...propsOption,
-          ...option
-        }
-
-        const polygonOption = beforeCreate
-          ? beforeCreate(mergeOption, index)
-          : mergeOption
-
-        const polygon = this.createPolygon(polygonOption)
-        polygonOptions.push(polygon)
-      })
-      map.add(polygonOptions)
-      this.instanceList = this.instanceList.concat(polygonOptions)
+      this.$_amapMixin_addInstances(options, beforeCreate)
     },
 
     clearAll() {
       this.$_amapMixin_clearAll('polygons', events, instances => {
         this.removeChangeEvents(instances)
-      })
-    },
-
-    handlePolygonsChange() {
-      this.getAMapPromise().then(() => {
-        const map = this.getMapInstance(this.mid)
-        // 如果已经有 polygon 实例，清除所有实例
-        this.clearAll()
-        const options = this.getPolygonOptions()
-        options.forEach(option => {
-          const polygon = this.createPolygon(option)
-          this.instanceList.push(polygon)
-        })
-        map.add(this.instanceList)
       })
     },
 
@@ -139,27 +103,8 @@ export default {
       }
     },
 
-    getPolygonOptions() {
-      const { path, options, beforeCreate } = this
-      const propsOptions = this.getPropsOptions()
-
-      const polygonOptions = []
-
-      options.forEach((option, index) => {
-        const mergeOption = {
-          ...propsOptions,
-          path: path[index],
-          ...option
-        }
-
-        const polygonOption = beforeCreate
-          ? beforeCreate(mergeOption, index)
-          : mergeOption
-
-        polygonOptions.push(polygonOption)
-      })
-
-      return polygonOptions
+    getInstanceOptions() {
+      return this.$_amapMixin_getInstanceOptions()
     }
   }
 }
