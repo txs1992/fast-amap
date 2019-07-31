@@ -4,7 +4,7 @@
       mid="bezier-curve"
       ref="bezierCurve"
       :zoom="15"
-      :center="[116.400857,39.899498]"
+      :center="[116.400857, 39.899498]"
       :options="options"
       :double-click-zoom="false"
       @click="handleClick"
@@ -23,6 +23,7 @@
         :stroke-opacity="1"
         :stroke-weight="6"
         :stroke-dasharray="[10, 10]"
+        @click="handleBezierClick"
       ></fast-bezier-curve>
     </fast-map>
   </div>
@@ -71,6 +72,10 @@ export default {
   methods: {
     handleClick() {
       console.log('handleClick', this.$refs.bezierCurve.getMapInstance())
+    },
+
+    handleBezierClick(e) {
+      console.log('handleBezierClick', e.target)
     }
   }
 }
