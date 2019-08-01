@@ -8,7 +8,8 @@ const routes = [
   { path: '/text', component: () => import('./pages/text.vue') },
   { path: '/polyline', component: () => import('./pages/polyline.vue') },
   { path: '/polygon', component: () => import('./pages/polygon.vue') },
-  { path: '/bezier-curve', component: () => import('./pages/bezier-curve.vue') }
+  { path: '/bezier-curve', component: () => import('./pages/bezier-curve.vue') },
+  { path: '/circle', component: () => import('./pages/circle.vue') }
 ]
 
 const router = new VueRouter({
