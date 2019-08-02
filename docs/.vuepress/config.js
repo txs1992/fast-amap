@@ -42,7 +42,8 @@ module.exports = {
             'text',
             'polygon',
             'polyline',
-            'bezierCurve'
+            'bezierCurve',
+            'circle'
           ]
         }
       }

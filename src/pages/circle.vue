@@ -25,15 +25,33 @@
         :stroke-dasharray="[10, 10]"
         @click="handlecircleClick"
       ></fast-circle>
-      <button style="pointer-events: auto" @click="rerenderCircle">渲染 200 个</button>
-      <button style="pointer-events: auto;" @click="getAllCircles">获取组件所有 circle</button>
-      <button style="pointer-events: auto;" @click="removeCircles">删除一组 circle</button>
-      <button style="pointer-events: auto;" @click="clearAll">删除所有 circle</button>
-      <button style="pointer-events: auto;" @click="findCircle">查询指定 circle</button>
-      <button style="pointer-events: auto" @click="findCircles">查询 circle 数组</button>
-      <button style="pointer-events: auto" @click="hideCircles">隐藏组件所有 circle</button>
-      <button style="pointer-events: auto" @click="showCircles">显示组件所有 circle</button>
-      <button style="pointer-events: auto" @click="addCircles">添加 circle 数组</button>
+      <button style="pointer-events: auto" @click="rerenderCircle">
+        渲染 200 个
+      </button>
+      <button style="pointer-events: auto;" @click="getAllCircles">
+        获取组件所有 circle
+      </button>
+      <button style="pointer-events: auto;" @click="removeCircles">
+        删除一组 circle
+      </button>
+      <button style="pointer-events: auto;" @click="clearAll">
+        删除所有 circle
+      </button>
+      <button style="pointer-events: auto;" @click="findCircle">
+        查询指定 circle
+      </button>
+      <button style="pointer-events: auto" @click="findCircles">
+        查询 circle 数组
+      </button>
+      <button style="pointer-events: auto" @click="hideCircles">
+        隐藏组件所有 circle
+      </button>
+      <button style="pointer-events: auto" @click="showCircles">
+        显示组件所有 circle
+      </button>
+      <button style="pointer-events: auto" @click="addCircles">
+        添加 circle 数组
+      </button>
     </fast-map>
   </div>
 </template>
