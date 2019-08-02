@@ -8,6 +8,7 @@
       <router-link to="/polyline">Polyline</router-link>
       <router-link to="/polygon">Polygon</router-link>
       <router-link to="/bezier-curve">BezierCurve</router-link>
+      <router-link to="/circle">Circle</router-link>
     </div>
     <div class="container">
       <router-view></router-view>
