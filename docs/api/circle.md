@@ -31,7 +31,7 @@
 # 事件
 
 :::tip
-cricle 组件的事件对象中可以获取 options 中的自定义属性数据，通过 event.target.dataOptions 获取。
+circle 组件的事件对象中可以获取 options 中的自定义属性数据，通过 event.target.dataOptions 获取。
 :::
 
 | 事件       |                                      参数                                      | 说明                                     |
@@ -53,7 +53,7 @@ cricle 组件的事件对象中可以获取 options 中的自定义属性数据�
 ## 方法
 
 :::tip
-通过 `$refs` 获取组件实例来调用。例如：`this.$refs.myCricle.getAll()`，关于 cricle 类的实例方法，请查看官方文档 [cricle](https://lbs.amap.com/api/javascript-api/reference/overlay#cricle)
+通过 `$refs` 获取组件实例来调用。例如：`this.$refs.myCircle.getAll()`，关于 circle 类的实例方法，请查看官方文档 [circle](https://lbs.amap.com/api/javascript-api/reference/overlay#circle)
 :::
 
 | 方法               |         参数          | 返回值  | 说明                                                                                                                                                                                                                                                                     |
@@ -61,11 +61,11 @@ cricle 组件的事件对象中可以获取 options 中的自定义属性数据�
 | getAMapPromise     |           -           | Promise | 获取 AMap 类，返回一个 Promise 对象，在 reslove 中返回 AMap 类                                                                                                                                                                                                           |
 | getAMapInstance    |           -           |  AMap   | 获取 AMap 类，请在地图组件 complete 之后获取，否则返回值可能是 Null                                                                                                                                                                                                      |
 | getMapInstance     |       - 或 mid        |   map   | 根据 mid 获取当前地图实例，默认会根据组件传入的 mid 属性获取                                                                                                                                                                                                             |
-| hideAll            |           -           |    -    | 隐藏当前组件所有的 cricle 实例                                                                                                                                                                                                                                          |
-| showAll            |           -           |    -    | 显示当前组件所有的 cricle 实例                                                                                                                                                                                                                                          |
-| clearAll           |           -           |    -    | 清空当前组件所有的 cricle 实例                                                                                                                                                                                                                                          |
-| removecricles     |  cricles, propName   |    -    | 删除传入的 cricle 实例数组，该方法不会导致 vue 重新渲染，propName 是每个 cricle 实例 options 中的唯一值，例如 id, key 它用来做查询优化，请保证每个实例 options 中的 propName 值都是唯一的，如果传入该参数将会大大优化性能。                                            |
-| getAll             |           -           |  Array  | 获取当前组件所有的 cricle 实例                                                                                                                                                                                                                                          |
-| getInstanceByProp  |  propName, propValue  |    -    | 根据传入的属性名称与值查找对应的 cricle 实例                                                                                                                                                                                                                            |
-| getInstanceByProps | propName, propValues  |    -    | 根据传入的属性名称与值的数组查找对应的 cricle 实例数组，该方法对遍历做了优化，建议使用该方法获取 cricle 数组                                                                                                                                                           |
-| addCricles        | options, beforeCreate |    -    | options 是一个 cricle beforeCreate 是一个可选的回调函数，默认可以不传递，可在创建 cricle 之前调用，将 cricle 属性传入其中，可以通过该方法处理自定义渲染。新增的 cricle 数组会添加在组件中，此时 getAll 方法获取的数组中包含新增 cricle，该方法不会导致 vue 重新渲染 |
+| hideAll            |           -           |    -    | 隐藏当前组件所有的 circle 实例                                                                                                                                                                                                                                          |
+| showAll            |           -           |    -    | 显示当前组件所有的 circle 实例                                                                                                                                                                                                                                          |
+| clearAll           |           -           |    -    | 清空当前组件所有的 circle 实例                                                                                                                                                                                                                                          |
+| removeCircles     |  circle, propName   |    -    | 删除传入的 circle 实例数组，该方法不会导致 vue 重新渲染，propName 是每个 circle 实例 options 中的唯一值，例如 id, key 它用来做查询优化，请保证每个实例 options 中的 propName 值都是唯一的，如果传入该参数将会大大优化性能。                                            |
+| getAll             |           -           |  Array  | 获取当前组件所有的 circle 实例                                                                                                                                                                                                                                          |
+| getInstanceByProp  |  propName, propValue  |    -    | 根据传入的属性名称与值查找对应的 circle 实例                                                                                                                                                                                                                            |
+| getInstanceByProps | propName, propValues  |    -    | 根据传入的属性名称与值的数组查找对应的 circle 实例数组，该方法对遍历做了优化，建议使用该方法获取 circle 数组                                                                                                                                                           |
+| addCircles        | options, beforeCreate |    -    | options 是一个 circle beforeCreate 是一个可选的回调函数，默认可以不传递，可在创建 circle 之前调用，将 circle 属性传入其中，可以通过该方法处理自定义渲染。新增的 circle 数组会添加在组件中，此时 getAll 方法获取的数组中包含新增 circle，该方法不会导致 vue 重新渲染 |
