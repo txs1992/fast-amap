@@ -137,7 +137,7 @@ describe('FastCircleMarker', () => {
       .catch(() => done(new Error()))
   })
 
-  it('test circleMarker removeCircles function', done => {
+  it('test circleMarker removeCircleMarkers function', done => {
     mapWrapper.vm
       .getAMapPromise()
       .then(() => {
@@ -146,7 +146,7 @@ describe('FastCircleMarker', () => {
           const instances = wrapper.vm.getAll()
           expect(instances).to.be.an('array')
           expect(instances.length).to.be.equal(2)
-          wrapper.vm.removeCircles(instances, 'myData')
+          wrapper.vm.removeCircleMarkers(instances, 'myData')
           expect(wrapper.vm.getAll().length).to.be.equal(0)
           done()
         }, 0)

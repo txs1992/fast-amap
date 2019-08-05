@@ -30,7 +30,7 @@ export default {
   },
 
   methods: {
-    removeCircles(instances, propName) {
+    removeCircleMarkers(instances, propName) {
       this.$_amapMixin_removeInstances(
         'circleMarkers',
         circleEvents,
