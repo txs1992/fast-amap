@@ -63,12 +63,22 @@ export default {
       return this.instanceList.slice(0)
     },
 
+    /**
+     * 根据属性名称和值找到一个实例
+     * @param {String} propName
+     * @param {String|Number} propValue
+     */
     getInstanceByProp(propName, propValue) {
       return this.instanceList.find(
         it => it.dataOptions[propName] === propValue
       )
     },
 
+    /**
+     * 根据属性名称和一组值找到一组实例
+     * @param {String} propName
+     * @param {Array} propValues
+     */
     getInstanceByProps(propName, propValues) {
       if (!Array.isArray(propValues)) {
         warn('propValues is an array.')
@@ -88,15 +98,31 @@ export default {
       return searchList
     },
 
+    /**
+     * 通用清除覆盖物函数，在清理覆盖物之前会调用 beforeClear 钩子函数，
+     * 并将需要清除的覆盖物实例数组传入，可以在清除前做些自定义操作。
+     * @param {String} name 覆盖物实例的名称
+     * @param {Array} events 覆盖物注册的事件列表
+     * @param {Function} beforeClear 钩子函数
+     */
     $_amapMixin_clearAll(name, events, beforeClear) {
       const { mid, instanceList: instances } = this
       const map = this.getMapInstance(mid)
+      // 调用通用删除事件方法，删除实例注册的事件。
       this.$_amapMixin_removeEvents(instances, events, name)
       if (typeof beforeClear === 'function') beforeClear(instances)
       map.remove(instances)
       this.instanceList = []
     },
 
+    /**
+     * 删除覆盖物数组的公共方法，会在删除前调用钩子函数，并传入实例数组。
+     * @param {String} name 实例名称
+     * @param {Array} events  实例注册的事件数组
+     * @param {Array} instances 要删除的实例数组
+     * @param {String} propName 删除数组的 key，如果传入将启动优化
+     * @param {Function} beforeRemove 钩子函数
+     */
     $_amapMixin_removeInstances(
       name,
       events,
@@ -111,12 +137,16 @@ export default {
       const { mid, instanceList: list } = this
       const map = this.getMapInstance(mid)
 
+      // 调用通用删除事件方法，删除实例注册的事件。
       this.$_amapMixin_removeEvents(instances, events, name)
 
       if (typeof beforeRemove === 'function') beforeRemove(instances)
 
+      // 从地图中删除覆盖物
       map.remove(instances)
 
+      // 从组件的实例数组中删除对应的覆盖物实例
+      // 如果添加了 propName 属性将采用优化查找
       if (propName) {
         const searchMap = {}
 
@@ -140,6 +170,11 @@ export default {
       }
     },
 
+    /**
+     * 通用创建地图 Offset 方法
+     * @param {Array} offset
+     * @param {String} name
+     */
     $_amapMixin_createOffset(offset, name = 'offset') {
       if (!Array.isArray(offset)) {
         warn(`${name} is not an Array.`)
@@ -169,12 +204,24 @@ export default {
       this.$emit(event.type, event, this.getMapInstance(this.mid))
     },
 
+    /**
+     * 通用注册事件方法
+     * @param {Object} instance 实例对象
+     * @param {Array} events 事件数组
+     */
     $_amapMixin_addEvents(instance, events) {
       events.forEach(evnet => {
+        // 注册事件，并传入通用函数处理方法
         instance.on(evnet, this.$_amapMixin_handleEvents)
       })
     },
 
+    /**
+     * 通用删除事件方法
+     * @param {Array} instanceList 实例数组
+     * @param {Array} events  事件数组
+     * @param {String} name 实例名称
+     */
     $_amapMixin_removeEvents(instanceList, events, name) {
       if (Array.isArray(instanceList)) {
         instanceList.forEach(instance => {
@@ -187,6 +234,10 @@ export default {
       }
     },
 
+    /**
+     * 通用获取实例配置方法
+     * @param {Object} beforeOption 配置生成结束前调用的钩子，传入当前配置对象
+     */
     $_amapMixin_getInstanceOptions(beforeOption) {
       const { path, options, beforeCreate } = this
       const propsOptions = this.getPropsOptions()
@@ -212,12 +263,16 @@ export default {
       return instanceOptions
     },
 
+    /**
+     * 通用处理 options 数据观察方法
+     */
     $_amapMixin_handleOptionsChange() {
       this.getAMapPromise().then(() => {
         this.clearAll()
         const map = this.getMapInstance(this.mid)
         const options = this.getInstanceOptions()
         options.forEach(option => {
+          // 调用组件的创建实例方法
           const text = this.createInstance(option)
           this.instanceList.push(text)
         })
@@ -225,6 +280,12 @@ export default {
       })
     },
 
+    /**
+     * 通用添加一组实例的方法
+     * @param {Array} options 实例配置数组
+     * @param {Function} beforeCreate 创建实例前调用的钩子函数
+     * @param {Object} beforeOption 配置生成前调用的钩子函数
+     */
     $_amapMixin_addInstances(options, beforeCreate, beforeOption) {
       if (!Array.isArray(options)) {
         warn('options is not an Array.')
