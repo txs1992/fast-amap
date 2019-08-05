@@ -12,7 +12,11 @@ const routes = [
     path: '/bezier-curve',
     component: () => import('./pages/bezier-curve.vue')
   },
-  { path: '/circle', component: () => import('./pages/circle.vue') }
+  { path: '/circle', component: () => import('./pages/circle.vue') },
+  {
+    path: '/circle-marker',
+    component: () => import('./pages/circle-marker.vue')
+  }
 ]
 
 const router = new VueRouter({

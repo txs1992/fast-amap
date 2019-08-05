@@ -10,7 +10,7 @@
     "dev": "yarn lint && yarn format && webpack-dev-server --inline --progress --config webpack.config.js",
     "lint": "eslint --ext .js,.vue packages",
     "test": "karma start --single-run --browsers ChromeHeadless karma.conf.js",
-    "format": "prettier --config ./.prettierrc.yaml --write '**/*.{js,vue,css,scss}'",
+    "format": "prettier --config ./.prettierrc.yaml --write 'packages/**/*.{js,vue,css,scss}'",
     "precommit": "pretty-quick --staged",
     "deploy": "npm run docs:build && gh-pages -d dist"
   },

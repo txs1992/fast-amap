@@ -43,7 +43,8 @@ module.exports = {
             'polygon',
             'polyline',
             'bezierCurve',
-            'circle'
+            'circle',
+            'circleMarker'
           ]
         }
       }
