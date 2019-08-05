@@ -1,11 +1,12 @@
-import FastMap from './components/map/index'
-import FastText from './components/text/index'
-import FastMarker from './components/marker/index'
-import FastCircle from './components/circle/index'
-import FastPolygon from './components/polygons/index'
-import FastPolyline from './components/polyline/index'
+import FastMap from './components/map'
+import FastText from './components/text'
+import FastMarker from './components/marker'
+import FastCircle from './components/circle'
+import FastPolygon from './components/polygons'
+import FastPolyline from './components/polyline'
+import FastCircleMarker from './components/circle-marker'
 
-import FastBezierCurve from './components/bezier-curve/index'
+import FastBezierCurve from './components/bezier-curve'
 
 import MapOptions from './utils/map-options'
 import mapLoader, { mapOptionLoader } from './utils/map-loader'
@@ -18,7 +19,8 @@ const components = [
   FastCircle,
   FastPolyline,
   FastPolygon,
-  FastBezierCurve
+  FastBezierCurve,
+  FastCircleMarker
 ]
 
 function install(Vue) {
@@ -41,5 +43,6 @@ export default {
   FastCircle,
   FastPolyline,
   FastPolygon,
-  FastBezierCurve
+  FastBezierCurve,
+  FastCircleMarker
 }
