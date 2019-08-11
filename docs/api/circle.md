@@ -10,7 +10,7 @@
 
 | 属性 | 类型 | 默认值 | 说明 |
 | ---- | ---- | ------ | ---- |
-| **options** | Array | - | 这里是对 circle 的扩展，该数组中存放 circle options 对象，当前对象的属性会覆盖通过 prop 传递的属性。建议将 ptah 数组与自定义数据放在该数组中。 |
+| **options** | Array | - | 这里是对 circle 的扩展，该数组中存放 circle options 属性中，当前对象的属性会覆盖通过 prop 传递的属性。建议将 ptah 数组与自定义数据放在该数组中。 |
 | **mid** | number / string | - | 地图实例的唯一 circle 组件通过 mid 获取对应的地图实例，然后将覆盖物渲染在对应的地图实例中。 |
 | beforeCreate | Function | - | 如果传递了该函数，将在渲染 circle 之前调用函数，参数是传入的 options 以及相关 prop 属性的合并对象 |
 | zIndex | Number | 10 | 层叠顺序 |

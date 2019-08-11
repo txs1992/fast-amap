@@ -44,7 +44,8 @@ module.exports = {
             'polyline',
             'bezierCurve',
             'circle',
-            'circleMarker'
+            'circleMarker',
+            'infoWindow'
           ]
         }
       }
