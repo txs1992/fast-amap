@@ -16,6 +16,11 @@ const routes = [
   {
     path: '/circle-marker',
     component: () => import('./pages/circle-marker.vue')
+  },
+
+  {
+    path: '/info-window',
+    component: () => import('./pages/info-window.vue')
   }
 ]
 
