@@ -273,8 +273,8 @@ export default {
         const options = this.getInstanceOptions()
         options.forEach(option => {
           // 调用组件的创建实例方法
-          const text = this.createInstance(option)
-          this.instanceList.push(text)
+          const instance = this.createInstance(option)
+          this.instanceList.push(instance)
         })
         map.add(this.instanceList)
       })

@@ -4,9 +4,9 @@ import FastMarker from './components/marker'
 import FastCircle from './components/circle'
 import FastPolygon from './components/polygons'
 import FastPolyline from './components/polyline'
-import FastCircleMarker from './components/circle-marker'
-
+import FastInfoWindow from './components/info-window'
 import FastBezierCurve from './components/bezier-curve'
+import FastCircleMarker from './components/circle-marker'
 
 import MapOptions from './utils/map-options'
 import mapLoader, { mapOptionLoader } from './utils/map-loader'
@@ -19,6 +19,7 @@ const components = [
   FastCircle,
   FastPolyline,
   FastPolygon,
+  FastInfoWindow,
   FastBezierCurve,
   FastCircleMarker
 ]
@@ -43,6 +44,7 @@ export default {
   FastCircle,
   FastPolyline,
   FastPolygon,
+  FastInfoWindow,
   FastBezierCurve,
   FastCircleMarker
 }
