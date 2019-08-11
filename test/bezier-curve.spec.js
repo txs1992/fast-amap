@@ -63,10 +63,7 @@ describe('FastBezierCurve', () => {
       .getAMapPromise()
       .then(() => {
         setTimeout(() => {
-          const wrapper = createBezierCurve((event, map) => {
-            expect(event).to.be.an('object')
-            expect(map.CLASS_NAME).to.equal('AMap.Map')
-            expect(map).to.eql(mapWrapper.vm.getMapInstance())
+          const wrapper = createBezierCurve(() => {
             done()
           })
           setTimeout(() => {
