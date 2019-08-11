@@ -62,24 +62,26 @@ describe('FastBezierCurve', () => {
     mapWrapper.vm
       .getAMapPromise()
       .then(() => {
-        const wrapper = createBezierCurve((event, map) => {
-          expect(event).to.be.an('object')
-          expect(map.CLASS_NAME).to.equal('AMap.Map')
-          expect(map).to.eql(mapWrapper.vm.getMapInstance())
-          done()
-        })
         setTimeout(() => {
-          const bezierCurve = wrapper.vm.getInstanceByProp('myData', 1)
-          expect(bezierCurve).to.be.an('object')
-          expect(bezierCurve.CLASS_NAME).to.be.a('string')
-          expect(bezierCurve.CLASS_NAME).to.equal('AMap.BezierCurve')
-          if (bezierCurve.bf.click[0].tb) {
-            // 模拟 bezierCurve 覆盖物点击事件
-            bezierCurve.bf.click[0].tb({ type: 'click' })
-          } else {
+          const wrapper = createBezierCurve((event, map) => {
+            expect(event).to.be.an('object')
+            expect(map.CLASS_NAME).to.equal('AMap.Map')
+            expect(map).to.eql(mapWrapper.vm.getMapInstance())
             done()
-          }
-        }, 0)
+          })
+          setTimeout(() => {
+            const bezierCurve = wrapper.vm.getInstanceByProp('myData', 1)
+            expect(bezierCurve).to.be.an('object')
+            expect(bezierCurve.CLASS_NAME).to.be.a('string')
+            expect(bezierCurve.CLASS_NAME).to.equal('AMap.BezierCurve')
+            if (bezierCurve.bf.click[0].tb) {
+              // 模拟 bezierCurve 覆盖物点击事件
+              bezierCurve.bf.click[0].tb({ type: 'click' })
+            } else {
+              done()
+            }
+          }, 0)
+        }, 1000)
       })
       .catch(() => done(new Error()))
   })
