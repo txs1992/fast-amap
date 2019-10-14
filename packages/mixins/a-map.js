@@ -20,7 +20,20 @@ export default {
       }
     },
 
-    beforeCreate: Function
+    beforeCreate: Function,
+
+    plugins: {
+      type: Array,
+      default() {
+        return []
+      }
+    }
+  },
+
+  data() {
+    return {
+      rendered: false
+    }
   },
 
   created() {
@@ -36,6 +49,16 @@ export default {
 
   beforeDestroy() {
     if (typeof this.clearAll === 'function') this.clearAll()
+  },
+
+  watch: {
+    plugins: {
+      handler() {
+        this.$nextTick(() => {
+          if (this.rendered) this.addPlugins()
+        })
+      }
+    }
   },
 
   methods: {
@@ -210,9 +233,9 @@ export default {
      * @param {Array} events 事件数组
      */
     $_amapMixin_addEvents(instance, events) {
-      events.forEach(evnet => {
+      events.forEach(event => {
         // 注册事件，并传入通用函数处理方法
-        instance.on(evnet, this.$_amapMixin_handleEvents)
+        instance.on(event, this.$_amapMixin_handleEvents)
       })
     },
 
@@ -225,8 +248,8 @@ export default {
     $_amapMixin_removeEvents(instanceList, events, name) {
       if (Array.isArray(instanceList)) {
         instanceList.forEach(instance => {
-          events.forEach(evnet => {
-            instance.off(evnet, this.$_amapMixin_handleEvents)
+          events.forEach(event => {
+            instance.off(event, this.$_amapMixin_handleEvents)
           })
         })
       } else {
@@ -267,8 +290,10 @@ export default {
      * 通用处理 options 数据观察方法
      */
     $_amapMixin_handleOptionsChange() {
+      this.rendered = false
       this.getAMapPromise().then(() => {
         this.clearAll()
+
         const map = this.getMapInstance(this.mid)
         const options = this.getInstanceOptions()
         options.forEach(option => {
@@ -276,8 +301,60 @@ export default {
           const instance = this.createInstance(option)
           this.instanceList.push(instance)
         })
+        this.rendered = true
+        this.$nextTick(() => {
+          this.addPlugins()
+        })
         map.add(this.instanceList)
       })
+    },
+
+    addPlugins(list) {
+      // 加载插件
+      const AMap = this.getAMapInstance()
+      const plugins = this.plugins
+      const map = this.getMapInstance(this.mid)
+      const pluginNames = plugins.map(plugin => plugin.name)
+      const instanceList = list || this.instanceList
+
+      if (plugins.length) {
+        AMap.plugin(pluginNames, () => {
+          pluginNames.forEach((pName, pIdx) => {
+            const shortName = pName.replace('AMap.', '')
+            const pOption = this.plugins[pIdx]
+
+            if (shortName === 'MarkerClusterer') {
+              this.clusterer = new AMap.MarkerClusterer(
+                map,
+                instanceList,
+                pOption.options
+              )
+            } else {
+              instanceList.forEach(instance => {
+                if (AMap[shortName]) {
+                  // 创建插件实例
+                  const plugin = new AMap[shortName](
+                    map,
+                    instance,
+                    pOption.options
+                  )
+
+                  const events = pOption.events
+                  if (events) {
+                    for (let key in events) {
+                      const fn = events[key]
+                      plugin.on(key, fn)
+                    }
+                  }
+
+                  // 将插件放入实例属性中
+                  instance.plugin = plugin
+                }
+              })
+            }
+          })
+        })
+      }
     },
 
     /**
@@ -293,7 +370,7 @@ export default {
       }
       const propsOption = this.getPropsOptions()
       const map = this.getMapInstance(this.mid)
-      const polylineOptions = []
+      const newList = []
 
       options.forEach((option, index) => {
         const mergeOption = {
@@ -303,15 +380,17 @@ export default {
 
         if (beforeOption) beforeOption(mergeOption)
 
-        const polylineOption = beforeCreate
+        const instanceOption = beforeCreate
           ? beforeCreate(mergeOption, index)
           : mergeOption
 
-        const polyline = this.createInstance(polylineOption)
-        polylineOptions.push(polyline)
+        const instance = this.createInstance(instanceOption)
+        newList.push(instance)
       })
-      map.add(polylineOptions)
-      this.instanceList = this.instanceList.concat(polylineOptions)
+      map.add(newList)
+      this.addPlugins(newList)
+      // this.rendered
+      this.instanceList = this.instanceList.concat(newList)
     }
   },
 

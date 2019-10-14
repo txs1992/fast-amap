@@ -31,6 +31,7 @@ module.exports = {
         lastUpdated: '上次更新',
         nav: [
           { text: '指南', link: '/guide/' },
+          { text: '插件', link: '/plugins' },
           { text: 'API', link: '/api/' }
         ],
         sidebar: {
