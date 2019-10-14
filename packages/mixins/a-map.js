@@ -32,7 +32,7 @@ export default {
 
   data() {
     return {
-      renderer: false
+      rendered: false
     }
   },
 
@@ -55,7 +55,7 @@ export default {
     plugins: {
       handler() {
         this.$nextTick(() => {
-          this.addPlugins()
+          if (this.rendered) this.addPlugins()
         })
       }
     }
@@ -290,6 +290,7 @@ export default {
      * 通用处理 options 数据观察方法
      */
     $_amapMixin_handleOptionsChange() {
+      this.rendered = false
       this.getAMapPromise().then(() => {
         this.clearAll()
 
@@ -300,6 +301,7 @@ export default {
           const instance = this.createInstance(option)
           this.instanceList.push(instance)
         })
+        this.rendered = true
         this.$nextTick(() => {
           this.addPlugins()
         })
@@ -307,12 +309,13 @@ export default {
       })
     },
 
-    addPlugins() {
+    addPlugins(list) {
       // 加载插件
       const AMap = this.getAMapInstance()
       const plugins = this.plugins
       const map = this.getMapInstance(this.mid)
       const pluginNames = plugins.map(plugin => plugin.name)
+      const instanceList = list || this.instanceList
 
       if (plugins.length) {
         AMap.plugin(pluginNames, () => {
@@ -323,11 +326,11 @@ export default {
             if (shortName === 'MarkerClusterer') {
               this.clusterer = new AMap.MarkerClusterer(
                 map,
-                this.instanceList,
+                instanceList,
                 pOption.options
               )
             } else {
-              this.instanceList.forEach(instance => {
+              instanceList.forEach(instance => {
                 if (AMap[shortName]) {
                   // 创建插件实例
                   const plugin = new AMap[shortName](
@@ -367,7 +370,7 @@ export default {
       }
       const propsOption = this.getPropsOptions()
       const map = this.getMapInstance(this.mid)
-      const instanceOptions = []
+      const newList = []
 
       options.forEach((option, index) => {
         const mergeOption = {
@@ -382,10 +385,12 @@ export default {
           : mergeOption
 
         const instance = this.createInstance(instanceOption)
-        instanceOptions.push(instance)
+        newList.push(instance)
       })
-      map.add(instanceOptions)
-      this.instanceList = this.instanceList.concat(instanceOptions)
+      map.add(newList)
+      this.addPlugins(newList)
+      // this.rendered
+      this.instanceList = this.instanceList.concat(newList)
     }
   },
 
