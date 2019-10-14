@@ -20,7 +20,14 @@ export default {
       }
     },
 
-    beforeCreate: Function
+    beforeCreate: Function,
+
+    plugins: {
+      type: Array,
+      default() {
+        return []
+      }
+    }
   },
 
   created() {
@@ -210,9 +217,9 @@ export default {
      * @param {Array} events 事件数组
      */
     $_amapMixin_addEvents(instance, events) {
-      events.forEach(evnet => {
+      events.forEach(event => {
         // 注册事件，并传入通用函数处理方法
-        instance.on(evnet, this.$_amapMixin_handleEvents)
+        instance.on(event, this.$_amapMixin_handleEvents)
       })
     },
 
@@ -225,8 +232,8 @@ export default {
     $_amapMixin_removeEvents(instanceList, events, name) {
       if (Array.isArray(instanceList)) {
         instanceList.forEach(instance => {
-          events.forEach(evnet => {
-            instance.off(evnet, this.$_amapMixin_handleEvents)
+          events.forEach(event => {
+            instance.off(event, this.$_amapMixin_handleEvents)
           })
         })
       } else {
@@ -269,15 +276,60 @@ export default {
     $_amapMixin_handleOptionsChange() {
       this.getAMapPromise().then(() => {
         this.clearAll()
+
         const map = this.getMapInstance(this.mid)
         const options = this.getInstanceOptions()
         options.forEach(option => {
           // 调用组件的创建实例方法
           const instance = this.createInstance(option)
+          instance.plugins = {}
           this.instanceList.push(instance)
         })
+
+        this.addPlugins()
+
         map.add(this.instanceList)
       })
+    },
+
+    addPlugins() {
+      // 加载插件
+      const AMap = this.getAMapInstance()
+      const plugins = this.plugins
+      const map = this.getMapInstance(this.mid)
+      const pluginNames = plugins.map(plugin => plugin.name)
+
+      if (plugins.length) {
+        AMap.plugin(pluginNames, () => {
+          pluginNames.forEach((pName, pIdx) => {
+            const shortName = pName.replace('AMap.', '')
+            const pOption = this.plugins[pIdx]
+
+            this.instanceList.forEach(instance => {
+              if (AMap[shortName]) {
+                // 创建插件实例
+                const plugin = new AMap[shortName](
+                  map,
+                  instance,
+                  pOption.options
+                )
+
+                const events = pOption.events
+                if (events) {
+                  for (let key in events) {
+                    const fn = events[key]
+                    plugin.on(key, fn)
+                  }
+                }
+
+                // 将插件放入实例属性中
+                instance.plugins[plugin.CLASS_NAME] = plugin
+                instance.plugins[shortName] = plugin
+              }
+            })
+          })
+        })
+      }
     },
 
     /**
@@ -293,7 +345,7 @@ export default {
       }
       const propsOption = this.getPropsOptions()
       const map = this.getMapInstance(this.mid)
-      const polylineOptions = []
+      const instanceOptions = []
 
       options.forEach((option, index) => {
         const mergeOption = {
@@ -303,15 +355,16 @@ export default {
 
         if (beforeOption) beforeOption(mergeOption)
 
-        const polylineOption = beforeCreate
+        const instanceOption = beforeCreate
           ? beforeCreate(mergeOption, index)
           : mergeOption
 
-        const polyline = this.createInstance(polylineOption)
-        polylineOptions.push(polyline)
+        const instance = this.createInstance(instanceOption)
+        instance.plugins = {}
+        instanceOptions.push(instance)
       })
-      map.add(polylineOptions)
-      this.instanceList = this.instanceList.concat(polylineOptions)
+      map.add(instanceOptions)
+      this.instanceList = this.instanceList.concat(instanceOptions)
     }
   },
 
