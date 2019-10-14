@@ -126,7 +126,7 @@ export default {
 
       if (Array.isArray(size) && size.length) {
         const [sizeW, sizeH] = size
-        const AMap = thie.getAMapInstance()
+        const AMap = this.getAMapInstance()
         const mapSize = new AMap.Size(sizeW, sizeH)
         mergeOption.size = mapSize
       }
@@ -137,7 +137,7 @@ export default {
 
       if (beforeOption) beforeOption(mergeOption)
 
-      return beforeCreate ? beforeCreate(mergeOption, index) : mergeOption
+      return beforeCreate ? beforeCreate(mergeOption) : mergeOption
     },
 
     clearAll() {
