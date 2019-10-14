@@ -54,30 +54,30 @@ export default {
 
   methods: {
     handleAfterCreate(AMap, map, instances) {
-      AMap.plugin(['AMap.PolyEditor'], function() {
-        instances.forEach(instance => {
-          const edit = new AMap.PolyEditor(map, instance)
-          edit.open()
-        })
-      })
+      // AMap.plugin(['AMap.PolyEditor'], function() {
+      //   instances.forEach(instance => {
+      //     const edit = new AMap.PolyEditor(map, instance)
+      //     edit.open()
+      //   })
+      // })
     },
 
     handlePolygonClick(event) {
-      console.log('handlePolygonClick', event.target.dataOptions)
+      console.log('get plugin', event.target.plugin)
     },
 
     editPolygon() {
       const polygon = this.$refs.plugin.getAll()[0]
-      if (polygon.plugins && polygon.plugins['PolyEditor']) {
-        const polyEditor = polygon.plugins['PolyEditor']
+      if (polygon.plugin) {
+        const polyEditor = polygon.plugin
         polyEditor.open()
       }
     },
 
     closePolygon() {
       const polygon = this.$refs.plugin.getAll()[0]
-      if (polygon.plugins && polygon.plugins['PolyEditor']) {
-        const polyEditor = polygon.plugins['PolyEditor']
+      if (polygon.plugin) {
+        const polyEditor = polygon.plugin
         polyEditor.close()
       }
     }

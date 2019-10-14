@@ -30,6 +30,12 @@ export default {
     }
   },
 
+  data() {
+    return {
+      renderer: false
+    }
+  },
+
   created() {
     mapOptionLoader().then(AMap => {
       AMapInstance = AMap
@@ -43,6 +49,16 @@ export default {
 
   beforeDestroy() {
     if (typeof this.clearAll === 'function') this.clearAll()
+  },
+
+  watch: {
+    plugins: {
+      handler() {
+        this.$nextTick(() => {
+          this.addPlugins()
+        })
+      }
+    }
   },
 
   methods: {
@@ -282,12 +298,11 @@ export default {
         options.forEach(option => {
           // 调用组件的创建实例方法
           const instance = this.createInstance(option)
-          instance.plugins = {}
           this.instanceList.push(instance)
         })
-
-        this.addPlugins()
-
+        this.$nextTick(() => {
+          this.addPlugins()
+        })
         map.add(this.instanceList)
       })
     },
@@ -305,28 +320,35 @@ export default {
             const shortName = pName.replace('AMap.', '')
             const pOption = this.plugins[pIdx]
 
-            this.instanceList.forEach(instance => {
-              if (AMap[shortName]) {
-                // 创建插件实例
-                const plugin = new AMap[shortName](
-                  map,
-                  instance,
-                  pOption.options
-                )
+            if (shortName === 'MarkerClusterer') {
+              this.clusterer = new AMap.MarkerClusterer(
+                map,
+                this.instanceList,
+                pOption.options
+              )
+            } else {
+              this.instanceList.forEach(instance => {
+                if (AMap[shortName]) {
+                  // 创建插件实例
+                  const plugin = new AMap[shortName](
+                    map,
+                    instance,
+                    pOption.options
+                  )
 
-                const events = pOption.events
-                if (events) {
-                  for (let key in events) {
-                    const fn = events[key]
-                    plugin.on(key, fn)
+                  const events = pOption.events
+                  if (events) {
+                    for (let key in events) {
+                      const fn = events[key]
+                      plugin.on(key, fn)
+                    }
                   }
-                }
 
-                // 将插件放入实例属性中
-                instance.plugins[plugin.CLASS_NAME] = plugin
-                instance.plugins[shortName] = plugin
-              }
-            })
+                  // 将插件放入实例属性中
+                  instance.plugin = plugin
+                }
+              })
+            }
           })
         })
       }
@@ -360,7 +382,6 @@ export default {
           : mergeOption
 
         const instance = this.createInstance(instanceOption)
-        instance.plugins = {}
         instanceOptions.push(instance)
       })
       map.add(instanceOptions)

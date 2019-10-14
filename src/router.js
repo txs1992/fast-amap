@@ -4,6 +4,10 @@ import VueRouter from 'vue-router'
 const routes = [
   { path: '/', component: () => import('./pages/map.vue') },
   { path: '/marker', component: () => import('./pages/marker.vue') },
+  {
+    path: '/marker-clusterer',
+    component: () => import('./pages/marker-clusterer.vue')
+  },
   { path: '/icon', component: () => import('./pages/icon.vue') },
   { path: '/text', component: () => import('./pages/text.vue') },
   { path: '/polyline', component: () => import('./pages/polyline.vue') },
