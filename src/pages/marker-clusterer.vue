@@ -59,12 +59,6 @@ export default {
     }
   },
 
-  mounted() {
-    this.$refs.map.getAMapPromise().then(AMap => {
-      this.visible = true
-    })
-  },
-
   methods: {
     clearAll() {
       this.$refs.marker.clearAll()
