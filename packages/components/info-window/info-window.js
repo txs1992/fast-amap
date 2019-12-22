@@ -41,6 +41,11 @@ export default {
       default() {
         return {}
       }
+    },
+
+    defaultOpen: {
+      type: Boolean,
+      default: true
     }
   },
 
@@ -61,7 +66,9 @@ export default {
         }
         const instance = this.createInstance(options)
         this.instance = instance
-        instance.open(map, this.position)
+        if (this.defaultOpen) {
+          instance.open(map, this.position)
+        }
       })
     },
 

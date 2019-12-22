@@ -18,6 +18,7 @@
         mid="infoWindow"
         :offset="[-13, -30]"
         :position="[121.472644, 31.231049]"
+        :default-open="false"
         @open="handleOpen"
         @close="handleClose"
       >

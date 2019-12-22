@@ -27,6 +27,7 @@
 | offset            | Array           | -             | 信息窗体显示位置偏移量。默认基准点为信息窗体的底部中心（若设置了 anchor，则以 anchor 值为基准点）                                                                                             |
 | position          | Array           | -             | 信息窗体显示基点位置                                                                                                                                                                          |
 | showShadow        | Boolean         | false         | 控制是否显示信息窗体阴影，取值 false 时不显示窗体阴影，取值 true 时显示窗体阴影。                                                                                                             |
+| defaultOpen        | Boolean         | true         | 控制 infoWindow 创建时是否打开。                                                                                                       |
 
 # 事件
 
