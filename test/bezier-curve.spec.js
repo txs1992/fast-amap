@@ -78,7 +78,7 @@ describe('FastBezierCurve', () => {
             }
             done()
           }, 0)
-        }, 3000)
+        }, 1000)
       })
       .catch(() => done(new Error()))
   })
