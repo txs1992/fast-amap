@@ -1,6 +1,7 @@
 import { expect } from 'chai'
 import { mount } from '@vue/test-utils'
 import FastAMap from '../packages'
+import { get } from 'noshjs'
 
 const { mapOptions, FastMap, FastInfoWindow } = FastAMap
 
@@ -36,9 +37,9 @@ describe('FastInfoWindow', () => {
         })
         setTimeout(() => {
           const infoWindow = wrapper.vm.getInfoWindowInstance()
-          if (infoWindow.bf.close[0].tb) {
+          if (get(infoWindow, ['df', 'close', 0, 'tb'])) {
             // 模拟  覆盖物点击事件
-            infoWindow.bf.close[0].tb({ type: 'close' })
+            infoWindow.df.close[0].tb({ type: 'close' })
           }
         }, 0)
       })

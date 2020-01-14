@@ -18,7 +18,7 @@ describe('FastMap', () => {
 
   it('renders the correct markup', () => {
     const content =
-      '<div class="cpt-fast-map" style="height: 600px;"><div class="fast-map-slot-container"></div></div>'
+      '<div class="cpt-fast-map" style="height: 600px;">\n  <div class="fast-map-slot-container"></div>\n</div>'
     expect(wrapper.html()).to.contains(content)
     expect(wrapper.name()).to.equal('FastMap')
   })

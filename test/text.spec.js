@@ -1,6 +1,7 @@
 import { expect } from 'chai'
 import { mount } from '@vue/test-utils'
 import FastAMap from '../packages'
+import { get } from 'noshjs'
 
 const { mapOptions, FastMap, FastText } = FastAMap
 
@@ -64,9 +65,9 @@ describe('FastText', () => {
         })
         setTimeout(() => {
           const text = wrapper.vm.getInstanceByProp('myData', 1)
-          if (text.bf.click[0].tb) {
+          if (get(text, ['df', 'click', 0, 'tb'], null)) {
             // 模拟 text 覆盖物点击事件
-            text.bf.click[0].tb({ type: 'click' })
+            text.df.click[0].tb({ type: 'click' })
           }
         }, 0)
       })

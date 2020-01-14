@@ -1,6 +1,7 @@
 import { expect } from 'chai'
 import { mount } from '@vue/test-utils'
 import FastAMap from '../packages'
+import { get } from 'noshjs'
 
 const { mapOptions, FastMap, FastBezierCurve } = FastAMap
 
@@ -23,7 +24,7 @@ const path = [
   //控制点，控制点，途经点，每段最多两个控制点
 ]
 
-function createBezierCurve(callback) {
+function createBezierCurve(callback, str) {
   return mount(FastBezierCurve, {
     propsData: {
       mid: 'bezierCurve',
@@ -63,22 +64,21 @@ describe('FastBezierCurve', () => {
       .getAMapPromise()
       .then(() => {
         setTimeout(() => {
-          const wrapper = createBezierCurve(() => {
-            done()
-          })
+          const wrapper = createBezierCurve(() => done())
           setTimeout(() => {
             const bezierCurve = wrapper.vm.getInstanceByProp('myData', 1)
             expect(bezierCurve).to.be.an('object')
             expect(bezierCurve.CLASS_NAME).to.be.a('string')
             expect(bezierCurve.CLASS_NAME).to.equal('AMap.BezierCurve')
-            if (bezierCurve.bf.click[0].tb) {
+            if (get(bezierCurve, ['df', 'click', 0, 'tb'], null)) {
               // 模拟 bezierCurve 覆盖物点击事件
-              bezierCurve.bf.click[0].tb({ type: 'click' })
+              bezierCurve.df.click[0].tb({ type: 'click' })
             } else {
               done()
             }
+            done()
           }, 0)
-        }, 1000)
+        }, 3000)
       })
       .catch(() => done(new Error()))
   })

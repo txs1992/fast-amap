@@ -1,6 +1,7 @@
 import { expect } from 'chai'
 import { mount } from '@vue/test-utils'
 import FastAMap from '../packages'
+import { get } from 'noshjs'
 
 const { mapOptions, FastMap, FastCircleMarker } = FastAMap
 
@@ -51,9 +52,9 @@ describe('FastCircleMarker', () => {
         })
         setTimeout(() => {
           const instance = wrapper.vm.getInstanceByProp('myData', 1)
-          if (instance.bf.click[0].tb) {
+          if (get(instance, ['df', 'click', 0, 'tb'], null)) {
             // 模拟 circleMarker 覆盖物点击事件
-            instance.bf.click[0].tb({ type: 'click' })
+            instance.df.click[0].tb({ type: 'click' })
           }
         }, 0)
       })
