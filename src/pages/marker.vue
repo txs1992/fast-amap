@@ -18,28 +18,14 @@
         :options="markerOptions"
         @click="handleMarkerClick"
       ></fast-marker>
-      <button style="pointer-events: auto" @click="renderMarker">
-        rerender Marker
-      </button>
+      <button style="pointer-events: auto" @click="renderMarker">rerender Marker</button>
       <button style="pointer-events: auto" @click="clearAll">clearAll</button>
-      <button style="pointer-events: auto" @click="removeMarkers">
-        remove Markers
-      </button>
-      <button style="pointer-events: auto" @click="findMarker">
-        find Marker
-      </button>
-      <button style="pointer-events: auto" @click="findMarkers">
-        find Marker list
-      </button>
-      <button style="pointer-events: auto" @click="hideMarkers">
-        hide Marker list
-      </button>
-      <button style="pointer-events: auto" @click="showMarkers">
-        show Marker list
-      </button>
-      <button style="pointer-events: auto" @click="addMarkers">
-        add Marker list
-      </button>
+      <button style="pointer-events: auto" @click="removeMarkers">remove Markers</button>
+      <button style="pointer-events: auto" @click="findMarker">find Marker</button>
+      <button style="pointer-events: auto" @click="findMarkers">find Marker list</button>
+      <button style="pointer-events: auto" @click="hideMarkers">hide Marker list</button>
+      <button style="pointer-events: auto" @click="showMarkers">show Marker list</button>
+      <button style="pointer-events: auto" @click="addMarkers">add Marker list</button>
     </fast-map>
   </div>
 </template>
@@ -55,7 +41,47 @@ export default {
       markerOptions: [
         {
           myData: 1,
-          position: [121.472644, 31.231049]
+          position: [121.462644, 31.231049],
+          icon: {
+            size: [25, 34],
+            image:
+              '//a.amap.com/jsapi_demos/static/demo-center/icons/dir-marker.png',
+            imageSize: [135, 40],
+            imageOffset: [-9, -3]
+          }
+        },
+        {
+          myData: 2,
+          position: [121.472644, 31.231049],
+          icon: {
+            size: [25, 34],
+            image:
+              '//a.amap.com/jsapi_demos/static/demo-center/icons/dir-marker.png',
+            imageSize: [135, 40],
+            imageOffset: [-50, -3]
+          }
+        },
+        {
+          myData: 3,
+          position: [121.482644, 31.231049],
+          icon: {
+            size: [25, 34],
+            image:
+              '//a.amap.com/jsapi_demos/static/demo-center/icons/dir-marker.png',
+            imageSize: [135, 40],
+            imageOffset: [-95, -3]
+          }
+        },
+        {
+          myData: 4,
+          position: [121.492644, 31.231049],
+          icon: {
+            size: [25, 34],
+            image:
+              '//a.amap.com/jsapi_demos/static/demo-center/icons/dir-marker.png',
+            imageSize: [135, 40],
+            imageOffset: [-9, -3]
+          }
         }
       ]
     }
