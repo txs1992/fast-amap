@@ -374,8 +374,8 @@ export default {
 
       options.forEach((option, index) => {
         const mergeOption = {
-          ...propsOption,
-          ...option
+          ...option,
+          ...propsOption
         }
 
         if (beforeOption) beforeOption(mergeOption)
