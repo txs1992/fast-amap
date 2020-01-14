@@ -67,3 +67,7 @@ FastAMap.mapOptions.setOptions({
   <fast-polygon :path="[xx]" :mid="12" @click="handlePolygonClick"></fast-polygon>
 </fast-map>
 ```
+
+> 由于邮箱是 gmail 手机上没做设置，回消息不及时，有问题请加群。
+
+![微信群](https://s2.ax1x.com/2020/01/14/lqAPB9.jpg)
