@@ -286,10 +286,25 @@ export default {
       return instanceOptions
     },
 
+    createMarkerIconInstance(option, name) {
+      if (name === 'FastMarker') {
+        // 处理 marker icon 实例
+        const { icon, offset } = option
+
+        if (typeof icon === 'object' && icon.CLASS_NAME !== 'AMap.Icon') {
+          option.icon = this.createIcon(icon)
+        }
+
+        if (Array.isArray(offset)) {
+          option.offset = this.$_amapMixin_createOffset(offset)
+        }
+      }
+    },
+
     /**
      * 通用处理 options 数据观察方法
      */
-    $_amapMixin_handleOptionsChange() {
+    $_amapMixin_handleOptionsChange(name) {
       this.rendered = false
       this.getAMapPromise().then(() => {
         this.clearAll()
@@ -298,6 +313,7 @@ export default {
         const options = this.getInstanceOptions()
         options.forEach(option => {
           // 调用组件的创建实例方法
+          this.createMarkerIconInstance(option, name)
           const instance = this.createInstance(option)
           this.instanceList.push(instance)
         })
@@ -363,7 +379,7 @@ export default {
      * @param {Function} beforeCreate 创建实例前调用的钩子函数
      * @param {Object} beforeOption 配置生成前调用的钩子函数
      */
-    $_amapMixin_addInstances(options, beforeCreate, beforeOption) {
+    $_amapMixin_addInstances(options, beforeCreate, name) {
       if (!Array.isArray(options)) {
         warn('options is not an Array.')
         return
@@ -374,22 +390,21 @@ export default {
 
       options.forEach((option, index) => {
         const mergeOption = {
-          ...option,
-          ...propsOption
+          ...propsOption,
+          ...option
         }
-
-        if (beforeOption) beforeOption(mergeOption)
 
         const instanceOption = beforeCreate
           ? beforeCreate(mergeOption, index)
           : mergeOption
+
+        this.createMarkerIconInstance(instanceOption, name)
 
         const instance = this.createInstance(instanceOption)
         newList.push(instance)
       })
       map.add(newList)
       this.addPlugins(newList)
-      // this.rendered
       this.instanceList = this.instanceList.concat(newList)
     }
   },
