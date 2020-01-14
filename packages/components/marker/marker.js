@@ -22,8 +22,6 @@ export default {
     content: [String, Object],
     draggable: Boolean,
     clickable: Boolean,
-    // isItemIcon: Boolean,
-    // isItemOffset: Boolean,
     raiseOnDrag: Boolean,
     topWhenClick: Boolean,
     autoRotation: Boolean,
@@ -88,17 +86,7 @@ export default {
     },
 
     getInstanceOptions() {
-      // const { isItemIcon, isItemOffset } = this
       return this.$_amapMixin_getInstanceOptions()
-      // return this.$_amapMixin_getInstanceOptions(option => {
-      //   // 如果 icon 与 offset 是独立的，那么就为每一个 marker options 都创建一次
-      //   if (isItemIcon && typeof option.icon === 'object') {
-      //     option.icon = this.createIcon(option.icon)
-      //   }
-      //   if (isItemOffset) {
-      //     option.offset = this.createIcon(option.offset)
-      //   }
-      // })
     },
 
     removeNotEvnetObjectEvnets(markers) {
@@ -122,15 +110,6 @@ export default {
     },
 
     addMarkers(options, beforeCreate) {
-      // this.$_amapMixin_addInstances(options, beforeCreate, option => {
-      //   // 如果 icon 与 offset 是独立的，那么就为每一个 marker options 都创建一次
-      //   if (isItemIcon && typeof option.icon === 'object') {
-      //     option.icon = this.createIcon(option.icon)
-      //   }
-      //   if (isItemOffset) {
-      //     option.offset = this.$_amapMixin_createOffset(option.offset)
-      //   }
-      // })
       this.$_amapMixin_addInstances(options, beforeCreate, MARKER_NAME)
     },
 
@@ -209,20 +188,6 @@ export default {
         topWhenClick,
         autoRotation
       } = this
-
-      // let iconInstance = icon
-      // let offsetInstance = offset
-
-      // // 如果 icon 是一个对象，并且不是每个 marker 独立的配置
-      // // 那么就创建公共的 icon 实例
-      // if (typeof icon === 'object' && !isItemIcon) {
-      //   iconInstance = this.createIcon(icon)
-      // }
-
-      // // 如果不是独立的 offset，就创建公共的 offset
-      // if (!isItemOffset) {
-      //   offsetInstance = this.$_amapMixin_createOffset(offset)
-      // }
 
       return {
         icon,
