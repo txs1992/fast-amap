@@ -1,6 +1,7 @@
 import { expect } from 'chai'
 import { mount } from '@vue/test-utils'
 import FastAMap from '../packages'
+import { get } from 'noshjs'
 
 const { mapOptions, FastMap, FastPolyline } = FastAMap
 
@@ -64,9 +65,9 @@ describe('FastPolyline', () => {
         })
         setTimeout(() => {
           const polyline = wrapper.vm.getInstanceByProp('myData', 1)
-          if (polyline.bf.click[0].tb) {
+          if (get(polyline, ['df', 'click', 0, 'tb'], null)) {
             // 模拟 polyline 覆盖物点击事件
-            polyline.bf.click[0].tb({ type: 'click' })
+            polyline.df.click[0].tb({ type: 'click' })
           }
         }, 0)
       })

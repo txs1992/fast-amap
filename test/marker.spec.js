@@ -1,6 +1,7 @@
 import { expect } from 'chai'
 import { mount } from '@vue/test-utils'
 import FastAMap from '../packages'
+import { get } from 'noshjs'
 
 const { mapOptions, FastMap, FastMarker } = FastAMap
 
@@ -54,9 +55,9 @@ describe('FastMarker', () => {
         })
         setTimeout(() => {
           const marker = wrapper.vm.getInstanceByProp('myData', 1)
-          if (marker.bf.click[0].tb) {
+          if (get(marker, ['df', 'click', 0, 'tb'], null)) {
             // 模拟 marker 覆盖物点击事件
-            marker.bf.click[0].tb({ type: 'click' })
+            marker.df.click[0].tb({ type: 'click' })
           }
         }, 0)
       })

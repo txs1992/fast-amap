@@ -1,6 +1,7 @@
 import { expect } from 'chai'
 import { mount } from '@vue/test-utils'
 import FastAMap from '../packages'
+import { get } from 'noshjs'
 
 const { mapOptions, FastMap, FastPolygon } = FastAMap
 
@@ -64,9 +65,9 @@ describe('FastPolygon', () => {
         })
         setTimeout(() => {
           const polygon = wrapper.vm.getInstanceByProp('myData', 1)
-          if (polygon.bf.click[0].tb) {
+          if (get(polygon, ['df', 'click', 0, 'tb'], null)) {
             // 模拟 polygon 覆盖物点击事件
-            polygon.bf.click[0].tb({ type: 'click' })
+            polygon.df.click[0].tb({ type: 'click' })
           }
         }, 0)
       })

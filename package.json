@@ -1,6 +1,6 @@
 {
   "name": "fast-amap",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "scripts": {
     "docs": "vuepress dev docs",
     "docs:build": "vuepress build docs",
@@ -65,6 +65,7 @@
     "karma-webpack": "^4.0.2",
     "mocha": "^6.2.0",
     "node-sass": "^4.11.0",
+    "noshjs": "^0.4.0",
     "prettier": "^1.16.4",
     "pretty-quick": "^1.10.0",
     "rollup": "^1.16.6",
@@ -84,6 +85,5 @@
     "webpack-cli": "^3.2.3",
     "webpack-dev-middleware": "^3.6.0",
     "webpack-dev-server": "^3.2.1"
-  },
-  "dependencies": {}
+  }
 }
