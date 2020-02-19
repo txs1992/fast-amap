@@ -84,6 +84,15 @@ describe('FastBezierCurve', () => {
   //     .catch(() => done(new Error()))
   // })
 
+  it('test getAMapPromise', done => {
+    mapWrapper.vm
+      .getAMapPromise()
+      .then(() => {
+        done()
+      })
+      .catch(() => done(new Error()))
+  })
+
   it('test getInstanceByProp function', done => {
     mapWrapper.vm
       .getAMapPromise()
