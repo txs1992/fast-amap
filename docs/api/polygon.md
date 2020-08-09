@@ -84,5 +84,6 @@ Polygon 组件的事件对象中可以获取 options 中的自定义属性数据
 | removePolygons   | polygons, propName |   -    | 删除传入的 polygon 实例数组，该方法不会导致 vue 重新渲染，propName 是每个 polygon 实例 options 中的唯一值，例如 id, key 它用来做查询优化，请保证每个实例 options 中的 propName 值都是唯一的，如果传入该参数将会大大优化性能。|
 | getAll   |          -          | Array  | 获取当前组件所有的 polygon 实例               |
 | getInstanceByProp | propName, propValue |   -    | 根据传入的属性名称与值查找对应的 polygon 实例 |
+| getAllInstanceByProp | propName, propValue |   -    | 根据传入的属性名称与值查找所有对应的 polygon 实例 |
 | getInstanceByProps | propName, propValues |   -    | 根据传入的属性名称与值的数组查找对应的 polygon 实例数组，该方法对遍历做了优化，建议使用该方法获取 polygon 数组 |
 | addPolygons | options, beforeCreate | - | options 是一个 polygon beforeCreate 是一个可选的回调函数，默认可以不传递，可在创建 polygon 之前调用，将 polygon 属性传入其中，可以通过该方法处理自定义渲染。新增的 polygon 数组会添加在组件中，此时 getAll 方法获取的数组中包含新增 polygon，该方法不会导致 vue 重新渲染 |
