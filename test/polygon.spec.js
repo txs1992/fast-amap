@@ -91,6 +91,23 @@ describe('FastPolygon', () => {
       .catch(() => done(new Error()))
   })
 
+  it('test getAllInstanceByProp function', done => {
+    mapWrapper.vm
+      .getAMapPromise()
+      .then(() => {
+        const wrapper = createPolygon()
+        setTimeout(() => {
+          const polygon = wrapper.vm.getAllInstanceByProp('myData', 1)
+          expect(polygon).to.be.an('array')
+          expect(polygon.length).to.equal(1)
+          expect(polygon[0].CLASS_NAME).to.be.a('string')
+          expect(polygon[0].CLASS_NAME).to.equal('AMap.Polygon')
+          done()
+        }, 0)
+      })
+      .catch(() => done(new Error()))
+  })
+
   it('test getInstanceByProps function', done => {
     mapWrapper.vm
       .getAMapPromise()

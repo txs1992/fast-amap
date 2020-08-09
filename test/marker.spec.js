@@ -81,6 +81,24 @@ describe('FastMarker', () => {
       .catch(() => done(new Error()))
   })
 
+
+  it('test getAllInstanceByProp function', done => {
+    mapWrapper.vm
+      .getAMapPromise()
+      .then(() => {
+        const wrapper = createMarker()
+        setTimeout(() => {
+          const marker = wrapper.vm.getAllInstanceByProp('myData', 1)
+          expect(marker).to.be.an('array')
+          expect(marker.length).to.equal(1)
+          expect(marker[0].CLASS_NAME).to.be.a('string')
+          expect(marker[0].CLASS_NAME).to.equal('AMap.Marker')
+          done()
+        }, 0)
+      })
+      .catch(() => done(new Error()))
+  })
+
   it('test getInstanceByProps function', done => {
     mapWrapper.vm
       .getAMapPromise()

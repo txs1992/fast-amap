@@ -83,7 +83,8 @@ export default {
     },
 
     findPolygons() {
-      this.$refs.polygon.getInstanceByProps('myData', [123, 789])
+      console.log(this.$refs.polygon.getAllInstanceByProp('myData', 123))
+      // this.$refs.polygon.getInstanceByProps('myData', [123, 789])
     },
 
     clearAll() {

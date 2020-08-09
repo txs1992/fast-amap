@@ -98,6 +98,20 @@ export default {
     },
 
     /**
+     * 根据属性名称和值找到所有符合条件的实例
+     * @param {String} propName
+     * @param {String|Number} propValue
+     */
+    getAllInstanceByProp(propName, propValue) {
+      return this.instanceList.reduce((acc, curr) => {
+        if (curr.dataOptions[propName] === propValue) {
+          acc.push(curr)
+        }
+        return acc
+      }, [])
+    },
+
+    /**
      * 根据属性名称和一组值找到一组实例
      * @param {String} propName
      * @param {Array} propValues

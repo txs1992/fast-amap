@@ -91,6 +91,23 @@ describe('FastPolyline', () => {
       .catch(() => done(new Error()))
   })
 
+  it('test getAllInstanceByProp function', done => {
+    mapWrapper.vm
+      .getAMapPromise()
+      .then(() => {
+        const wrapper = createPolyline()
+        setTimeout(() => {
+          const polyline = wrapper.vm.getAllInstanceByProp('myData', 1)
+          expect(polyline).to.be.an('array')
+          expect(polyline.length).to.equal(1)
+          expect(polyline[0].CLASS_NAME).to.be.a('string')
+          expect(polyline[0].CLASS_NAME).to.equal('AMap.Polyline')
+          done()
+        }, 0)
+      })
+      .catch(() => done(new Error()))
+  })
+
   it('test getInstanceByProps function', done => {
     mapWrapper.vm
       .getAMapPromise()

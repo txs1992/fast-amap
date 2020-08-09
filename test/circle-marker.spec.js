@@ -78,6 +78,24 @@ describe('FastCircleMarker', () => {
       .catch(() => done(new Error()))
   })
 
+  it('test getAllInstanceByProp function', done => {
+    mapWrapper.vm
+      .getAMapPromise()
+      .then(() => {
+        const wrapper = createCircleMarker()
+        setTimeout(() => {
+          const instance = wrapper.vm.getAllInstanceByProp('myData', 1)
+          expect(instance.length).to.equal(1)
+          expect(instance).to.be.an('array')
+          expect(instance[0].CLASS_NAME).to.be.a('string')
+          expect(instance[0].CLASS_NAME).to.equal('AMap.CircleMarker')
+          done()
+        }, 0)
+      })
+      .catch(() => done(new Error()))
+  })
+
+
   it('test getInstanceByProps function', done => {
     mapWrapper.vm
       .getAMapPromise()

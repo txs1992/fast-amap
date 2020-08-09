@@ -91,6 +91,24 @@ describe('FastText', () => {
       .catch(() => done(new Error()))
   })
 
+  it('test getAllInstanceByProp function', done => {
+    mapWrapper.vm
+      .getAMapPromise()
+      .then(() => {
+        const wrapper = createText()
+        setTimeout(() => {
+          const text = wrapper.vm.getAllInstanceByProp('myData', 1)
+          expect(text).to.be.an('array')
+          expect(text.length).to.equal(1)
+          expect(text[0].CLASS_NAME).to.be.a('string')
+          expect(text[0].CLASS_NAME).to.equal('AMap.Text')
+          done()
+        }, 0)
+      })
+      .catch(() => done(new Error()))
+  })
+
+
   it('test getInstanceByProps function', done => {
     mapWrapper.vm
       .getAMapPromise()

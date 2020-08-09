@@ -1,7 +1,6 @@
 import { expect } from 'chai'
 import { mount } from '@vue/test-utils'
 import FastAMap from '../packages'
-import { get } from 'noshjs'
 
 const { mapOptions, FastMap, FastBezierCurve } = FastAMap
 
@@ -103,6 +102,23 @@ describe('FastBezierCurve', () => {
           expect(bezierCurve).to.be.an('object')
           expect(bezierCurve.CLASS_NAME).to.be.a('string')
           expect(bezierCurve.CLASS_NAME).to.equal('AMap.BezierCurve')
+          done()
+        }, 0)
+      })
+      .catch(() => done(new Error()))
+  })
+
+  it('test getAllInstanceByProp function', done => {
+    mapWrapper.vm
+      .getAMapPromise()
+      .then(() => {
+        const wrapper = createBezierCurve()
+        setTimeout(() => {
+          const bezierCurve = wrapper.vm.getAllInstanceByProp('myData', 1)
+          expect(bezierCurve).to.be.an('array')
+          expect(bezierCurve[0].CLASS_NAME).to.be.a('string')
+          expect(bezierCurve.length).to.equal(1)
+          expect(bezierCurve[0].CLASS_NAME).to.equal('AMap.BezierCurve')
           done()
         }, 0)
       })

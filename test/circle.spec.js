@@ -78,6 +78,23 @@ describe('FastCircle', () => {
       .catch(() => done(new Error()))
   })
 
+  it('test getAllInstanceByProp function', done => {
+    mapWrapper.vm
+      .getAMapPromise()
+      .then(() => {
+        const wrapper = createCircle()
+        setTimeout(() => {
+          const circle = wrapper.vm.getAllInstanceByProp('myData', 1)
+          expect(circle).to.be.an('array')
+          expect(circle.length).to.equal(1)
+          expect(circle[0].CLASS_NAME).to.be.a('string')
+          expect(circle[0].CLASS_NAME).to.equal('AMap.Circle')
+          done()
+        }, 0)
+      })
+      .catch(() => done(new Error()))
+  })
+
   it('test getInstanceByProps function', done => {
     mapWrapper.vm
       .getAMapPromise()
