@@ -70,4 +70,5 @@ FastAMap.mapOptions.setOptions({
 
 > 由于邮箱是 gmail 手机上没做设置，回消息不及时，有问题请加群。
 
-![微信群](https://s2.ax1x.com/2020/01/14/lqAPB9.jpg)
+![image](https://user-images.githubusercontent.com/17583395/83367539-9fae6200-a3e7-11ea-9459-edac8d1f4a7c.png)
+
