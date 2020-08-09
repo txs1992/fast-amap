@@ -72,6 +72,7 @@ export default {
       this.$_amapMixin_removeEvents([this.instance], events, this.name)
       const map = this.getMapInstance(this.mid)
       map.remove(this.instance)
+      this.instance = null
     },
 
     createInstance(option) {
