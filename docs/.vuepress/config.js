@@ -46,7 +46,8 @@ module.exports = {
             'bezierCurve',
             'circle',
             'circleMarker',
-            'infoWindow'
+            'infoWindow',
+            'massMarks'
           ]
         }
       }

@@ -95,6 +95,10 @@ export default {
       }
     },
 
+    getMassMarksInstance() {
+      return this.instance
+    },
+
     getInstanceOptions(beforeOption) {
       const { options, beforeCreate } = this
       const propsOptions = this.getPropsOptions()
