@@ -5,6 +5,7 @@
       <router-link to="/plugin">Plugin</router-link>
       <router-link to="/marker">Marker</router-link>
       <router-link to="/marker-clusterer">MarkerClusterer</router-link>
+      <router-link to="/mass-marks">MassMarks</router-link>
       <router-link to="/icon">Icon</router-link>
       <router-link to="/text">Text</router-link>
       <router-link to="/polyline">Polyline</router-link>

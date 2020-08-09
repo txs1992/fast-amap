@@ -4,6 +4,7 @@ import FastMarker from './components/marker'
 import FastCircle from './components/circle'
 import FastPolygon from './components/polygons'
 import FastPolyline from './components/polyline'
+import FastMassMarks from './components/mass-marks'
 import FastInfoWindow from './components/info-window'
 import FastBezierCurve from './components/bezier-curve'
 import FastCircleMarker from './components/circle-marker'
@@ -19,6 +20,7 @@ const components = [
   FastCircle,
   FastPolyline,
   FastPolygon,
+  FastMassMarks,
   FastInfoWindow,
   FastBezierCurve,
   FastCircleMarker
@@ -42,8 +44,9 @@ export default {
   FastText,
   FastMarker,
   FastCircle,
-  FastPolyline,
   FastPolygon,
+  FastPolyline,
+  FastMassMarks,
   FastInfoWindow,
   FastBezierCurve,
   FastCircleMarker

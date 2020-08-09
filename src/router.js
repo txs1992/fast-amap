@@ -8,6 +8,10 @@ const routes = [
     path: '/marker-clusterer',
     component: () => import('./pages/marker-clusterer.vue')
   },
+  {
+    path: '/mass-marks',
+    component: () => import('./pages/mass-marks.vue')
+  },
   { path: '/icon', component: () => import('./pages/icon.vue') },
   { path: '/text', component: () => import('./pages/text.vue') },
   { path: '/polyline', component: () => import('./pages/polyline.vue') },
