@@ -53,7 +53,9 @@ export default {
     options: {
       immediate: true,
       handler: 'handleOptionsChange'
-    }
+    },
+
+    data: 'handleDataChange'
   },
 
   methods: {
@@ -66,6 +68,13 @@ export default {
         this.$_amapMixin_addEvents(instance, events)
         instance.setMap(map)
       })
+    },
+
+    handleDataChange(data) {
+      if (this.instance) {
+        this.instance.clear();
+        this.instance.setData(data)
+      }
     },
 
     clearAll() {
