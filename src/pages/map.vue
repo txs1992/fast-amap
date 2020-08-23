@@ -3,7 +3,7 @@
     <fast-map
       :mid="12"
       ref="map"
-      :zoom="15"
+      :zoom="zoom"
       :options="options"
       :center="center"
       :double-click-zoom="false"
@@ -13,9 +13,8 @@
       @resize="handleMapmove"
     >
       <h1>amap</h1>
-      <button style="pointer-events: auto" @click="changeCenter">
-        change center
-      </button>
+      <button style="pointer-events: auto" @click="changeCenter">change center</button>
+      <button style="pointer-events: auto" @click="changeZoom">change zoom</button>
     </fast-map>
   </div>
 </template>
@@ -24,6 +23,7 @@
 export default {
   data() {
     return {
+      zoom: 15,
       options: {
         height: 800,
         zooms: [3, 16]
@@ -53,6 +53,11 @@ export default {
 
     handleMapmove() {
       console.log('resize')
+    },
+
+    changeZoom() {
+      const zoom = parseInt(Math.random() * 15) + 3
+      this.zoom = zoom 
     }
   }
 }
