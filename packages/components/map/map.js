@@ -133,6 +133,13 @@ export default {
   },
 
   watch: {
+    zoom() {
+      if (this.mapLoaded) {
+        const map = this.getMapInstance(this.mid)
+        map.setZoom(this.zoom)
+      }
+    },
+
     center() {
       if (this.mapLoaded) {
         const map = this.getMapInstance(this.mid)
