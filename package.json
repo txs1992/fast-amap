@@ -64,7 +64,7 @@
     "karma-promise": "^0.1.0",
     "karma-webpack": "^4.0.2",
     "mocha": "^6.2.0",
-    "node-sass": "^4.11.0",
+    "node-sass": "^7.0.0",
     "noshjs": "^0.4.0",
     "prettier": "^1.16.4",
     "pretty-quick": "^1.10.0",
